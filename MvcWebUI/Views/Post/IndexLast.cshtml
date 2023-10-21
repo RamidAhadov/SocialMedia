@@ -1,0 +1,166 @@
+@model HomePageViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Think</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="~/css/HomePage/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <div class="left-navbar-items">
+                    <li><a href="#">Home</a></li>
+                    <div id="dropdown" class="dropdown" data-user-id="@Model.UserDto.Id">
+                        <input type="text" class="form-control navbar-search" id="searchInput" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="dropdown-menu" aria-labelledby="searchInput">
+                
+                        </div>
+                    </div>
+                    <!--<input class="navbar-search" type="text" placeholder="Search friends..."> -->
+                    <button class="navbar-search-button fa-solid fa-magnifying-glass"></button>
+                </div>
+                <div class="right-navbar-items">
+                    @if (Model.ReceivedRequests.Count != 0)
+                    {
+                        <div class="notification-circle">
+                            <div class="notification-count">@Model.ReceivedRequests.Count</div>
+                        </div>
+                    }
+                    <div>
+                        <li type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><a class="notification-button fa-regular fa-bell"></a></li>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @foreach (var request in Model.ReceivedRequests)
+                                {
+                                    <div class="dropdown-item" style="display: flex;">
+                                        <a>@request.SenderName</a>
+                                        <div class="request-answer">
+                                            <li data-sender-id="@request.SenderId" data-receiver-id="@request.ReceiverId" class="decline-button fa-solid fa-x" type="button" onclick="DeclineRequest()"></li>
+                                            <li data-sender-id="@request.SenderId" data-receiver-id="@request.ReceiverId" class="accept-button fa-solid fa-check" type="button" onclick="AcceptRequest()"></li>
+                                        </div>
+                                    </div>
+                                }
+                        </div>
+                    </div>
+                    <li><a class="profile-button" href="#"><img src=@Model.UserDto.ProfilePhoto alt="PP" width="30px" height="30px" style="border-radius: 50%"></a></li>
+                </div>
+                
+            </ul>
+        </nav>
+</header>
+<main>
+        <section class="post">
+            <div class="post-box">
+                <textarea id="postText" placeholder="What do you think?"></textarea>
+                <button class="post-button fas fa-paper-plane" style="font-size:25px;" onclick="AddPost()"></button>
+            </div>
+            <div>
+                
+            </div>
+            @foreach (var post in Model.Posts)
+            {
+                <div class="post-list">
+                    <div>
+                        <p style="height: 5px;">@post.AuthorUserName </p>
+                        <p style="color: gray; height: 5px;">@post.PostDate</p>
+                    </div>
+                    <p class="post-content">@post.PostText</p>
+                    <h6 style="margin-top: 10px; margin-bottom: 0px">Likes: @post.LikeCount Comments: @post.CommentCount</h6>
+                    <hr style="margin-top: 5px; margin-bottom: 10px;">
+                    <div class="post-list-like-comment">
+                        <button class="fa-regular fa-thumbs-up" data-post-id="@post.Id" onclick="Like()"></button>
+                        <button type="button" data-toggle="collapse" data-target="#collapseExample@(post.Id)" aria-expanded="false" aria-controls="collapseExample" data-post-id="@post.Id" class="fa-regular fa-comment"></button>
+                    </div>
+                    <hr style="margin-top: 10px; margin-bottom: 10px;">
+                    <div class="textarea-container">
+                        <textarea type="text" id="post@(post.Id)" class="input-comment-content"></textarea>
+                        <button id="myButton" data-post-id="@post.Id" class="fa-regular fa-paper-plane" onclick="AddComment()"></button>
+                    </div>
+                    <div id="collapseExample@(post.Id)" class="collapse">
+                        @foreach (var comment in @post.Comments)
+                        {
+                            <div class="post-comment">
+                                <hr style="margin: 0%;">
+                                <div class="post-comment-head">
+                                    <p>@comment.AuthorUserName</p>
+                                    <p style="color: gray;">@comment.Date</p>
+                                </div>
+                                <div class="post-comment-content">
+                                    <div class="post-comment-like-count">
+                                        <p>@comment.LikeCount</p>
+                                        <button data-comment-id="@comment.Id" class="fa-regular fa-heart" onclick="LikeComment()"></button>
+                                    </div>
+                                    <p class="post-comment-content-width">@comment.CommentText</p>
+                                    <hr>
+                                </div>
+                                <hr>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </section>
+        <section class="friends">
+                    <h2></h2>
+                    <div class="friends-div">
+                        <h4 style="color: #ffffff;">Friends</h4>
+                        <hr width="100%">
+                        @foreach (var friend in Model.Friends)
+                        {
+                            <div class="friend-container">
+                                <div class="friend-pp">
+                                    <img class="pp-image" src="@friend.ProfilePhoto">
+                                </div>
+                                <div class="friend-name">
+                                    <h5 style="display: flex">
+                                        @friend.FirstName @friend.LastName
+                                    </h5>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Sosyal Medya</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script type="module" src="~/js/HomePage/dropdownScript.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/HomePage/getPostId.js"></script>
+    <script src="~/js/HomePage/getPostIdForLike.js"></script>
+    <script src="~/js/HomePage/getCommentIdForLike.js"></script>
+    <script src="~/js/Post/postScript.js"></script>
+    <script src="~/js/HomePage/addCommentScript.js"></script>
+    <script src="~/js/HomePage/responseFriendRequest.js"></script>
+</body>
+</html>

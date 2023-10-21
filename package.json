@@ -1,0 +1,23 @@
+{
+  "name": "thinkwebapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RamidAhadov/SocialMediaWeb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RamidAhadov/SocialMediaWeb/issues"
+  },
+  "homepage": "https://github.com/RamidAhadov/SocialMediaWeb#readme",
+  "dependencies": {
+    "@microsoft/signalr": "^7.0.12"
+  }
+}

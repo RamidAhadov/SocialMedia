@@ -1,0 +1,44 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Log in or Sign up</title>
+	<link rel="stylesheet" type="text/css" href="~/css/Account/style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+<body style="background: linear-gradient(to bottom, #29160c, #b6511b, #623d2f)">
+<div class="main">  	
+	<input type="checkbox" id="chk" aria-hidden="true">
+
+	<div class="signup">
+		<form id="myForm">
+			<label for="chk" aria-hidden="true">Sign up</label>
+			<input type="text" id="firstName" placeholder="First name">
+			<input type="text" id="lastName" placeholder="Last name">
+			<input type="text" id="userName" placeholder="User name">
+			<input type="email" id="email" placeholder="Email">
+			<input type="password" id="password" placeholder="Password">
+			<input type="password" id="confirmPassword" placeholder="Confirm password">
+			<button type="button" onclick="Signup()">Signup</button>
+		</form>
+	</div>
+
+	<div class="login">
+		<form>
+			<label for="chk" aria-hidden="true">Login</label>
+			<input  type="text" id="loginInfo" placeholder="Email or username">
+			<input type="password" id="loginPassword" placeholder="Password">
+			<button type="button" onclick="Login()">Login</button>
+		</form>
+	</div>
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/Account/loginScript.js"></script>
+<script src="~/js/Account/registerScript.js"></script>
+</body>
+</html>

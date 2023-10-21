@@ -1,0 +1,43 @@
+@model HomePageViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/poststyle.css">
+    <title>Sosyal Medya Tveet</title>
+</head>
+<body>
+<h1>Welcome, @Model.UserDto.FirstName</h1>
+<div class="tveet">
+    @foreach (var post in Model.Posts)
+    {
+        <p>@post.AuthorName</p>
+        <p class="tveet-metni">@post.PostText</p>
+        <p class="tarih">@post.PostDate</p>
+        <input id="comment-@post.Id" />
+        <div class="butonlar">
+            <button class="begen-button">Beğen</button>
+            <button class="yorum-button" data-post-id="@post.Id" onclick="AddComment()">Yorum Yap</button>
+        </div>
+        @foreach (var comment in @Model.Comments)
+        {
+            if (comment.PostId == post.Id)
+            {
+                <h4>@comment.AuthorUserName</h4>
+                <p class="tveet-metni">@comment.CommentText</p>
+                <h5>@comment.Date</h5>
+            }
+        }
+    }
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/HomePage/getPostId.js"></script>
+</body>
+</html>

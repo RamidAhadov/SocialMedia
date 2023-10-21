@@ -1,0 +1,216 @@
+/* Temel stiller */
+body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+header {
+    background-color: #ff7400;
+    color: white;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+main {
+    display: flex !important;
+    justify-content: space-between !important;
+    min-height:96.5vH;
+    padding: 0px;
+}
+
+.post {
+    flex: 12;
+    background-color: #ffe5b4;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    margin: 0%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-box textarea {
+    width: 95%;
+    margin-left: 1.2%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    margin-bottom: 10px;
+}
+.post-list{
+    margin-top: 10px;
+    background-color: #ffffff;
+    backdrop-filter: blur(10px);
+    padding-right: 20px;
+    padding-left: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+.post-list div p{
+    margin-top: 10px;
+    background-color: #ffffff;
+    display: inline-flex;
+    margin-right: 5px;
+    border-radius: 5px;
+}
+.post-content {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 0 auto;
+    margin-top: 10px;
+    background-color: #ffffff;
+    display: inline-flex;
+    margin-right: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 12px;
+}
+.input-comment-content{
+    height: 45px;
+    width: 95%;
+    margin-left: 1.2%;
+    padding: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.post-button {
+    background-color: #ff7400;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.profile-button {
+    position: absolute;
+    right: 10px;
+}
+.post-list-like-comment button{
+    padding: 10px 20px;
+    border: none;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #ff7400;
+    color: #ffffff;
+    display: inline-flex;
+    right: 14px;
+    width: 49.72%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+.comment-like button{
+    background-color: #ff7400;
+    margin-right: 5px;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+.post-comment-content button{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 95%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+.post-comment-like-count{
+    display: inline;
+    margin-right: 2px;
+}
+.post-comment-content-width{
+    width: 89vh;
+}
+.post-comment-like-count p{
+    margin: 0;
+    position: absolute;
+    top: 40.5%;
+    left: 91.3%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+.post-comment-content{
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 0 auto;
+    margin-top: 0px;
+    background-color: #ffffff;
+    display: inline-flex;
+    margin-right: 5px;
+    border-radius: 5px;
+    font-size: small;
+    height: max-content;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.post-comment-head{
+    display: flex;
+    margin-right: 10px;
+    padding-top: 0%;
+}
+.friends {
+    flex: 4;
+    background-color: #ffffff;
+    padding-bottom: 10px;
+    border: 3px solid #ff7400;
+    padding-left: 0px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.friends h2 {
+    margin-top: 0;
+}
+.friends h4{
+    position: absolute;
+    right: 190px;
+}
+.bar {
+    flex: 3;
+    background-color: #ffffff;
+    padding: 20px;
+    border: 3px solid #ff7400;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bar h2 {
+    margin-top: 0;
+}
+
+footer {
+    color: white; /* Footer metin rengi */
+    text-align: center;
+    padding: 3px;
+    background-color: #ff7400;
+}

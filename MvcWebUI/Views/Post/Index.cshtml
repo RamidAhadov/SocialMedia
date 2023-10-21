@@ -1,0 +1,213 @@
+@model HomePageViewModel
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Think</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="~/css/HomePage/styleLast.css">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <link rel="icon" href="https://res.cloudinary.com/do2bvloo2/image/upload/v1697470819/yjp8xkz3aewhdtxrzujt.jpg" type="image/x-icon">
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <div class="left-navbar-items">
+                    <li><a href="#">Home</a></li>
+                    <div id="dropdown" class="dropdown" data-user-id="@Model.UserDto.Id">
+                        <input type="text" class="form-control navbar-search" id="searchInput" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="dropdown-menu" aria-labelledby="searchInput">
+                
+                        </div>
+                    </div>
+                    <!--<input class="navbar-search" type="text" placeholder="Search friends..."> -->
+                    <button class="navbar-search-button fa-solid fa-magnifying-glass"></button>
+                </div>
+                <div class="right-navbar-items">
+                    @if (Model.ReceivedRequests.Count != 0)
+                    {
+                        <div class="notification-circle">
+                            <div class="notification-count">@Model.ReceivedRequests.Count</div>
+                        </div>
+                    }
+                    <div>
+                        <li type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><a class="notification-button fa-regular fa-bell"></a></li>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @foreach (var request in Model.ReceivedRequests)
+                                {
+                                    <div class="dropdown-item" style="display: flex;">
+                                        <a>@request.SenderName</a>
+                                        <div class="request-answer">
+                                            <li data-sender-id="@request.SenderId" data-receiver-id="@request.ReceiverId" class="decline-button fa-solid fa-x" type="button" onclick="DeclineRequest()"></li>
+                                            <li data-sender-id="@request.SenderId" data-receiver-id="@request.ReceiverId" class="accept-button fa-solid fa-check" type="button" onclick="AcceptRequest()"></li>
+                                        </div>
+                                    </div>
+                                }
+                        </div>
+                    </div>
+                    <li><a class="profile-button" href="#"><img src=@Model.UserDto.ProfilePhoto alt="PP" width="30px" height="30px" style="border-radius: 50%"></a></li>
+                </div>
+                
+            </ul>
+        </nav>
+</header>
+
+    <main>
+        <div class="section-post">
+        <section class="post">
+            <div class="post-box">
+                <textarea id="postArea" placeholder="What do you think?"></textarea>
+                <button class="post-button fas fa-paper-plane" style="font-size:25px;" onclick="AddPost()"></button>
+            </div>
+            <div class="posts">
+            @foreach (var post in Model.Posts)
+            {
+                <div class="post-list">
+                    <div>
+                        <p style="height: 5px;">@post.AuthorUserName</p>
+                        <p style="color: gray; height: 5px;"> @post.PostDate</p>
+                    </div>
+                    <p class="post-content">@post.PostText</p>
+                    <h6 style="margin-top: 10px; margin-bottom: 0px">Likes: @post.LikeCount</h6>
+                    <hr style="margin-top: 5px; margin-bottom: 10px;">
+                    <div class="post-list-like-comment">
+                        <button class="like-button fa-solid fa-thumbs-up" data-post-id="@post.Id" onclick="Like()"></button>
+                        <button type="button" data-toggle="collapse" data-target="#collapseExample@(post.Id)" aria-expanded="false" aria-controls="collapseExample" class="fa-solid fa-comment" onclick="ShowIsLiked()"></button>
+                    </div>
+                    <hr style="margin-top: 10px; margin-bottom: 10px;">
+                        <div class="textarea-container">
+                            <textarea type="text" id="post@(post.Id)" class="input-comment-content"></textarea>
+                            <button id="myButton" data-post-id="@post.Id" class="fa-regular fa-paper-plane send-comment" onclick="AddComment()"></button>
+                        </div>
+                    <div id="collapseExample@(post.Id)" class="collapse">
+                        @foreach (var comment in @post.Comments)
+                        {
+                            <div class="post-comment">
+                                <hr style="margin: 0%;">
+                                <div class="post-comment-head">
+                                    <p>@comment.AuthorUserName</p>
+                                    <p style="color: gray;">@comment.Date</p>
+                                </div>
+                                <div class="post-comment-content">
+                                    <div class="comment">
+                                        <p>@comment.CommentText</p>
+                                    </div>
+                                    <div class="comment-like-button">
+                                        <button data-comment-id="@comment.Id" onclick="LikeComment()" id=@comment.Id class="like-comment fa-regular fa-heart fa-xl"></button>
+                                    </div>
+                                    <div class="post-comment-like-count">
+                                        @comment.LikeCount
+                                    </div>
+                                    <hr>
+                                </div>
+                                <hr>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+                <div style="height: 12vh;"></div>
+            </div>
+        </section>
+    </div>
+    <div class="section-friend">
+        <section class="friends">
+            <div class="friends-div">
+                <h4 style="color: #ffffff; margin-top: 10px;">Friends</h4>
+                <hr width="100%">
+                        @foreach (var friend in Model.Friends)
+                        {
+                            <div class="friends-container">
+                                <div class="friend-pp">
+                                    <img class="pp-image" src=@friend.ProfilePhoto>
+                                </div>
+                                <div class="friend-name">
+                                    <h5>
+                                        @friend.FirstName @friend.LastName
+                                    </h5>
+                                </div>
+                            </div>
+                        }
+            </div>
+        </section>
+    </div>
+        <div class="messaging-container" id="mycontainer">
+            <div class="messaging-container-top" id="containerTop">
+                <div class="messaging-container-top-name">
+                    <img class="messaging-container-pp" src="https://res.cloudinary.com/do2bvloo2/image/upload/v1697217971/gf0ivu9uusffo98rhsp4.png">
+                    <h7 href="#">Ramid Ahadov</h7>
+                </div>
+                <div class="messaging-container-top-dash" onclick="Minimize()">
+                    <i id="icon" class="fa-solid fa-window-minimize"></i>
+                </div>
+                <div class="messaging-container-top-x" onclick="CloseChat()">
+                    <i class="fa-solid fa-x"></i>
+                </div>
+            </div>
+            <div class="messaging-container-messages" id="messaging-messages">
+                <div class="sender-message">
+                    Hello!
+                </div>
+                <div class="user-message">
+                    Hey!
+                </div>
+                <div class="sender-message">
+                    How are you?
+                </div>
+                <div class="user-message">
+                    I'm fine.
+                </div>
+                <div class="user-message">
+                    And you?
+                </div>
+                <div class="sender-message">
+                    Good.
+                </div>
+                <div class="user-message">
+                    Do you like here?
+                </div>
+                <div class="sender-message">
+                    Yes. Here is very nice.
+                </div>
+                <div class="user-message">
+                    So good. I saw that you're registered at this website.
+                </div>
+                <div class="sender-message">
+                    Whao! Did you receive notification?
+                </div>
+            </div>
+            <div class="messaging-container-send-area" id="messaging-send">
+                <textarea class="messaging-container-text-area"></textarea>
+                <i class="messaging-container-send-message fa-regular fa-paper-plane"></i>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="~/js/HomePage/dropdownScript.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/HomePage/getPostId.js"></script>
+    <script src="~/js/HomePage/getPostIdForLike.js"></script>
+    <script src="~/js/HomePage/getCommentIdForLike.js"></script>
+    <script src="~/js/Post/postScript.js"></script>
+    <script src="~/js/HomePage/addCommentScript.js"></script>
+    <script src="~/js/HomePage/responseFriendRequest.js"></script>
+    <script src="~/js/HomePage/designScript.js"></script>
+</body>
+</html>

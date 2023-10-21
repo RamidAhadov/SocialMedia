@@ -1,0 +1,13 @@
+using Core.Entities.Concrete;
+
+namespace Business.Constants;
+
+public class Messages
+{
+    public static string UserExists = "User already exists on system.";
+    public static string UserCreated = "Registration completed successfully.";
+    public static string UserNotFound = "User not found.";
+    public static string PasswordError = "Password is wrong.";
+    public static string PasswordMatchError = "The entered passwords do not match. Please try again.";
+    public static string NotExists = "Username or email is not exists.";
+}

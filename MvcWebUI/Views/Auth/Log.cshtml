@@ -1,0 +1,47 @@
+@model UserViewModel
+
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Log in or Sign up</title>
+	<link rel="stylesheet" type="text/css" href="~/css/Account/style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+<body >
+	<div class="main">  	
+		<input type="checkbox" id="chk" aria-hidden="true">
+
+			<div class="signup">
+				<form >
+					<label for="chk" aria-hidden="true">Sign up</label>
+					<input asp-for="@Model.UserForRegisterDto.FirstName" type="text" placeholder="First name" required="">
+					<input asp-for="@Model.UserForRegisterDto.LastName" type="text" placeholder="Last name" required="">
+					<input asp-for="@Model.UserForRegisterDto.UserName" type="text" placeholder="User name" required="">
+					<input asp-for="@Model.UserForRegisterDto.Email" type="email" placeholder="Email" required="">
+					<input asp-for="@Model.UserForRegisterDto.Password" type="password" placeholder="Password" required="">
+					<input asp-for="@Model.ConfirmedPassword" type="password" placeholder="Confirm password" required="">
+					<button type="submit">Sign up</button>
+				</form>
+			</div>
+
+			<div class="login">
+				<form >
+					<label for="chk" aria-hidden="true">Login</label>
+					<input asp-for="UserForLoginDto.LoginInfo" type="email" name="email" placeholder="Email or username" required="">
+					<input asp-for="UserForLoginDto.Password" type="password" name="password" placeholder="Password" required="">
+					<button type="submit">Login</button>
+				</form>
+				<div class="login-signup">
+					Not a member?
+					<a href="#">signup now</a>
+				</div>
+			</div>
+	</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/Account/tokenScript.js"></script>
+</body>
+</html>
