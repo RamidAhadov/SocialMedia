@@ -24,14 +24,11 @@ public class AspNetAuthService:IAspNetAuthService
         var result = await _userManager.CreateAsync(identityUser, userForRegisterDto.Password);
         if (result.Succeeded)
         {
-            // Kullanıcı kaydı başarılı.
             return true;
         }
         else
         {
-            // Kayıt başarısız oldu. Hata mesajlarına erişebilirsiniz.
             var errorMessages = result.Errors.Select(error => error.Description);
-            // Hata mesajlarını kaydetme veya işleme yapma.
             return false;
         }
 
