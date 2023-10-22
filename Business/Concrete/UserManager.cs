@@ -1,5 +1,6 @@
 using Business.Abstract;
 using Core.Entities.Concrete;
+using Core.Entities.Concrete.Dtos;
 using DataAccess.Abstract;
 
 namespace Business.Concrete;
@@ -56,5 +57,20 @@ public class UserManager:IUserService
         }
 
         return _userDao.Get(u => u.UserName == loginInfo);
+    }
+
+    public UserDto GetUserDtoById(int id)
+    {
+        var user = _userDao.Get(u => u.Id == id);
+        var userDto = new UserDto
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+            ProfilePhoto = user.ProfilePhotoUrl,
+            UserName = user.UserName
+        };
+        return userDto;
     }
 }

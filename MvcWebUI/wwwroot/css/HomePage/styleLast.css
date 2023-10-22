@@ -394,6 +394,7 @@ main {
     border-top-right-radius: 5px;
 }
 .messaging-container-top-name{
+    display: flex;
     flex: 8;
     background-color: #da6c31;
     padding-left: 10px;

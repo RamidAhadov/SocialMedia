@@ -55,15 +55,15 @@ public class CommentManager:ICommentService
         return new SuccessDataResult<List<Comment>>(_commentDao.GetList(c=>c.PostId == postId));
     }
 
-    public IDataResult<Comment> AddComment(CommentForAddDto commentForAddDto,string token)
+    public IDataResult<Comment> AddComment(CommentForAddModel commentForAddModel,string token)
     {
         var user = TokenReader.DecodeToken(token);
             var comment = new Comment
             {
                 AuthorId = user.Id,
                 AuthorUserName = user.UserName,
-                CommentText = commentForAddDto.CommentText,
-                PostId = commentForAddDto.PostId,
+                CommentText = commentForAddModel.CommentText,
+                PostId = commentForAddModel.PostId,
                 Date = DateTime.Now,
                 LikeCount = 0
             };
@@ -71,7 +71,7 @@ public class CommentManager:ICommentService
             var addedComment = _commentDao.Get(c => c.AuthorId == comment.AuthorId 
                                  && c.CommentText == comment.CommentText && c.Date == comment.Date 
                                  && c.PostId == comment.PostId);
-            var post = _postDao.Get(p => p.Id == commentForAddDto.PostId);
+            var post = _postDao.Get(p => p.Id == commentForAddModel.PostId);
             post.CommentCount++;
             _postDao.Update(post);
             var commentOfPost = new CommentOfPost

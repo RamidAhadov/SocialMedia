@@ -90,9 +90,9 @@ namespace WebAPI.Controllers
         [Authorize]
         [HttpPost]
         [Route("addComment")]
-        public IActionResult AddComment([FromBody] CommentForAddDto commentForAddDto)
+        public IActionResult AddComment([FromBody] CommentForAddModel commentForAddModel)
         {
-            var result = _commentService.AddComment(commentForAddDto, commentForAddDto.Token);
+            var result = _commentService.AddComment(commentForAddModel, commentForAddModel.Token);
             if (!result.Success)
             {
                 return BadRequest();

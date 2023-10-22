@@ -97,6 +97,10 @@
       "PackagePath": "staticwebassets/js/HomePage/responseFriendRequest.js"
     },
     {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Message/showChatContainer.js",
+      "PackagePath": "staticwebassets/js/Message/showChatContainer.js"
+    },
+    {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Message/signalrScript.js",
       "PackagePath": "staticwebassets/js/Message/signalrScript.js"
     },

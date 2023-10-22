@@ -22,6 +22,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <link rel="icon" href="https://res.cloudinary.com/do2bvloo2/image/upload/v1697470819/yjp8xkz3aewhdtxrzujt.jpg" type="image/x-icon">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
 
 </head>
 <body>
@@ -122,7 +124,19 @@
                     </div>
                 </div>
             }
-                <div style="height: 12vh;"></div>
+            <!--            -->
+            <h1>Özel Mesajlaşma</h1>
+                
+                <input type="text" id="userInput1" placeholder="Kullanıcı 1">
+                <input type="text" id="userInput2" placeholder="Mesaj">
+                <button id="addUsersButton">Send</button>
+            
+                <ul id="messagesList"></ul>
+            
+                <input type="text" id="messageInput" placeholder="Mesajınızı girin">
+                <button id="sendMessageButton">Mesaj Gönder</button>
+            <!--            -->
+            <div style="height: 12vh;"></div>
             </div>
         </section>
     </div>
@@ -133,7 +147,7 @@
                 <hr width="100%">
                         @foreach (var friend in Model.Friends)
                         {
-                            <div class="friends-container">
+                            <div class="friends-container"onclick="StartChat(@friend.Id)">
                                 <div class="friend-pp">
                                     <img class="pp-image" src=@friend.ProfilePhoto>
                                 </div>
@@ -147,11 +161,11 @@
             </div>
         </section>
     </div>
-        <div class="messaging-container" id="mycontainer">
+        <div class="messaging-container" id="chatContainer" style="display: none">
             <div class="messaging-container-top" id="containerTop">
-                <div class="messaging-container-top-name">
-                    <img class="messaging-container-pp" src="https://res.cloudinary.com/do2bvloo2/image/upload/v1697217971/gf0ivu9uusffo98rhsp4.png">
-                    <h7 href="#">Ramid Ahadov</h7>
+                <div class="messaging-container-top-name" id="chat-top-name">
+                    <!--<img class="messaging-container-pp" src="https://res.cloudinary.com/do2bvloo2/image/upload/v1697217971/gf0ivu9uusffo98rhsp4.png"> -->
+                    <div class="chat-friend-name" href="#"></div>
                 </div>
                 <div class="messaging-container-top-dash" onclick="Minimize()">
                     <i id="icon" class="fa-solid fa-window-minimize"></i>
@@ -166,30 +180,6 @@
                 </div>
                 <div class="user-message">
                     Hey!
-                </div>
-                <div class="sender-message">
-                    How are you?
-                </div>
-                <div class="user-message">
-                    I'm fine.
-                </div>
-                <div class="user-message">
-                    And you?
-                </div>
-                <div class="sender-message">
-                    Good.
-                </div>
-                <div class="user-message">
-                    Do you like here?
-                </div>
-                <div class="sender-message">
-                    Yes. Here is very nice.
-                </div>
-                <div class="user-message">
-                    So good. I saw that you're registered at this website.
-                </div>
-                <div class="sender-message">
-                    Whao! Did you receive notification?
                 </div>
             </div>
             <div class="messaging-container-send-area" id="messaging-send">
@@ -209,5 +199,7 @@
     <script src="~/js/HomePage/addCommentScript.js"></script>
     <script src="~/js/HomePage/responseFriendRequest.js"></script>
     <script src="~/js/HomePage/designScript.js"></script>
+    <script src="~/js/Message/signalrScript.js"></script>
+    <script src="~/lib/signalr/signalr.js"></script>
 </body>
 </html>

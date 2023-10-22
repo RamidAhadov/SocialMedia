@@ -97,8 +97,6 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-// builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-//     .AddEntityFrameworkStores<ThinkContext>();
 
 var app = builder.Build();
 
@@ -108,6 +106,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseCors();
 

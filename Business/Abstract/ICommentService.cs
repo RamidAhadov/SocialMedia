@@ -9,6 +9,6 @@ public interface ICommentService
     IDataResult<List<Comment>> GetComments();
     IDataResult<List<CommentLikedUsersModel>> GetLikedUsers(List<Comment> comments);
     IDataResult<List<Comment>> GetCommentsByPostId(int postId);
-    IDataResult<Comment> AddComment(CommentForAddDto commentForAddDto,string token);
+    IDataResult<Comment> AddComment(CommentForAddModel commentForAddModel,string token);
     IResult DeleteComment(Comment comment);
 }

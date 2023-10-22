@@ -1,7 +1,11 @@
 using Business.Abstract;
 using DataContracts.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Claims;
 using WebAPI.Services.Abstract;
 
 namespace WebAPI.Controllers
@@ -36,6 +40,11 @@ namespace WebAPI.Controllers
             }
 
             var aspNetResult = await _aspNetAuthService.LoginUser(model.UserForLoginDto);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+            }
             
             var token = _authService.CreateToken(result.Data);
             if (token.Success) 
@@ -60,7 +69,7 @@ namespace WebAPI.Controllers
                 return BadRequest(passwordResult.Message);
             }
 
-            var aspNetResult = await _aspNetAuthService.RegisterUser(model.UserForRegisterDto);
+            await _aspNetAuthService.RegisterUser(model.UserForRegisterDto);
             
             var registerResult = _authService.Register(model.UserForRegisterDto);
             var tokenResult = _authService.CreateToken(registerResult.Data);

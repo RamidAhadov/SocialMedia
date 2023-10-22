@@ -12,7 +12,7 @@ window.addEventListener('load', function () {
 var isMinimized = false;
 
 function Minimize() {
-  var chatDiv = document.getElementById('mycontainer');
+  var chatDiv = document.getElementById('chatContainer');
   var icon = document.getElementById('icon');
   
   if (isMinimized) {
@@ -29,10 +29,10 @@ function Minimize() {
 var isHidden = true;
 
 function CloseChat(){
-  var chatDiv = document.getElementById('mycontainer');
+  var chatDiv = document.getElementById('chatContainer');
 
-  if(isHidden){
-    chatDiv.hidden = true
+  if(chatDiv.style.display === 'block'){
+    chatDiv.style.display = 'none'
   }
 }
 
@@ -85,48 +85,6 @@ elements.forEach(element => {
 });
 
 //User is liked or not
-
-// function ShowIsLiked(event){
-//
-//   var receivedToken = JSON.parse(localStorage.getItem("token"));
-//   var token = receivedToken.token.token;
-//   const clickedButtonId = event.target.id;
-//
-//   elements.forEach(element => {
-//     const elementId = element.id;
-//     const elementPostId = element.data-comment-post-id;
-//     var data = {
-//       CommentId: elementId,
-//       Token: token
-//     }
-//     var likeButton = document.getElementById(elementId);
-//     if(elementPostId === clickedButtonId) {
-//       $.ajax({
-//         url: 'http://localhost:5015/api/Like/likeCheck',
-//         type: 'POST',
-//         contentType: 'application/json; charset=utf-8',
-//         data: JSON.stringify(data),
-//         success: function (response) {
-//           console.log({elementId} + response);
-//           if (response === "Liked") {
-//             likeButton.className = 'like-comment fa-solid fa-heart fa-xl';
-//             likeButton.style.color = 'red';
-//           }
-//           if (response === "Not liked") {
-//             likeButton.className = 'like-comment fa-regular fa-heart fa-xl';
-//             likeButton.style.color = 'black';
-//           }
-//         },
-//         error: function (x, y, z) {
-//
-//         }
-//       });
-//     }
-//   });
-//
-// }
-
-
 function ShowIsLiked() {
   const receivedToken = JSON.parse(localStorage.getItem("token"));
   const token = receivedToken.token.token;

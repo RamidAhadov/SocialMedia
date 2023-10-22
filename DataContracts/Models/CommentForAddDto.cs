@@ -1,6 +1,6 @@
 namespace DataContracts.Models;
 
-public class CommentForAddDto
+public class CommentForAddModel
 {
     public int PostId { get; set; }
     public string CommentText { get; set; }

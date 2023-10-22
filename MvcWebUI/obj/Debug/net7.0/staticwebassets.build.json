@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "0gsEfo+FVqpaNlmiFgjU441SR/hDYdvzEdkrISlFNQw=",
+  "Hash": "GU4J7SVtwgEiJ8pUzGD+d7V9ChdncwW0rkiJPWPsZuc=",
   "Source": "MvcWebUI",
   "BasePath": "_content/MvcWebUI",
   "Mode": "Default",
@@ -452,6 +452,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/HomePage/responseFriendRequest.js"
+    },
+    {
+      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Message/showChatContainer.js",
+      "SourceId": "MvcWebUI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/",
+      "BasePath": "_content/MvcWebUI",
+      "RelativePath": "js/Message/showChatContainer.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/Message/showChatContainer.js"
     },
     {
       "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Message/signalrScript.js",
