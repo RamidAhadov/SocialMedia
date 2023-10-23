@@ -25,13 +25,49 @@
 
 var connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:5015/chathub").build();
 
-connection.start().then(function () {
-    // Bağlantı başarılı oldu, istemci ile iletişime geçebilirsiniz
+// connection.start().then(function () {
+//     // Bağlantı başarılı oldu, istemci ile iletişime geçebilirsiniz
+//
+//     console.log(connection.connectionId);
+// }).catch(function (err) {
+//     console.error(err);
+// });
 
+var receivedToken = JSON.parse(localStorage.getItem("token"));
+var token = receivedToken.token.token;
+
+connection.start().then(function () {
+    document.getElementById("sendButton").disabled = false;
     console.log(connection.connectionId);
 }).catch(function (err) {
-    console.error(err);
+    return console.error(err.toString());
 });
+
+document.getElementById("addToGroup").addEventListener("click",function (event){
+    var connectionId = document.getElementById("connectionId").value;
+    connection.invoke("AddUsersToGroup", connectionId );
+});
+
+document.getElementById("sendButton").addEventListener("click", function () {
+    var message = document.getElementById("messageInput").value;
+    connection.invoke("SendMessageToGroup", token, message);
+});
+// document.getElementById("sendButton").addEventListener("click", function (event) {
+//     var connectionId = document.getElementById("connectionId").value;
+//     var message = document.getElementById("messageInput").value;
+//
+//     connection.invoke("SendMessage", connectionId, message).catch(function (err) {
+//         return console.error(err.toString());
+//     });
+//     event.preventDefault();
+//});
+
+connection.on("ReceiveMessage", function (message) {
+    var li = document.createElement("li");
+    li.textContent = message;
+    document.getElementById("messagesList").appendChild(li);
+});
+
 //Burada olanda error verir
 
 function StartChat(friendId){
@@ -41,8 +77,6 @@ function StartChat(friendId){
         id: friendId
     };
 
-    var receivedToken = JSON.parse(localStorage.getItem("token"));
-    var token = receivedToken.token.token;
 
     $.ajax({
         url: 'http://localhost:5015/api/User/GetUser',
@@ -77,30 +111,27 @@ function StartChat(friendId){
             //SignalR connection start
             
 
-            //connection.invoke("AddUsersToGroup", token, friend.userName);
-
-            // document.getElementById("sendMessageButton").addEventListener("click", function () {
-            //     var message = document.getElementById("messageInput").value;
-            //     connection.invoke("SendMessageToGroup", token, friend.userName, message);
-            //});
+            
 
             
             
-            document.getElementById("addUsersButton").addEventListener("click", function () {
-                const userId = document.getElementById("userInput1").value;
-                const message = document.getElementById("userInput2").value;
-                connection.invoke("SendMessage", userId, message).catch(function (err) {
-                    console.error(err);
-                });
-            });
-
-            connection.on("ReceiveMessage", function (user, message) {
-                var encodedMessage = user + " says: " + message;
-                var li = document.createElement("li");
-                li.textContent = encodedMessage;
-                document.getElementById("messagesList").appendChild(li);
-            });
+            // document.getElementById("addUsersButton").addEventListener("click", function () {
+            //     const userId = document.getElementById("userInput1").value;
+            //     const message = document.getElementById("userInput2").value;
+            //     connection.invoke("SendMessageToUser", userId, message).catch(function (err) {
+            //         console.error(err);
+            //     });
+            // });
+            //
+            // connection.on("ReceiveMessage", function (user, message) {
+            //     var encodedMessage = user + " says: " + message;
+            //     var li = document.createElement("li");
+            //     li.textContent = encodedMessage;
+            //     document.getElementById("messagesList").appendChild(li);
+            // });
             //---oo-------------00---\\
+            
+            // ----------------------\\
         },
         error: function (x,y,z){
 

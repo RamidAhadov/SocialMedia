@@ -125,16 +125,18 @@
                 </div>
             }
             <!--            -->
-            <h1>Özel Mesajlaşma</h1>
-                
-                <input type="text" id="userInput1" placeholder="Kullanıcı 1">
-                <input type="text" id="userInput2" placeholder="Mesaj">
-                <button id="addUsersButton">Send</button>
-            
-                <ul id="messagesList"></ul>
-            
-                <input type="text" id="messageInput" placeholder="Mesajınızı girin">
-                <button id="sendMessageButton">Mesaj Gönder</button>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <h1>SignalR Chat App</h1>
+                        <input type="text" id="connectionId" placeholder="Connection Id">
+                        <button id="addToGroup"></button>
+                        <input type="text" id="messageInput" placeholder="Message">
+                        <button id="sendButton">Send</button>
+                        <ul id="messagesList"></ul>
+                    </div>
+                </div>
+            </div>
             <!--            -->
             <div style="height: 12vh;"></div>
             </div>
