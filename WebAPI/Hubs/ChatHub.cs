@@ -9,31 +9,30 @@ public class ChatHub : Hub
     // {
     //     return Clients.All.SendAsync("ReceiveMessage", user, message);
     // }
-    public async Task AddUsersToGroup(string connectionId)
+    public async Task AddUsersToGroup(string token,string friendUserName,string connectionId)
     {
-        //string groupName = GenerateGroupName(user1, user2);
+        var userDto = TokenReader.DecodeToken(token);
+        string groupName = GenerateGroupName(userDto.UserName, friendUserName);
         
-        await Groups.AddToGroupAsync(Context.ConnectionId, "one-to-one");
-        await Groups.AddToGroupAsync(connectionId, "one-to-one");
+        await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+        await Groups.AddToGroupAsync(connectionId, groupName);
     }
     private string GenerateGroupName(string user1, string user2)
     {
-        return $"{user1}-{user2}";
-    }
-    public async Task SendMessageToGroup(string token, string message)
-    {
-        var senderUser = TokenReader.DecodeToken(token);
-        var senderUserName = senderUser.UserName;
-        //string groupName = GenerateGroupName(senderUserName, user2);
-    
-        await Clients.Group("one-to-one").SendAsync("ReceiveMessage", message);
-    }
+        var sortedStrings = new List<string> { user1, user2 };
+        sortedStrings.Sort();
 
-    // public async Task SendMessageToUser(string connectionId,string message)
-    // {
-    //     var id = Context.ConnectionId;
-    //     await Clients.User(connectionId).SendAsync("ReceiveMessage", message);
-    // }
+        string combined = string.Join("-", sortedStrings);
+
+        return combined;
+    }
+    public async Task SendMessageToGroup(string token,string friendName, string message)
+    {
+        var userDto = TokenReader.DecodeToken(token);
+        string groupName = GenerateGroupName(userDto.UserName, friendName);
+    
+        await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
+    }
 
     public override async Task OnConnectedAsync()
     {

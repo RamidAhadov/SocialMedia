@@ -39,5 +39,8 @@ public class AutofacBusinessModule:Module
         
         builder.RegisterType<EfPhotoDao>().As<IPhotoDao>();
         builder.RegisterType<PhotoManager>().As<IPhotoService>();
+        
+        builder.RegisterType<EfUserConnectionIdDao>().As<IUserConnectionIdDao>();
+        builder.RegisterType<SignalRConnectionManager>().As<ISignalRConnectionService>();
     }
 }

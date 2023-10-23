@@ -27,6 +27,7 @@ public class ThinkContext:IdentityDbContext
     public DbSet<Post> Posts { get; set; }
     public DbSet<Photo> Photos { get; set; }
     public DbSet<Friend> Friends { get; set; }
+    public DbSet<UserConnectionId> UserConnectionIds { get; set; }
     
     public DbSet<FriendRequest> FriendRequests { get; set; }
     public DbSet<Comment> Comments { get; set; }
