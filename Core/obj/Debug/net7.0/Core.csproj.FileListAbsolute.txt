@@ -1,0 +1,14 @@
+/Users/macbook/RiderProjects/NorthwindBackend/Core/bin/Debug/net7.0/Core.deps.json
+/Users/macbook/RiderProjects/NorthwindBackend/Core/bin/Debug/net7.0/Core.dll
+/Users/macbook/RiderProjects/NorthwindBackend/Core/bin/Debug/net7.0/Core.pdb
+/Users/macbook/RiderProjects/NorthwindBackend/Core/obj/Debug/net7.0/Core.csproj.AssemblyReference.cache
+/Users/macbook/RiderProjects/NorthwindBackend/Core/obj/Debug/net7.0/Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/macbook/RiderProjects/NorthwindBackend/Core/obj/Debug/net7.0/Core.AssemblyInfoInputs.cache
+/Users/macbook/RiderProjects/NorthwindBackend/Core/obj/Debug/net7.0/Core.AssemblyInfo.cs
+/Users/macbook/RiderProjects/NorthwindBackend/Core/obj/Debug/net7.0/Core.csproj.CoreCompileInputs.cache
+/Users/macbook/RiderProjects/NorthwindBackend/Core/obj/Debug/net7.0/Core.dll
+/Users/macbook/RiderProjects/NorthwindBackend/Core/obj/Debug/net7.0/refint/Core.dll
+/Users/macbook/RiderProjects/NorthwindBackend/Core/obj/Debug/net7.0/Core.pdb
+/Users/macbook/RiderProjects/NorthwindBackend/Core/obj/Debug/net7.0/ref/Core.dll
+/Users/macbook/RiderProjects/NorthwindBackend/Core/bin/Debug/net7.0/Core.runtimeconfig.json
+/Users/macbook/RiderProjects/NorthwindBackend/Core/obj/Debug/net7.0/Core.genruntimeconfig.cache
