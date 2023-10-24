@@ -1,6 +1,7 @@
 using Business.Abstract;
 using Core.Entities.Concrete;
 using Core.Entities.Concrete.Dtos;
+using Core.Utilities.Security.Jwt;
 using DataAccess.Abstract;
 
 namespace Business.Concrete;
@@ -71,6 +72,12 @@ public class UserManager:IUserService
             ProfilePhoto = user.ProfilePhotoUrl,
             UserName = user.UserName
         };
+        return userDto;
+    }
+
+    public UserDto GetByToken(string token)
+    {
+        var userDto = TokenReader.DecodeToken(token);
         return userDto;
     }
 }

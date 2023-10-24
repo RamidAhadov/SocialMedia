@@ -63,7 +63,7 @@
                                 }
                         </div>
                     </div>
-                    <li><a class="profile-button" href="#"><img src=@Model.UserDto.ProfilePhoto alt="PP" width="30px" height="30px" style="border-radius: 50%"></a></li>
+                    <li><a id="nav-profile-photo" data-userName-id="@Model.UserDto.UserName" class="profile-button" href="#"><img src=@Model.UserDto.ProfilePhoto alt="PP" width="30px" height="30px" style="border-radius: 50%"></a></li>
                 </div>
                 
             </ul>
@@ -125,18 +125,6 @@
                 </div>
             }
             <!--            -->
-            <div class="container">
-                <div class="row">
-                    <div class="col-6">
-                        <h1>SignalR Chat App</h1>
-                        <input type="text" id="connectionId" placeholder="Connection Id">
-                        <button id="addToGroup"></button>
-                        <input type="text" id="messageInput" placeholder="Message">
-                        <button id="sendButton">Send</button>
-                        <ul id="messagesList"></ul>
-                    </div>
-                </div>
-            </div>
             <!--            -->
             <div style="height: 12vh;"></div>
             </div>
@@ -183,6 +171,7 @@
                 <div class="user-message">
                     Hey!
                 </div>
+                <ul id="messagesList"></ul>
             </div>
             <div class="messaging-container-send-area" id="messaging-send">
                 <textarea id="message-text" class="messaging-container-text-area"></textarea>
@@ -200,6 +189,7 @@
     <script src="~/js/Post/postScript.js"></script>
     <script src="~/js/HomePage/addCommentScript.js"></script>
     <script src="~/js/HomePage/responseFriendRequest.js"></script>
+    <script src="~/js/HomePage/getUserNameScript.js"></script>
     <script src="~/js/HomePage/designScript.js"></script>
     <script src="~/js/Message/signalrScript.js"></script>
     <script src="~/lib/signalr/signalr.js"></script>

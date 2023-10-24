@@ -29,5 +29,14 @@ namespace WebAPI.Controllers
             var userDto = _userService.GetUserDtoById(model.Id);
             return Ok(userDto);
         }
+
+        [HttpPost]
+        [Route("getUserName")]
+        public IActionResult GetUserName([FromBody] string token)
+        {
+            var result = _userService.GetByToken(token);
+            string userName = result.UserName;
+            return Ok(userName);
+        }
     }
 }

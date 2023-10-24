@@ -2,9 +2,10 @@ function AddPost(){
     
     var receivedToken = JSON.parse(localStorage.getItem("token"));
     var token = receivedToken.token.token;
+    var postText = document.getElementById("postArea").value;
     
     var data = {
-    PostText: $('#postText').val(),
+    PostText: postText,
     Token: token
     };
 

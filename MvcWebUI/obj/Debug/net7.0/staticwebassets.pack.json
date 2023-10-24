@@ -93,6 +93,10 @@
       "PackagePath": "staticwebassets/js/HomePage/getPostIdForLike.js"
     },
     {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/getUserNameScript.js",
+      "PackagePath": "staticwebassets/js/HomePage/getUserNameScript.js"
+    },
+    {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/responseFriendRequest.js",
       "PackagePath": "staticwebassets/js/HomePage/responseFriendRequest.js"
     },

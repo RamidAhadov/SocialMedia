@@ -26,12 +26,15 @@ public class ChatHub : Hub
 
         return combined;
     }
-    public async Task SendMessageToGroup(string token,string friendName, string message)
+    public async Task SendMessageToGroup(string connectionId,string token,string friendName, string message)
     {
         var userDto = TokenReader.DecodeToken(token);
+        string userConnectionId = Context.ConnectionId;
+        var messageClass = connectionId == userConnectionId ? "user-message" : "sender-message";
+        var formattedMessage = $"<span class='{messageClass}'>{message}</span>";
         string groupName = GenerateGroupName(userDto.UserName, friendName);
     
-        await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
+        await Clients.Group(groupName).SendAsync("ReceiveMessage", userDto.UserName,message);
     }
 
     public override async Task OnConnectedAsync()

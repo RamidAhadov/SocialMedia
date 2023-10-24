@@ -27,11 +27,15 @@ connection.start().then(function () {
 }).catch(function (err) {
     return console.error(err.toString());
 });
-
-connection.on("ReceiveMessage", function (message) {
-    var li = document.createElement("li");
-    li.textContent = message;
-    document.getElementById("messagesList").appendChild(li);
+var myUserName = localStorage.getItem("userName");
+connection.on("ReceiveMessage", function (user,message) {
+    var li = document.createElement("div");
+    if (user === myUserName) {
+        li.innerHTML = "<span class='user-message'>"+ message +"</span>";
+    } else {
+        li.innerHTML = "<span class='sender-message'>" + message + "</span>";
+    }
+    document.getElementById("messaging-messages").appendChild(li);
 });
 function StartChat(friendId){
     const chatContainer = document.getElementById('chatContainer');
@@ -90,7 +94,7 @@ function StartChat(friendId){
 
             document.getElementById("send-message-async").addEventListener("click", function () {
                 var message = document.getElementById("message-text").value;
-                connection.invoke("SendMessageToGroup", token, friend.userName, message);
+                connection.invoke("SendMessageToGroup",connection.connectionId ,token, friend.userName, message);
             });
         },
         error: function (x,y,z){

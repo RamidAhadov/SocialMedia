@@ -13,7 +13,7 @@ function Login(){
         success: function (response) {
             console.log('First successful response:', response);
             localStorage.setItem("token",JSON.stringify(response))
-
+            
             $.ajax({
                 url: 'http://localhost:5129/Token/sendtoken',
                 type: 'POST',
