@@ -124,74 +124,61 @@
                     </div>
                 </div>
             }
-            <!--            -->
-            <!--            -->
+            <button id="closeConnection"></button>
             <div style="height: 12vh;"></div>
             </div>
         </section>
     </div>
-    <div class="section-friend">
-        <section class="friends">
-            <div class="friends-div">
-                <h4 style="color: #ffffff; margin-top: 10px;">Friends</h4>
-                <hr width="100%">
-                        @foreach (var friend in Model.Friends)
-                        {
-                            <div class="friends-container"onclick="StartChat(@friend.Id)">
-                                <div class="friend-pp">
-                                    <img class="pp-image" src=@friend.ProfilePhoto>
-                                </div>
-                                <div class="friend-name">
-                                    <h5>
-                                        @friend.FirstName @friend.LastName
-                                    </h5>
-                                </div>
+        <div class="section-friend">
+            <section class="friends">
+                <div class="friends-div">
+                    <h4 style="color: #ffffff; margin-top: 10px;">Friends</h4>
+                    <hr width="100%">
+                    @foreach (var friend in Model.Friends)
+                    {
+                        <div class="friends-container" onclick="StartChat('@Model.UserDto.Id','@friend.Id','@friend.UserName','@friend.FirstName','@friend.LastName')">
+                            <div class="friend-pp">
+                                <img class="pp-image" src=@friend.ProfilePhoto>
                             </div>
-                        }
-            </div>
-        </section>
-    </div>
-        <div class="messaging-container" id="chatContainer" style="display: none">
-            <div class="messaging-container-top" id="containerTop">
-                <div class="messaging-container-top-name" id="chat-top-name">
-                    <!--<img class="messaging-container-pp" src="https://res.cloudinary.com/do2bvloo2/image/upload/v1697217971/gf0ivu9uusffo98rhsp4.png"> -->
-                    <div class="chat-friend-name" href="#"></div>
+                            <div class="friend-name">
+                                <h5>
+                                    @friend.FirstName @friend.LastName
+                                </h5>
+                            </div>
+                        </div>
+                    }
                 </div>
-                <div class="messaging-container-top-dash" onclick="Minimize()">
-                    <i id="icon" class="fa-solid fa-window-minimize"></i>
-                </div>
-                <div class="messaging-container-top-x" onclick="CloseChat()">
-                    <i class="fa-solid fa-x"></i>
-                </div>
-            </div>
-            <div class="messaging-container-messages" id="messaging-messages">
-                <div class="sender-message">
-                    Hello!
-                </div>
-                <div class="user-message">
-                    Hey!
-                </div>
-                <ul id="messagesList"></ul>
-            </div>
-            <div class="messaging-container-send-area" id="messaging-send">
-                <textarea id="message-text" class="messaging-container-text-area"></textarea>
-                <i id="send-message-async" class="messaging-container-send-message fa-regular fa-paper-plane"></i>
-            </div>
+            </section>
+        </div>
+        <div id="messagingContainerList" class="containerList">
+            
         </div>
     </main>
 
-    <script type="module" src="~/js/HomePage/dropdownScript.js"></script>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/HomePage/getPostId.js"></script>
-    <script src="~/js/HomePage/getPostIdForLike.js"></script>
-    <script src="~/js/HomePage/getCommentIdForLike.js"></script>
-    <script src="~/js/Post/postScript.js"></script>
-    <script src="~/js/HomePage/addCommentScript.js"></script>
-    <script src="~/js/HomePage/responseFriendRequest.js"></script>
-    <script src="~/js/HomePage/getUserNameScript.js"></script>
-    <script src="~/js/HomePage/designScript.js"></script>
-    <script src="~/js/Message/signalrScript.js"></script>
-    <script src="~/lib/signalr/signalr.js"></script>
+<script type="module" src="~/js/HomePage/dropdownScript.js"></script>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script src="~/js/HomePage/getPostId.js"></script>
+
+<script src="~/js/HomePage/getPostIdForLike.js"></script>
+
+<script src="~/js/HomePage/getCommentIdForLike.js"></script>
+
+<script src="~/js/Post/postScript.js"></script>
+
+<script src="~/js/HomePage/addCommentScript.js"></script>
+
+<script src="~/js/HomePage/responseFriendRequest.js"></script>
+
+<script src="~/js/HomePage/getUserNameScript.js"></script>
+
+<script src="~/js/HomePage/designScript.js"></script>
+
+<script src="~/js/Message/signalrScript.js"></script>
+
+<script src="~/lib/signalr/signalr.js"></script>
 </body>
 </html>

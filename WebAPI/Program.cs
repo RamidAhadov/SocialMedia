@@ -57,7 +57,11 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     {
         builder.RegisterModule(new AutofacBusinessModule());
     });
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(options =>
+{
+    //Keep alive time for users online status
+    options.KeepAliveInterval = TimeSpan.FromSeconds(5);
+});
 
 builder.Services.AddCors(options =>
 {

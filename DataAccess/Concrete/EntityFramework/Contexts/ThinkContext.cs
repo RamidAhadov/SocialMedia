@@ -25,12 +25,16 @@ public class ThinkContext:IdentityDbContext
     public DbSet<User> Users { get; set; }
     
     public DbSet<Post> Posts { get; set; }
+    
     public DbSet<Photo> Photos { get; set; }
     public DbSet<Friend> Friends { get; set; }
+    
     public DbSet<UserConnectionId> UserConnectionIds { get; set; }
     
     public DbSet<FriendRequest> FriendRequests { get; set; }
     public DbSet<Comment> Comments { get; set; }
+    
+    public DbSet<Message> Messages { get; set; }
     public DbSet<OperationClaim> OperationClaims { get; set; }
     public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
     public DbSet<PostLikedUser> PostLikedUsers { get; set; }

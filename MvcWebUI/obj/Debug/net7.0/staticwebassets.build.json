@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "kZEVJ8ItsFH79dvndw3D7T7Q0254EdxKX+LDKMdFU9c=",
+  "Hash": "+OZXBYVUjtuu9hO7e0stkdadyg3J5T6YGmVWiIxKquo=",
   "Source": "MvcWebUI",
   "BasePath": "_content/MvcWebUI",
   "Mode": "Default",
@@ -571,6 +571,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/site.js"
+    },
+    {
+      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Test/testScript.js",
+      "SourceId": "MvcWebUI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/",
+      "BasePath": "_content/MvcWebUI",
+      "RelativePath": "js/Test/testScript.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/Test/testScript.js"
     },
     {
       "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",

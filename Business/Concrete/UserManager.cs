@@ -74,10 +74,4 @@ public class UserManager:IUserService
         };
         return userDto;
     }
-
-    public UserDto GetByToken(string token)
-    {
-        var userDto = TokenReader.DecodeToken(token);
-        return userDto;
-    }
 }

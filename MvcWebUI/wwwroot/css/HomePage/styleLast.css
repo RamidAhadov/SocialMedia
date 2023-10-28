@@ -375,17 +375,24 @@ main {
     margin-top: 8px;
 }
 /*end*/
-.messaging-container{
+.containerList{
     position: absolute;
+    display: flex;
+    width: 500px;
+}
+.messaging-container{
     width: 250px;
     height: 300px;
     background-color: orange;
     right: 25%;
     bottom: 60px;
-    transition: bottom 0.5s ease;
+    transition: 0.5s ease;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.messaging-container.hidden {
+    transform: translateX(-100px);
 }
 .messaging-container-top{
     display: flex;

@@ -14,5 +14,4 @@ public interface IUserService
     User GetByUserName(string userName);
     User GetByLoginInfo(string loginInfo);
     UserDto GetUserDtoById(int id);
-    UserDto GetByToken(string token);
 }

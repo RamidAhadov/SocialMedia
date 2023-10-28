@@ -1,13 +1,11 @@
-var connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:5015/chathub").build();
+const connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:5015/chathub").build();
 
-var receivedToken = JSON.parse(localStorage.getItem("token"));
-var token = receivedToken.token.token;
+const receivedToken = JSON.parse(localStorage.getItem("token"));
+const token = receivedToken.token.token;
 
 connection.start().then(function () {
-    document.getElementById("sendButton").disabled = false;
     console.log(connection.connectionId);
-    
-    var data = {
+    const data = {
         Token: token,
         ConnectionId: connection.connectionId
     }
@@ -18,7 +16,6 @@ connection.start().then(function () {
         data: JSON.stringify(data),
         success: function (response) {
             console.log('Successful response:', response);
-
         },
         error: function (x,y,z){
 
@@ -27,79 +24,195 @@ connection.start().then(function () {
 }).catch(function (err) {
     return console.error(err.toString());
 });
-var myUserName = localStorage.getItem("userName");
+
 connection.on("ReceiveMessage", function (user,message) {
-    var li = document.createElement("div");
-    if (user === myUserName) {
-        li.innerHTML = "<span class='user-message'>"+ message +"</span>";
-    } else {
-        li.innerHTML = "<span class='sender-message'>" + message + "</span>";
-    }
-    document.getElementById("messaging-messages").appendChild(li);
+    SetMessages(user,friendName,message)
 });
-function StartChat(friendId){
-    const chatContainer = document.getElementById('chatContainer');
-    const chatTopName = document.getElementById('chat-top-name');
-    const data = {
-        id: friendId
-    };
 
+connection.onclose(function (e) {
+    if (e) {
+        console.log("Connection lost: " + e);
+        UpdateStatus();
+    } else {
+        console.log("Connection lost.");
+        UpdateStatus();
+    }
+});
 
+document.getElementById("closeConnection").addEventListener("click",function (){
+    connection.stop()
+        .then(() => {
+            console.log('Bağlantı kapatıldı.');
+            UpdateStatus();
+        })
+        .catch((error) => {
+            console.error('Bağlantı kapatılırken hata oluştu:', error);
+            UpdateStatus();
+        });
+});
+
+var friendConnectionId;
+var friendName;
+var userName = localStorage.getItem("userName");
+function StartChat(userId,friendId,friendUserName,friendFirstName,friendLastName){
+
+    const existingContainers = document.querySelectorAll('.messaging-container');
+
+    existingContainers.forEach(container => {
+        container.remove();
+    });
+
+    let existingContainer = document.getElementById(friendId);
+
+    if (!existingContainer) {
+        existingContainer = createChatContainer(friendId, friendUserName,friendFirstName,friendLastName);
+    }
+
+    existingContainer.style.display = 'block';
+
+    const newFriendContainer = document.getElementById(friendId);
+    if (newFriendContainer) {
+        newFriendContainer.classList.remove('hidden');
+    }
+    
+    if (document.getElementById(`messaging-messages-${friendUserName}`).innerHTML.trim() === '') {
+        //To get chat messages
+        const getChatData = {
+            SenderId: friendId,
+            ReceiverId: userId
+        }
+        $.ajax({
+            url: 'http://localhost:5015/api/Chat/getChatMessages',
+            type: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "bearer " + token
+            },
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(getChatData),
+            success: function (response) {
+                console.log('Successful response:', response);
+                response.forEach(function (chatMessage) {
+
+                    const senderId = chatMessage.senderId;
+                    const receiverId = chatMessage.receiverId
+                    const message = chatMessage.messageText;
+
+                    const div = document.createElement("div");
+                    if (parseInt(userId) === parseInt(senderId)) {
+                        div.innerHTML = "<span class='user-message'>" + message + "</span>";
+                    }
+                    if (parseInt(userId) === parseInt(receiverId)) {
+                        div.innerHTML = "<span class='sender-message'>" + message + "</span>";
+                    }
+                    document.getElementById(`messaging-messages-${friendUserName}`).appendChild(div);
+                });
+            },
+            error: function (x, y, z) {
+
+            }
+        });
+    }
+    
     $.ajax({
-        url: 'http://localhost:5015/api/User/GetUser',
+        url: 'http://localhost:5015/api/Chat/getConnectionId',
         type: 'POST',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(data),
+        data: JSON.stringify(friendUserName),
         success: function (response) {
-            console.log('Successful response:', response);
-            if (chatContainer.style.display === 'none'){
-                chatContainer.style.display = 'block';
-            }
-            const friend = response;
-            const friendInfoDiv = document.createElement('div');
-            
-            friendInfoDiv.style.display = 'flex';
+            console.log('Successful response:', response, friendUserName);
+            friendConnectionId = response;
+            friendName = friendUserName;
 
-            const img = document.createElement('img');
-            img.src = friend.profilePhoto;
-            img.className = 'messaging-container-pp';
-            img.style.marginTop = '2.5px';
-            img.style.marginRight = '5px';
-
-            const div = document.createElement('div');
-            div.className = 'chat-friend-name';
-            div.textContent = friend.firstName + ' ' + friend.lastName;
-
-            friendInfoDiv.appendChild(img);
-            friendInfoDiv.appendChild(div);
-
-            chatTopName.appendChild(friendInfoDiv);
-            function Refresh() {
-                $.ajax({
-                    url: 'http://localhost:5015/api/Chat/getConnectionId',
-                    type: 'POST',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(friend.userName),
-                    success: function (response) {
-                        console.log('Successful response:', response);
-
-                        connection.invoke("AddUsersToGroup", token, friend.userName, response);
-                    },
-                    error: function (x, y, z) {
-
-                    }
+            connection.invoke("AddToGroup",userName,friendUserName,friendConnectionId)
+                .then(function () {
+                    console.log("Success");
+                })
+                .catch(function (error) {
+                    console.error("Error:", error);
                 });
-            }
-            setInterval(Refresh,5000);
-
-            document.getElementById("send-message-async").addEventListener("click", function () {
-                var message = document.getElementById("message-text").value;
-                connection.invoke("SendMessageToGroup",connection.connectionId ,token, friend.userName, message);
-            });
-        },
-        error: function (x,y,z){
+            },
+        error: function (x, y, z) {
 
         }
     });
+    
+    document.getElementById(`send-message-async-${friendUserName}`).addEventListener("click",function (){
+        var message = document.getElementById(`message-text-${friendUserName}`).value;
+        connection.invoke("SendMessageToGroup",token,friendUserName, message);
+        var data = {
+            SenderId: userId,
+            ReceiverId: friendId,
+            MessageText: message
+        }
+        $.ajax({
+            url: 'http://localhost:5015/api/Chat/recordMessage',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data),
+            success: function (response) {
+                console.log('Successful response:', response);
+                document.getElementById('message-text').textContent = '';
+                },
+            error: function (x, y, z) {
+            }
+        });
+    });
 }
 
+function createChatContainer(containerId, friendUserName,friendFirstName,friendLastName) {
+    // Create a new message container
+    const chatContainer = document.createElement('div');
+    chatContainer.id = containerId;
+    chatContainer.classList.add('messaging-container');
+    chatContainer.style.display = 'block';
+
+    // Create all HTML settings and add them
+    chatContainer.innerHTML = `
+        <div class="messaging-container-top">
+            <div class="messaging-container-top-name">
+                <div class="chat-friend-name" href="#">${friendFirstName} ${friendLastName}</div>
+            </div>
+            <div class="messaging-container-top-dash" onclick="Minimize()">
+                <i id="icon" class="fa-solid fa-window-minimize"></i>
+            </div>
+            <div class="messaging-container-top-x" onclick="CloseChat()">
+                <i class="fa-solid fa-x"></i>
+            </div>
+        </div>
+        <div class="messaging-container-messages" id="messaging-messages-${friendUserName}"></div>
+        <div class="messaging-container-send-area" id="messaging-send-${friendUserName}">
+            <input id="message-text-${friendUserName}" class="messaging-container-text-area">
+            <i id="send-message-async-${friendUserName}" class="messaging-container-send-message fa-regular fa-paper-plane"></i>
+        </div>
+    `;
+
+    // Add container to the page
+    document.getElementById("messagingContainerList").appendChild(chatContainer);
+
+    return chatContainer;
+}
+ function SetMessages(user,friendName,message){
+     const div = document.createElement("div");
+    if (user === userName) {
+        div.innerHTML = "<span class='user-message'>"+ message +"</span>";
+    } if(user === friendName) {
+        div.innerHTML = "<span class='sender-message'>" + message + "</span>";
+    }
+    document.getElementById(`messaging-messages-${friendName}`).appendChild(div);
+ }
+ 
+ function UpdateStatus(){
+     $.ajax({
+         url: 'http://localhost:5015/api/Chat/updateStatus',
+         type: 'POST',
+         contentType: 'application/json; charset=utf-8',
+         data: JSON.stringify(token),
+         success: function (response) {
+             console.log('Successful response:', response);
+         },
+         error: function (x,y,z){
+
+         }
+     });
+ }

@@ -30,9 +30,15 @@ var isHidden = true;
 
 function CloseChat(){
   var chatDiv = document.getElementById('chatContainer');
+  var friendDiv = document.getElementById('.friends-container');
 
   if(chatDiv.style.display === 'block'){
     chatDiv.style.display = 'none'
+    
+    // if(friendDiv.style.pointerEvents === 'none'){
+    //   friendDiv.style.pointerEvents = 'auto';
+    // }
+    
   }
 }
 

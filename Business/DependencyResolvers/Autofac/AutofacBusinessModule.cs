@@ -42,5 +42,8 @@ public class AutofacBusinessModule:Module
         
         builder.RegisterType<EfUserConnectionIdDao>().As<IUserConnectionIdDao>();
         builder.RegisterType<SignalRConnectionManager>().As<ISignalRConnectionService>();
+        
+        builder.RegisterType<EfMessageDao>().As<IMessageDao>();
+        builder.RegisterType<MessageManager>().As<IMessageService>();
     }
 }

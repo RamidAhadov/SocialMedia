@@ -121,6 +121,10 @@
       "PackagePath": "staticwebassets/js/Post/script.js"
     },
     {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Test/testScript.js",
+      "PackagePath": "staticwebassets/js/Test/testScript.js"
+    },
+    {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },

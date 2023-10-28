@@ -7,5 +7,6 @@ public interface ISignalRConnectionService
 {
     IResult RecordConnectionId(string token, string connectionId);
     IDataResult<string> GetConnectionId(string friendUserName);
+    IResult UpdateStatus(string token);
     IResult DeleteConnectionId(string token);
 }

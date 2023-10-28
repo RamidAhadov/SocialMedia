@@ -17,6 +17,7 @@ public class ChatHub : Hub
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
         await Groups.AddToGroupAsync(connectionId, groupName);
     }
+    
     private string GenerateGroupName(string user1, string user2)
     {
         var sortedStrings = new List<string> { user1, user2 };
@@ -26,19 +27,33 @@ public class ChatHub : Hub
 
         return combined;
     }
-    public async Task SendMessageToGroup(string connectionId,string token,string friendName, string message)
+    public async Task SendMessageToGroup(string token,string friendName, string message)
     {
         var userDto = TokenReader.DecodeToken(token);
-        string userConnectionId = Context.ConnectionId;
-        var messageClass = connectionId == userConnectionId ? "user-message" : "sender-message";
-        var formattedMessage = $"<span class='{messageClass}'>{message}</span>";
         string groupName = GenerateGroupName(userDto.UserName, friendName);
     
         await Clients.Group(groupName).SendAsync("ReceiveMessage", userDto.UserName,message);
     }
 
+    public async Task RemoveUserFromGroup(string token,string friendName)
+    {
+        var userDto = TokenReader.DecodeToken(token);
+        string groupName = GenerateGroupName(userDto.UserName, friendName);
+        await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
+    }
+
+    public async Task SendMessageToUser(string connectionId, string message, string user)
+    {
+        await Clients.Client(connectionId).SendAsync("ReceiveSpecificMessage", user, message);
+    }
+
     public override async Task OnConnectedAsync()
     {
         await base.OnConnectedAsync();
+    }
+
+    public override async Task OnDisconnectedAsync(Exception? exception)
+    {
+        await base.OnDisconnectedAsync(exception);
     }
 }
