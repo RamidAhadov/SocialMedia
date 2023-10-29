@@ -34,7 +34,8 @@ public class AuthManager:IAuthService
             PasswordHash = passwordHash,
             PasswordSalt = passwordSalt,
             Status = false,
-            ProfilePhotoUrl = "https://res.cloudinary.com/do2bvloo2/image/upload/v1697217971/gf0ivu9uusffo98rhsp4.png"
+            ProfilePhotoUrl = "https://res.cloudinary.com/do2bvloo2/image/upload/v1697217971/gf0ivu9uusffo98rhsp4.png",
+            CreatedDate = DateTime.Now
         };
         _userService.Add(user);
         return new SuccessDataResult<User>(user, Messages.UserCreated);

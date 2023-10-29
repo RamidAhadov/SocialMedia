@@ -106,5 +106,18 @@ namespace WebAPI.Controllers
 
             return BadRequest(result.Message);
         }
+
+        [HttpPost]
+        [Route("checkStatus")]
+        public IActionResult CheckStatus([FromBody] string userName)
+        {
+            var result = _connectionService.CheckStatus(userName);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return Ok(result.Data);
+        }
     }
 }

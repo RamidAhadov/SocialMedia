@@ -13,10 +13,12 @@ namespace WebAPI.Controllers
     public class FriendController : ControllerBase
     {
         private IFriendService _friendService;
+        private ISignalRConnectionService _connectionService;
 
-        public FriendController(IFriendService friendService)
+        public FriendController(IFriendService friendService, ISignalRConnectionService connectionService)
         {
             _friendService = friendService;
+            _connectionService = connectionService;
         }
 
         [HttpPost]
@@ -37,6 +39,19 @@ namespace WebAPI.Controllers
         public IActionResult CheckFriend([FromBody] int userId)
         {
             var result = _friendService.CheckFriend(userId);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet]
+        [Route("getLastSeen")]
+        public IActionResult GetLastSeen(string userName)
+        {
+            var result = _connectionService.GetLastSeen(userName);
             if (result.Success)
             {
                 return Ok(result.Data);

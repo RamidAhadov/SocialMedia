@@ -139,11 +139,15 @@
                         <div class="friends-container" onclick="StartChat('@Model.UserDto.Id','@friend.Id','@friend.UserName','@friend.FirstName','@friend.LastName')">
                             <div class="friend-pp">
                                 <img class="pp-image" src=@friend.ProfilePhoto>
+                                <div data-indicator-id ="@friend.UserName" class="indicator"></div>
                             </div>
                             <div class="friend-name">
                                 <h5>
                                     @friend.FirstName @friend.LastName
                                 </h5>
+                                <div id="status-@(friend.UserName)" data-lastseen-id="@friend.UserName" class="friend-lastSeen">
+                                    
+                                </div>
                             </div>
                         </div>
                     }

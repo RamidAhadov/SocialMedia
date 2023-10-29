@@ -70,7 +70,8 @@ public class UserManager:IUserService
             LastName = user.LastName,
             Email = user.Email,
             ProfilePhoto = user.ProfilePhotoUrl,
-            UserName = user.UserName
+            UserName = user.UserName,
+            CreatedDate = user.CreatedDate.ToString()
         };
         return userDto;
     }

@@ -374,7 +374,34 @@ main {
 .friend-name{
     margin-top: 8px;
 }
+.friend-lastSeen{
+    position: relative;
+    bottom: 4px;
+    left: 20px;
+    margin-top: 3px;
+    font-size: small;
+    color: gray;
+}
 /*end*/
+/* Indicator */
+.indicator{
+    position: absolute;
+    left: 3px;
+    bottom: 3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border-color: white;
+    border-width: 0.5px;
+    border-style: groove;
+}
+.online{
+    background-color: green;
+}
+.offline{
+    background-color: lightgray;
+}
+/* Indicator end*/
 .containerList{
     position: absolute;
     display: flex;

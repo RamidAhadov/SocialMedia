@@ -21,6 +21,7 @@ connection.start().then(function () {
 
         }
     });
+    IndicatorSetter();
 }).catch(function (err) {
     return console.error(err.toString());
 });
@@ -29,24 +30,18 @@ connection.on("ReceiveMessage", function (user,message) {
     SetMessages(user,friendName,message)
 });
 
-connection.onclose(function (e) {
-    if (e) {
-        console.log("Connection lost: " + e);
-        UpdateStatus();
-    } else {
-        console.log("Connection lost.");
-        UpdateStatus();
-    }
+window.addEventListener('beforeunload', function (event) {
+    UpdateStatus();
 });
 
 document.getElementById("closeConnection").addEventListener("click",function (){
     connection.stop()
         .then(() => {
-            console.log('Bağlantı kapatıldı.');
+            console.log('Connection closed.');
             UpdateStatus();
         })
         .catch((error) => {
-            console.error('Bağlantı kapatılırken hata oluştu:', error);
+            console.error('Connection lost: ', error);
             UpdateStatus();
         });
 });
@@ -215,4 +210,51 @@ function createChatContainer(containerId, friendUserName,friendFirstName,friendL
 
          }
      });
+ }
+ 
+ function IndicatorSetter(){
+    var indicators = document.querySelectorAll(".indicator");
+    indicators.forEach((indicator)=>{
+        const indicatorId = indicator.getAttribute("data-indicator-id");
+        $.ajax({
+            url: 'http://localhost:5015/api/Chat/checkStatus',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(indicatorId),
+            success: function (response) {
+                console.log('Successful response:', response);
+                if (response === 'Online'){
+                    indicator.classList.add('online');
+                    var status = document.getElementById(`status-${indicatorId}`)
+                    status.textContent = "Online";
+                }
+                if (response === 'Offline'){
+                    indicator.classList.add('offline')
+                    LastSeenSetter(indicatorId);
+                }
+            },
+            error: function (x,y,z){
+
+            }
+        });
+    });
+ }
+ 
+ function LastSeenSetter(userNameForLastSeen){
+    var lastSeens = document.querySelectorAll(".friend-lastSeen")
+     
+     lastSeens.forEach((lastSeen)=>{
+         $.ajax({
+             url: 'http://localhost:5015/api/Friend/getLastSeen?userName=' + userNameForLastSeen,
+             method: 'GET',
+             success: function (data) {
+                 if (lastSeen.id === `status-${userNameForLastSeen}`){
+                     lastSeen.textContent = data
+                 }
+             },
+             error: function (error) {
+                 console.log(error);
+             }
+         });
+     })
  }

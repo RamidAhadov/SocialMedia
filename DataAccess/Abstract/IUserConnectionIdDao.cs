@@ -6,5 +6,6 @@ namespace DataAccess.Abstract;
 
 public interface IUserConnectionIdDao:IEntityRepository<UserConnectionId>
 {
-   
+   void DeletePreviousRecord(string userName);
+   string GetLastConnectionId(string userName);
 }
