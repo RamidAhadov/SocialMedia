@@ -97,6 +97,10 @@
       "PackagePath": "staticwebassets/js/HomePage/getUserNameScript.js"
     },
     {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/notificationScript.js",
+      "PackagePath": "staticwebassets/js/HomePage/notificationScript.js"
+    },
+    {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/responseFriendRequest.js",
       "PackagePath": "staticwebassets/js/HomePage/responseFriendRequest.js"
     },

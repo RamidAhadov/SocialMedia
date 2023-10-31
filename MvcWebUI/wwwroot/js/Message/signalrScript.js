@@ -67,7 +67,6 @@ function StartChat(userId,friendId,friendUserName,friendFirstName,friendLastName
 
     const newFriendContainer = document.getElementById(friendId);
     if (newFriendContainer) {
-        newFriendContainer.classList.remove('hidden');
     }
     
     if (document.getElementById(`messaging-messages-${friendUserName}`).innerHTML.trim() === '') {
@@ -119,7 +118,7 @@ function StartChat(userId,friendId,friendUserName,friendFirstName,friendLastName
             friendConnectionId = response;
             friendName = friendUserName;
 
-            connection.invoke("AddToGroup",userName,friendUserName,friendConnectionId)
+            connection.invoke("AddUsersToGroup",userName,friendUserName,friendConnectionId)
                 .then(function () {
                     console.log("Success");
                 })
@@ -183,7 +182,7 @@ function createChatContainer(containerId, friendUserName,friendFirstName,friendL
     `;
 
     // Add container to the page
-    document.getElementById("messagingContainerList").appendChild(chatContainer);
+    document.body.appendChild(chatContainer);
 
     return chatContainer;
 }

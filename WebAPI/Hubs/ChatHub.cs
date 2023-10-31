@@ -9,10 +9,10 @@ public class ChatHub : Hub
     // {
     //     return Clients.All.SendAsync("ReceiveMessage", user, message);
     // }
-    public async Task AddUsersToGroup(string token,string friendUserName,string connectionId)
+    public async Task AddUsersToGroup(string userName,string friendUserName,string connectionId)
     {
-        var userDto = TokenReader.DecodeToken(token);
-        string groupName = GenerateGroupName(userDto.UserName, friendUserName);
+        //var userDto = TokenReader.DecodeToken(token);
+        string groupName = GenerateGroupName(userName, friendUserName);
         
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
         await Groups.AddToGroupAsync(connectionId, groupName);
@@ -45,6 +45,11 @@ public class ChatHub : Hub
     public async Task SendMessageToUser(string connectionId, string message, string user)
     {
         await Clients.Client(connectionId).SendAsync("ReceiveSpecificMessage", user, message);
+    }
+
+    public async Task SendNotification(string connectionId, string notificationContent)
+    {
+        await Clients.Client(connectionId).SendAsync("ReceiveNotification", notificationContent);
     }
 
     public override async Task OnConnectedAsync()

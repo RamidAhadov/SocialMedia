@@ -45,5 +45,8 @@ public class AutofacBusinessModule:Module
         
         builder.RegisterType<EfMessageDao>().As<IMessageDao>();
         builder.RegisterType<MessageManager>().As<IMessageService>();
+
+        builder.RegisterType<EfNotificationDao>().As<INotificationDao>();
+        builder.RegisterType<NotificationManager>().As<INotificationService>();
     }
 }

@@ -89,13 +89,13 @@
                     <h6 style="margin-top: 10px; margin-bottom: 0px">Likes: @post.LikeCount</h6>
                     <hr style="margin-top: 5px; margin-bottom: 10px;">
                     <div class="post-list-like-comment">
-                        <button class="like-button fa-solid fa-thumbs-up" data-post-id="@post.Id" onclick="Like()"></button>
+                        <button class="like-button fa-solid fa-thumbs-up" data-post-id="@post.Id" data-author-id="@post.AuthorId" onclick="Like()"></button>
                         <button type="button" data-toggle="collapse" data-target="#collapseExample@(post.Id)" aria-expanded="false" aria-controls="collapseExample" class="fa-solid fa-comment" onclick="ShowIsLiked()"></button>
                     </div>
                     <hr style="margin-top: 10px; margin-bottom: 10px;">
                         <div class="textarea-container">
                             <textarea type="text" id="post@(post.Id)" class="input-comment-content"></textarea>
-                            <button id="myButton" data-post-id="@post.Id" class="fa-regular fa-paper-plane send-comment" onclick="AddComment()"></button>
+                            <button id="myButton" data-post-author-id="@post.AuthorId" data-post-id="@post.Id" class="fa-regular fa-paper-plane send-comment" onclick="AddComment()"></button>
                         </div>
                     <div id="collapseExample@(post.Id)" class="collapse">
                         @foreach (var comment in @post.Comments)
@@ -111,7 +111,7 @@
                                         <p>@comment.CommentText</p>
                                     </div>
                                     <div class="comment-like-button">
-                                        <button data-comment-id="@comment.Id" onclick="LikeComment()" id=@comment.Id class="like-comment fa-regular fa-heart fa-xl"></button>
+                                        <button data-comment-author-id="@comment.AuthorId" data-comment-id="@comment.Id" onclick="LikeComment()" id=@comment.Id class="like-comment fa-regular fa-heart fa-xl"></button>
                                     </div>
                                     <div class="post-comment-like-count">
                                         @comment.LikeCount
@@ -125,6 +125,7 @@
                 </div>
             }
             <button id="closeConnection"></button>
+            <button id="executeFindRequest">Execute!</button>
             <div style="height: 12vh;"></div>
             </div>
         </section>
@@ -154,8 +155,19 @@
                 </div>
             </section>
         </div>
-        <div id="messagingContainerList" class="containerList">
-            
+        <div class="notifications-container" id="notificationsContainer">
+            <div id="friendRequests" class="friend-requests">
+                
+            </div>
+            <!--<div id="notificationHr" class="notification-hr">
+                <hr/>
+            </div> -->
+            <div id="activeNotifications" class="notifications">
+                
+            </div>
+            <!--<div id="emptyNotifications" class="empty-notifications">
+                
+            </div> -->
         </div>
     </main>
 
@@ -184,5 +196,7 @@
 <script src="~/js/Message/signalrScript.js"></script>
 
 <script src="~/lib/signalr/signalr.js"></script>
+
+<script src="~/js/HomePage/notificationScript.js"></script>
 </body>
 </html>

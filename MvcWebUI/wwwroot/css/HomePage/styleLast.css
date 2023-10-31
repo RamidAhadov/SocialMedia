@@ -1,19 +1,22 @@
 /* Temel stiller */
 body {
+    margin-top: 50px;
     height: auto;
     width: auto;
     font-family: Arial, sans-serif;
-    margin: 0;
     padding: 0;
-    background-color: #ffffff;
+    background: linear-gradient(to bottom, #e87030, #da6c31, #a8725e);
 }
 
 header {
-    position: relative;
+    position: fixed;
+    top: 0;
+    width: 100%;
     background-color: #ff7400;
     background: linear-gradient(to bottom, #f15805, #b6511b, #d56238);
     color: white;
     padding: 10px;
+    z-index: 1;
 }
 
 ::-webkit-scrollbar {
@@ -403,23 +406,20 @@ main {
 }
 /* Indicator end*/
 .containerList{
-    position: absolute;
     display: flex;
     width: 500px;
 }
 .messaging-container{
+    position: absolute;
     width: 250px;
     height: 300px;
     background-color: orange;
     right: 25%;
     bottom: 60px;
-    transition: 0.5s ease;
+    transition: bottom 0.5s ease;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-.messaging-container.hidden {
-    transform: translateX(-100px);
 }
 .messaging-container-top{
     display: flex;
@@ -555,7 +555,89 @@ main {
 .send-comment:hover{
     color: #000000 !important;
 }
-
+/*Notifications*/
+.notifications-container{
+    top:50px;
+    position: fixed;
+    right: 150px;
+    border-radius: 5px;
+    width: 25%;
+    background-color: whitesmoke;
+    padding: 5px;
+    max-height: 50%;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.empty-notifications{
+    width: 100%;
+    color: darkgray;
+    justify-content: center;
+    visibility: hidden;
+}
+.notification-hr{
+    width: 100%;
+    visibility: hidden;
+}
+.friend-request{
+    display: flex;
+    border-radius: 5px;
+    padding: 5px;
+    transition: 0.3s;
+}
+.friend-request:hover{
+    background-color: #9e9b9b;
+}
+.requester-info{
+    flex: 5;
+    display: flex;
+}
+.requester-pp{
+    margin-right: 10px;
+}
+.request-date{
+    color: #2f65ff;
+}
+.answer-buttons{
+    flex: 1;
+    display: flex;
+}
+.accept{
+    flex: 1;
+    height: 10px;
+    width: 10px;
+}
+.decline{
+    flex: 1;
+    height: 10px;
+    width: 10px;
+}
+.notification{
+    display: flex;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.notification:hover{
+    background-color: #9e9b9b;
+}
+.clear-notifications{
+    position: relative;
+    margin-left: 80%;
+    right: 10px;
+    width: 20%;
+    text-align: right;
+    cursor: pointer;
+}
+.notification-image{
+    margin-right: 10px;
+}
+.notification-date{
+    color: #2f65ff;
+}
+/*End notification*/
 #myButton {
     position: absolute;
     bottom: 10px;

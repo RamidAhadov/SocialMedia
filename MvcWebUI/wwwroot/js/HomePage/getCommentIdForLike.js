@@ -1,6 +1,7 @@
 function LikeComment() {
     var button = event.target;
     var commentId = button.getAttribute("data-comment-id");
+    var authorId = button.getAttribute("data-comment-author-id")
     var likeCommentButton = document.getElementById(commentId);
     var className = likeCommentButton.className;
     var buttonColor = likeCommentButton.style.color;
@@ -34,6 +35,32 @@ function LikeComment() {
                 likeCommentButton.className = 'like-comment fa-solid fa-heart fa-xl';
                 likeCommentButton.style.color = 'red';
             }
+            if (response === 'Comment liked'){
+                
+                var notificationData = {
+                    Token: token,
+                    ReceiverId: authorId,
+                    Template: 'LKC'
+                }
+                $.ajax({
+                    url: 'http://localhost:5015/api/Notification/recordNotification',
+                    type: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "bearer " + token
+                    },
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(notificationData),
+                    success: function (response) {
+                        console.log('Successful response:', response);
+
+                    },
+                    error: function (x, y, z) {
+
+                    }
+                });
+            }
+            
         },
         error: function (x, y, z) {
 

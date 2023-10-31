@@ -35,6 +35,7 @@ public class ThinkContext:IdentityDbContext
     public DbSet<Comment> Comments { get; set; }
     
     public DbSet<Message> Messages { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
     public DbSet<OperationClaim> OperationClaims { get; set; }
     public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
     public DbSet<PostLikedUser> PostLikedUsers { get; set; }

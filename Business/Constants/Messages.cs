@@ -4,6 +4,10 @@ namespace Business.Constants;
 
 public class Messages
 {
+    public static string PostLiked = "Post liked";
+    public static string PostUnLiked = "Post unliked";
+    public static string CommentLiked = "Comment liked";
+    public static string CommentUnLiked = "Comment unliked";
     public static string ConenctionIdRecorded = "Connection Id recorded successfully.";
     public static string UserExists = "User already exists on system.";
     public static string UserCreated = "Registration completed successfully.";

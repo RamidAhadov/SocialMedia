@@ -2,6 +2,7 @@ function AddComment(){
 
     var button = event.target;
     var postId = button.getAttribute("data-post-id");
+    var authorId = button.getAttribute("data-post-author-id");
     
     var textId = "post" + postId;
     
@@ -27,6 +28,29 @@ function AddComment(){
         data: JSON.stringify(data),
         success: function (response) {
             console.log('Successful response:', response);
+            
+            var notificationData = {
+                Token:token,
+                ReceiverId:authorId,
+                Template: 'WRC'
+            }
+            $.ajax({
+                url: 'http://localhost:5015/api/Notification/recordNotification',
+                type: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "bearer " + token
+                },
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(notificationData),
+                success: function (response) {
+                    console.log('Successful response:', response);
+
+                },
+                error: function (x, y, z) {
+
+                }
+            });
 
         },
         error: function (x,y,z){

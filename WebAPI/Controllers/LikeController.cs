@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Business.Constants;
 using Core.Entities.Concrete;
 using DataContracts.Models;
 using Microsoft.AspNetCore.Http;
@@ -28,10 +29,10 @@ namespace WebAPI.Controllers
             var result = _likeService.LikePost(model.PostLikedUser, model.Token);
             if (result.Success)
             {
-                return Ok();
+                return Ok(Messages.PostLiked);
             }
 
-            return BadRequest();
+            return BadRequest(Messages.PostUnLiked);
         }
         [HttpPost]
         [Route("likeComment")]
@@ -40,10 +41,10 @@ namespace WebAPI.Controllers
             var result = _likeService.LikeComment(model.CommentLikedUser, model.Token);
             if (result.Success)
             {
-                return Ok();
+                return Ok(Messages.CommentLiked);
             }
 
-            return BadRequest();
+            return BadRequest(Messages.CommentUnLiked);
         }
 
         [HttpPost]
