@@ -2,18 +2,18 @@
 
 window.addEventListener('load', function () {
 
-  var div = this.document.getElementById('messaging-messages')
+  //var div = this.document.getElementById('messaging-messages')
 
-  div.scrollTop = div.scrollHeight;
+  //div.scrollTop = div.scrollHeight;
 });
 
 //For minimize chat window
 
 var isMinimized = false;
 
-function Minimize() {
-  var chatDiv = document.getElementById('chatContainer');
-  var icon = document.getElementById('icon');
+function Minimize(containerId) {
+  var chatDiv = document.getElementById(`container${containerId}`);
+  var icon = document.getElementById(`icon${containerId}`);
   
   if (isMinimized) {
     chatDiv.style.bottom = '60px';
@@ -28,12 +28,19 @@ function Minimize() {
 
 var isHidden = true;
 
-function CloseChat(){
-  var chatDiv = document.getElementById('chatContainer');
+function CloseChat(friendUserName, containerId){
+  var chatDiv = document.getElementById(`container${containerId}`);
   var friendDiv = document.getElementById('.friends-container');
 
   if(chatDiv.style.display === 'block'){
     chatDiv.style.display = 'none'
+
+    const existingContainers = document.querySelectorAll('.messaging-container');
+
+    existingContainers.forEach(container => {
+      container.remove();
+      connection.invoke("RemoveUserFromGroup",token,friendUserName);
+    });
     
     // if(friendDiv.style.pointerEvents === 'none'){
     //   friendDiv.style.pointerEvents = 'auto';

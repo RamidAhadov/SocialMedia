@@ -1,3 +1,4 @@
+using Business.Models;
 using Core.Utilities.Security.Jwt;
 using Microsoft.AspNetCore.SignalR;
 
@@ -47,9 +48,9 @@ public class ChatHub : Hub
         await Clients.Client(connectionId).SendAsync("ReceiveSpecificMessage", user, message);
     }
 
-    public async Task SendNotification(string connectionId, string notificationContent)
+    public async Task SendNotification(string connectionId, NotificationModel model)
     {
-        await Clients.Client(connectionId).SendAsync("ReceiveNotification", notificationContent);
+        await Clients.Client(connectionId).SendAsync("ReceiveNotification", model);
     }
 
     public override async Task OnConnectedAsync()

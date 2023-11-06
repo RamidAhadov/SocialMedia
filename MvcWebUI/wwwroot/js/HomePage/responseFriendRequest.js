@@ -1,8 +1,8 @@
-function AcceptRequest() {
+function AcceptRequest(senderId,receiverId) {
     const listItem = document.querySelector('.accept-button');
 
-    const senderId = listItem.getAttribute('data-sender-id');
-    const receiverId = listItem.getAttribute('data-receiver-id');
+    //const senderId = listItem.getAttribute('data-sender-id');
+    //const receiverId = listItem.getAttribute('data-receiver-id');
     
     var data = {
         SenderId: senderId,
@@ -48,11 +48,8 @@ function AcceptRequest() {
     });
 }
 
-function DeclineRequest() {
+function DeclineRequest(senderId,receiverId) {
     const listItem = document.querySelector('.decline-button');
-
-    const senderId = listItem.getAttribute('data-sender-id');
-    const receiverId = listItem.getAttribute('data-receiver-id');
 
     var data = {
         SenderId: senderId,

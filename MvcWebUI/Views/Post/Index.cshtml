@@ -49,19 +49,7 @@
                         </div>
                     }
                     <div>
-                        <li type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><a class="notification-button fa-regular fa-bell"></a></li>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                @foreach (var request in Model.ReceivedRequests)
-                                {
-                                    <div class="dropdown-item" style="display: flex;">
-                                        <a>@request.SenderName</a>
-                                        <div class="request-answer">
-                                            <li data-sender-id="@request.SenderId" data-receiver-id="@request.ReceiverId" class="decline-button fa-solid fa-x" type="button" onclick="DeclineRequest()"></li>
-                                            <li data-sender-id="@request.SenderId" data-receiver-id="@request.ReceiverId" class="accept-button fa-solid fa-check" type="button" onclick="AcceptRequest()"></li>
-                                        </div>
-                                    </div>
-                                }
-                        </div>
+                        <li type="button" id="showNotifications"><a class="notification-button fa-regular fa-bell"></a></li>
                     </div>
                     <li><a id="nav-profile-photo" data-userName-id="@Model.UserDto.UserName" class="profile-button" href="#"><img src=@Model.UserDto.ProfilePhoto alt="PP" width="30px" height="30px" style="border-radius: 50%"></a></li>
                 </div>
@@ -159,15 +147,15 @@
             <div id="friendRequests" class="friend-requests">
                 
             </div>
-            <!--<div id="notificationHr" class="notification-hr">
-                <hr/>
-            </div> -->
+            <div id="notificationHrContainer" class="notification-hr-container">
+            
+            </div>
             <div id="activeNotifications" class="notifications">
                 
             </div>
-            <!--<div id="emptyNotifications" class="empty-notifications">
+            <div id="emptyNotifications" class="empty-notifications">
                 
-            </div> -->
+            </div>
         </div>
     </main>
 
