@@ -24,49 +24,7 @@ namespace WebAPI.Controllers
             _connectionService = connectionService;
             _messageService = messageService;
         }
-        //If users another connection id exists in base, method finds and removes it and adds new 
-        //connection id to base.
-        [HttpPost]
-        [Route("recordConnectionId")]
-        public IActionResult RecordConnectionId([FromBody] RecordConnectionModel model)
-        {
-            var result = _connectionService.RecordConnectionId(model.Token, model.ConnectionId);
-            if (result.Success)
-            {
-                return Ok();
-            }
 
-            return BadRequest();
-        }
-        
-        //Returns users active or last connection id
-        [HttpPost]
-        [Route("getConnectionId")]
-        public IActionResult GetConnectionId([FromBody] string friendUserName)
-        {
-            var result = _connectionService.GetConnectionId(friendUserName);
-            if (result.Success)
-            {
-                return Ok(result.Data);
-            }
-
-            return BadRequest();
-        }
-        
-        //Removes users connection id from the base
-        [HttpPost]
-        [Route("deleteConnectionId")]
-        public IActionResult DeleteConnectionId([FromBody] string connectionId)
-        {
-            var result = _connectionService.DeleteConnectionId(connectionId);
-            if (result.Success)
-            {
-                return Ok();
-            }
-
-            return Ok();
-        }
-        
         //Records new message to base
         [HttpPost]
         [Route("recordMessage")]

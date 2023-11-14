@@ -85,6 +85,10 @@
       "PackagePath": "staticwebassets/js/HomePage/getCommentIdForLike.js"
     },
     {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/getConnectionIdScript.js",
+      "PackagePath": "staticwebassets/js/HomePage/getConnectionIdScript.js"
+    },
+    {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/getPostId.js",
       "PackagePath": "staticwebassets/js/HomePage/getPostId.js"
     },

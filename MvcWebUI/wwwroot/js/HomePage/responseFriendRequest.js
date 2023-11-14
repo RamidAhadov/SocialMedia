@@ -36,6 +36,31 @@ function AcceptRequest(senderId,receiverId) {
                 success: function (response) {
                     console.log('Successful response:', response);
 
+                    //---------------------------//
+                    const recordedNotificationModel = JSON.parse(JSON.stringify(response));
+                    $.ajax({
+                        url: 'http://localhost:5015/api/Connection/getConnectionIdById',
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(senderId),
+                        success: function (response) {
+                            console.log('Successful response:', response);
+
+                            const profilePhoto = recordedNotificationModel.profilePhoto;
+                            const notificationContent = recordedNotificationModel.notificationContent;
+                            const notificationDate = recordedNotificationModel.notificationDate;
+                            const senderId = recordedNotificationModel.senderId.toString();
+                            const receiverId = recordedNotificationModel.receiverId.toString();
+
+                            //Bu ishe dusmur. Yegin ki datalar uygun gelmir.
+                            connection.invoke("SendNotification",response,profilePhoto, notificationContent,notificationDate, senderId,receiverId);
+                        },
+                        error: function (x, y, z) {
+
+                        }
+                    });
+                    //---------------//
+
                 },
                 error: function (x, y, z) {
 

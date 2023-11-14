@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZR0K9SeVhm5pHVx0mVVN+RLo8t1VP0rOcl8ByPD5kxA=",
+  "Hash": "5JOYXQh1O6tEASVk9K2bewd3UHHEUHbnDtCJBRaDh2c=",
   "Source": "MvcWebUI",
   "BasePath": "_content/MvcWebUI",
   "Mode": "Default",
@@ -401,6 +401,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/HomePage/getCommentIdForLike.js"
+    },
+    {
+      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/getConnectionIdScript.js",
+      "SourceId": "MvcWebUI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/",
+      "BasePath": "_content/MvcWebUI",
+      "RelativePath": "js/HomePage/getConnectionIdScript.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/HomePage/getConnectionIdScript.js"
     },
     {
       "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/getPostId.js",

@@ -11,16 +11,19 @@ document.getElementById('showNotifications').addEventListener('click',function (
     }
     //document.getElementById('notificationsContainer').style.visibility = 'visible';
 });
-// document.getElementById('showNotifications').addEventListener('click', function () {
-//     var bell = document.getElementById('notificationsContainer');
-//     var computedStyle = window.getComputedStyle(bell);
-//
-//     if (computedStyle.visibility === 'hidden') {
-//         bell.style.visibility = 'visible';
-//     } else if (computedStyle.visibility === 'visible') {
-//         bell.style.visibility = 'hidden';
-//     }
-// });
+
+connection.on("ReceiveNotification", function (profilePhoto,notificationContent,notificationDate,senderId,receiverId) {
+    
+    var model = {
+        profilePhoto: profilePhoto,
+        notificationContent: notificationContent,
+        notificationDate:notificationDate,
+        senderId: senderId,
+        receiverId:receiverId
+    }
+    
+    GetNotifications(JSON.stringify(model));
+});
 
 FillNotificationContainer(token)
 
@@ -131,7 +134,7 @@ function GetFriendRequests(request) {
 
 function GetNotifications(request) {
 
-    if(request != null) {
+    //if(request !== '') {
         var data = JSON.parse(request);
         
         
@@ -159,5 +162,5 @@ function GetNotifications(request) {
         notificationContainer.appendChild(notification);
 
         return notificationContainer;
-    }
+    //}
 }

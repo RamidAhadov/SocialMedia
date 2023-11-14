@@ -65,6 +65,18 @@ public class SignalRConnectionManager:ISignalRConnectionService
         return new ErrorDataResult<string>(Messages.UserIsNotOnline);
     }
 
+    public IDataResult<string> GetConnectionIdById(int id)
+    {
+        var connectionId = _connectionIdDao.Get(c => c.UserId == id &&
+                                                     c.Status == "Online");
+        if (connectionId != null)
+        {
+            return new SuccessDataResult<string>(data:connectionId.ConnectionId);
+        }
+
+        return new ErrorDataResult<string>(Messages.UserIsNotOnline);
+    }
+
     public IDataResult<string> GetLastSeen(string userName)
     {
         var userConnectionId = _connectionIdDao.Get(uc => uc.UserName == userName &&

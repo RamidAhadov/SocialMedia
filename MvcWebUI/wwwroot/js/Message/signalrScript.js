@@ -10,7 +10,7 @@ connection.start().then(function () {
         ConnectionId: connection.connectionId
     }
     $.ajax({
-        url: 'http://localhost:5015/api/Chat/recordConnectionId',
+        url: 'http://localhost:5015/api/Connection/recordConnectionId',
         type: 'POST',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(data),
@@ -112,7 +112,7 @@ function StartChat(userId,friendId,friendUserName,friendFirstName,friendLastName
             });
         }
         $.ajax({
-            url: 'http://localhost:5015/api/Chat/getConnectionId',
+            url: 'http://localhost:5015/api/Connection/getConnectionId',
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(friendUserName),

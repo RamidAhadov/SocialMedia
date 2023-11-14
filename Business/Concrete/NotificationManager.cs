@@ -23,7 +23,7 @@ public class NotificationManager:INotificationService
         _notificationDao = notificationDao;
     }
 
-    public IResult RecordNotification(NotificationDto dto)
+    public IDataResult<NotificationModel> RecordNotification(NotificationDto dto)
     {
         try
         {
@@ -38,14 +38,43 @@ public class NotificationManager:INotificationService
             if (notification.SenderId != notification.ReceiverId)
             {
                 _notificationDao.Add(notification);
-                return new SuccessResult();
+                
+                var model = new NotificationModel
+                {
+                    SenderId = sender.Id,
+                    ReceiverId = dto.ReceiverId,
+                    ProfilePhoto = sender.ProfilePhoto,
+                    NotificationDate = "Just now",
+                    NotificationId = sender.Id + dto.ReceiverId
+                };
+                if (dto.Template == "ACF")
+                {
+                    model.NotificationContent =
+                        Notifications.AcceptFriendRequestTemplate(sender.FirstName, sender.LastName);
+                }
+                if (dto.Template == "LKP")
+                {
+                    model.NotificationContent =
+                        Notifications.LikePostTemplate(sender.FirstName, sender.LastName);
+                }
+                if (dto.Template == "LKC")
+                {
+                    model.NotificationContent =
+                        Notifications.LikeCommentTemplate(sender.FirstName, sender.LastName);
+                }
+                if (dto.Template == "WRC")
+                {
+                    model.NotificationContent =
+                        Notifications.WriteCommentTemplate(sender.FirstName, sender.LastName);
+                }
+                return new SuccessDataResult<NotificationModel>(model);
             }
 
-            return new ErrorResult();
+            return new ErrorDataResult<NotificationModel>();
         }
         catch (Exception e)
         {
-            return new ErrorResult();
+            return new ErrorDataResult<NotificationModel>();
         }
     }
 

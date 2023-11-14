@@ -7,7 +7,7 @@ namespace Business.Abstract;
 
 public interface INotificationService
 {
-    IResult RecordNotification(NotificationDto dto);
+    IDataResult<NotificationModel> RecordNotification(NotificationDto dto);
     IDataResult<List<RequestModel>> GetFriendRequestNotifications(string token);
     IDataResult<List<NotificationModel>> GetNotifications(string token);
 }

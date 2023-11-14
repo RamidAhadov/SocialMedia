@@ -48,10 +48,24 @@ public class ChatHub : Hub
         await Clients.Client(connectionId).SendAsync("ReceiveSpecificMessage", user, message);
     }
 
-    public async Task SendNotification(string connectionId, NotificationModel model)
+    // public async Task SendNotification(string connectionId, NotificationModel model)
+    // {
+    //     await Clients.Client(connectionId).SendAsync("ReceiveNotification", model);
+    // }
+    
+    public async Task SendNotification(string connectionId, string profilePhoto, string notificationContent, string notificationDate, string senderId, string receiverId)
     {
-        await Clients.Client(connectionId).SendAsync("ReceiveNotification", model);
+        try
+        {
+            await Clients.Client(connectionId).SendAsync("ReceiveNotification", profilePhoto, notificationContent,notificationDate,senderId,receiverId);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Hub metodunda hata oluştu: {ex.Message}");
+            throw;
+        }
     }
+
 
     public override async Task OnConnectedAsync()
     {

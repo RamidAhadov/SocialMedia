@@ -37,7 +37,7 @@ public class NotificationController : ControllerBase
         var result = _notificationService.RecordNotification(dto);
         if (result.Success)
         {
-            return Ok();
+            return Ok(result.Data);
         }
 
         return BadRequest();
