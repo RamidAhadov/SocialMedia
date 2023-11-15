@@ -195,6 +195,14 @@ main {
 .post-button:hover{
     color: #000000;
 }
+.clear-notifications{
+    position: relative;
+    margin-left: 80%;
+    right: 10px;
+    width: 20%;
+    text-align: right;
+    cursor: pointer;
+}
 .notification-button{
     z-index: 1;
     position: relative;

@@ -69,6 +69,10 @@
       "PackagePath": "staticwebassets/js/HomePage/addCommentScript.js"
     },
     {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/clearNotificationsScript.js",
+      "PackagePath": "staticwebassets/js/HomePage/clearNotificationsScript.js"
+    },
+    {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/collapseScript.js",
       "PackagePath": "staticwebassets/js/HomePage/collapseScript.js"
     },

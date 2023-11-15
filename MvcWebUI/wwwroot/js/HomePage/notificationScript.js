@@ -25,6 +25,19 @@ connection.on("ReceiveNotification", function (profilePhoto,notificationContent,
     GetNotifications(JSON.stringify(model));
 });
 
+connection.on("ReceiveFriendRequest", function (profilePhoto,notificationContent,notificationDate,senderId,receiverId) {
+
+    var model = {
+        profilePhoto: profilePhoto,
+        requestContent: notificationContent,
+        requestDate:notificationDate,
+        senderId: senderId,
+        userId:receiverId
+    }
+
+    GetFriendRequests(JSON.stringify(model));
+});
+
 FillNotificationContainer(token)
 
 function FillNotificationContainer(token) {

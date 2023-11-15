@@ -65,6 +65,19 @@ public class ChatHub : Hub
             throw;
         }
     }
+    
+    public async Task SendFriendRequest(string connectionId, string profilePhoto, string notificationContent, string notificationDate, string senderId, string receiverId)
+    {
+        try
+        {
+            await Clients.Client(connectionId).SendAsync("ReceiveFriendRequest", profilePhoto, notificationContent,notificationDate,senderId,receiverId);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Hub metodunda hata oluştu: {ex.Message}");
+            throw;
+        }
+    }
 
 
     public override async Task OnConnectedAsync()

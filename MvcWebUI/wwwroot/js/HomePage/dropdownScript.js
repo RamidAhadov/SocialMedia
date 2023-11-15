@@ -124,6 +124,31 @@ function updateDropdownContent(response) {
                                 data: JSON.stringify(requestData),
                                 success: function (response) {
                                     console.log(response);
+                                    //Send online request
+
+                                    //connection.invoke("SendNotification",response,profilePhoto, notificationContent,notificationDate, senderId,receiverId);
+
+                                    $.ajax({
+                                        url: 'http://localhost:5015/api/Connection/getConnectionIdById',
+                                        type: 'POST',
+                                        contentType: 'application/json; charset=utf-8',
+                                        data: JSON.stringify(result.id),
+                                        success: function (response) {
+                                            console.log('Successful response:', response);
+
+                                            const profilePhoto = result.profilePhotoUrl;
+                                            const notificationContent = `${result.firstName} ${result.lastName} has sent you a friend request.`;
+                                            const notificationDate = 'Just now.'
+                                            const senderId = userId.toString();
+                                            const receiverId = result.id.toString();
+
+                                            //Bu ishe dusmur. Yegin ki datalar uygun gelmir.
+                                            connection.invoke("SendFriendRequest",response,profilePhoto, notificationContent,notificationDate, senderId,receiverId);
+                                        },
+                                        error: function (x, y, z) {
+
+                                        }
+                                    });
                                 },
                                 error: function (x, y, z) {
 
