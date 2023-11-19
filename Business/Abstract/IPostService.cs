@@ -11,6 +11,6 @@ public interface IPostService
     IDataResult<Post> GetPostByAuthorId(int authorId);
     void AddPost(PostForAddDto postForAddDto, string token);
     IDataResult<Post> UpdatePost(Post post);
-    IDataResult<Post> DeletePost(Post post);
+    IDataResult<Post> DeletePost(int postId);
     IDataResult<List<PostLikedUsersModel>> GetLikedUsers(List<Post> posts);
 }

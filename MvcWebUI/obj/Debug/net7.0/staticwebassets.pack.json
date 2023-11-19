@@ -77,6 +77,10 @@
       "PackagePath": "staticwebassets/js/HomePage/collapseScript.js"
     },
     {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/deletePostScript.js",
+      "PackagePath": "staticwebassets/js/HomePage/deletePostScript.js"
+    },
+    {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/designScript.js",
       "PackagePath": "staticwebassets/js/HomePage/designScript.js"
     },
@@ -103,6 +107,10 @@
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/getUserNameScript.js",
       "PackagePath": "staticwebassets/js/HomePage/getUserNameScript.js"
+    },
+    {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/notificationCountScript.js",
+      "PackagePath": "staticwebassets/js/HomePage/notificationCountScript.js"
     },
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/notificationScript.js",

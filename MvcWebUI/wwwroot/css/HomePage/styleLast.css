@@ -64,7 +64,7 @@ nav ul li a {
     color: green;
 }
 .navbar-search{
-    width: 60vh !important; 
+    width: 60vh !important;
     border-bottom-left-radius: 10px!important;
     border-top-left-radius: 10px!important;
     padding-left: 10px!important;
@@ -144,8 +144,8 @@ main {
     margin-top: 10px;
     background-color: #ffffff;
     backdrop-filter: blur(10px);
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -195,6 +195,40 @@ main {
 .post-button:hover{
     color: #000000;
 }
+/*Post Head items*/
+.post-head-items{
+    display: flex;
+}
+.left-post-head-items{
+    flex: 29;
+    left: 0px;
+}
+.right-post-head-items{
+    margin: 0;
+    flex: 1;
+    border-radius: 50% !important;
+}
+.post-more-choises{
+    width: 20px;
+    height: 20px;
+    justify-content: center;
+    border-radius: 50% !important;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.post-more-choises:hover{
+    background-color: lightgray;
+}
+.more-choises{
+    border-radius: 50% !important;
+}
+.post-dropdown-items{
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+/*----------------*/
 .clear-notifications{
     position: relative;
     margin-left: 80%;
@@ -218,7 +252,7 @@ main {
 }
 .notification-circle{
     z-index: 2;
-    position: relative;
+    position: absolute;
     width: 13px;
     height: 13px;
     border-radius: 50%;
@@ -226,8 +260,11 @@ main {
     background-color: red;
     justify-content: center;
     text-align: center;
-    right: -1.2%;
-    top: 45%;
+    border-color: white;
+    border-width: 0.5px;
+    border-style: groove;
+    right: 8.5%;
+    top: 23px;
 }
 .profile-button {
     margin-left: 15px;
@@ -246,7 +283,6 @@ main {
     width: 49.72%;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
     transition: 0.3s;
 }
 .post-list-like-comment button:hover{

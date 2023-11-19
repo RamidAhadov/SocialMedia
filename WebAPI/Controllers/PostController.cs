@@ -89,6 +89,20 @@ namespace WebAPI.Controllers
 
         [Authorize]
         [HttpPost]
+        [Route("deletePost")]
+        public IActionResult DeletePost([FromBody] int postId)
+        {
+            var result = _postService.DeletePost(postId);
+            if (result.Success)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
+        [Authorize]
+        [HttpPost]
         [Route("addComment")]
         public IActionResult AddComment([FromBody] CommentForAddModel commentForAddModel)
         {

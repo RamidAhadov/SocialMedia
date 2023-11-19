@@ -51,10 +51,16 @@ public class PostManager:IPostService
         return new SuccessDataResult<Post>();
     }
 
-    public IDataResult<Post> DeletePost(Post post)
+    public IDataResult<Post> DeletePost(int postId)
     {
-        _postDao.Delete(post);
-        return new SuccessDataResult<Post>();
+        var deletedPost = _postDao.Get(p => p.Id == postId);
+        if (deletedPost != null)
+        {
+            _postDao.Delete(deletedPost);
+            return new SuccessDataResult<Post>(deletedPost);
+        }
+
+        return new ErrorDataResult<Post>();
     }
 
     public IDataResult<List<PostLikedUsersModel>> GetLikedUsers(List<Post> posts)

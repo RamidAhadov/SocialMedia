@@ -55,4 +55,30 @@ public class NotificationController : ControllerBase
 
         return Ok();
     }
+
+    [HttpGet]
+    [Route("getNotificationsCount")]
+    public IActionResult GetNotificationsCount(string token)
+    {
+        var result = _notificationService.NotificationsCount(token);
+        if (result.Success)
+        {
+            return Ok(result.Data);
+        }
+
+        return BadRequest();
+    }
+
+    [HttpPost]
+    [Route("deleteNotifications")]
+    public IActionResult DeleteNotifications([FromBody] string token)
+    {
+        var result = _notificationService.DeleteNotification(token);
+        if (result.Success)
+        {
+            return Ok();
+        }
+
+        return BadRequest();
+    }
 }

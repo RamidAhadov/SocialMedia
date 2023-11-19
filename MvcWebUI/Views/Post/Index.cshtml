@@ -41,16 +41,15 @@
                     <!--<input class="navbar-search" type="text" placeholder="Search friends..."> -->
                     <button class="navbar-search-button fa-solid fa-magnifying-glass"></button>
                 </div>
-                <div class="right-navbar-items">
-                    @if (Model.ReceivedRequests.Count != 0)
-                    {
-                        <div class="notification-circle">
-                            <div class="notification-count">@Model.ReceivedRequests.Count</div>
+                <div class="right-navbar-items" id="rightNavbarItems">
+                        <div id="rightNavbarItemsDiv">
+                            <!--<div class="notification-circle">
+                                <div class="notification-count"></div>
+                            </div> -->
+                            <div>
+                                <li type="button" id="showNotifications"><a class="notification-button fa-regular fa-bell"></a></li>
+                            </div>
                         </div>
-                    }
-                    <div>
-                        <li type="button" id="showNotifications"><a class="notification-button fa-regular fa-bell"></a></li>
-                    </div>
                     <li><a id="nav-profile-photo" data-userName-id="@Model.UserDto.UserName" class="profile-button" href="#"><img src=@Model.UserDto.ProfilePhoto alt="PP" width="30px" height="30px" style="border-radius: 50%"></a></li>
                 </div>
                 
@@ -60,63 +59,75 @@
 
     <main>
         <div class="section-post">
-        <section class="post">
-            <div class="post-box">
-                <textarea id="postArea" placeholder="What do you think?"></textarea>
-                <button class="post-button fas fa-paper-plane" style="font-size:25px;" onclick="AddPost()"></button>
-            </div>
-            <div class="posts">
-            @foreach (var post in Model.Posts)
-            {
-                <div class="post-list">
-                    <div>
-                        <p style="height: 5px;">@post.AuthorUserName</p>
-                        <p style="color: gray; height: 5px;"> @post.PostDate</p>
-                    </div>
-                    <p class="post-content">@post.PostText</p>
-                    <h6 style="margin-top: 10px; margin-bottom: 0px">Likes: @post.LikeCount</h6>
-                    <hr style="margin-top: 5px; margin-bottom: 10px;">
-                    <div class="post-list-like-comment">
-                        <button class="like-button fa-solid fa-thumbs-up" data-post-id="@post.Id" data-author-id="@post.AuthorId" onclick="Like()"></button>
-                        <button type="button" data-toggle="collapse" data-target="#collapseExample@(post.Id)" aria-expanded="false" aria-controls="collapseExample" class="fa-solid fa-comment" onclick="ShowIsLiked()"></button>
-                    </div>
-                    <hr style="margin-top: 10px; margin-bottom: 10px;">
-                        <div class="textarea-container">
-                            <textarea type="text" id="post@(post.Id)" class="input-comment-content"></textarea>
-                            <button id="myButton" data-post-author-id="@post.AuthorId" data-post-id="@post.Id" class="fa-regular fa-paper-plane send-comment" onclick="AddComment()"></button>
-                        </div>
-                    <div id="collapseExample@(post.Id)" class="collapse">
-                        @foreach (var comment in @post.Comments)
-                        {
-                            <div class="post-comment">
-                                <hr style="margin: 0%;">
-                                <div class="post-comment-head">
-                                    <p>@comment.AuthorUserName</p>
-                                    <p style="color: gray;">@comment.Date</p>
-                                </div>
-                                <div class="post-comment-content">
-                                    <div class="comment">
-                                        <p>@comment.CommentText</p>
-                                    </div>
-                                    <div class="comment-like-button">
-                                        <button data-comment-author-id="@comment.AuthorId" data-comment-id="@comment.Id" onclick="LikeComment()" id=@comment.Id class="like-comment fa-regular fa-heart fa-xl"></button>
-                                    </div>
-                                    <div class="post-comment-like-count">
-                                        @comment.LikeCount
-                                    </div>
-                                    <hr>
-                                </div>
-                                <hr>
-                            </div>
-                        }
-                    </div>
+            <section class="post">
+                <div class="post-box">
+                    <textarea id="postArea" placeholder="What do you think?"></textarea>
+                    <button class="post-button fas fa-paper-plane" style="font-size:25px;" onclick="AddPost()"></button>
                 </div>
-            }
-            <button id="closeConnection"></button>
-            <button id="executeFindRequest">Execute!</button>
-            <div style="height: 12vh;"></div>
-            </div>
-        </section>
+                <div class="posts">
+                    @foreach (var post in Model.Posts)
+                    {
+                        <div class="post-list" id="post-@(post.Id)">
+                            <div class="post-head-items">
+                                <div class="left-post-head-items">
+                                    <p style="height: 5px;">@post.AuthorUserName</p>
+                                    <p style="color: gray; height: 5px;"> @post.PostDate</p>
+                                </div>
+                                
+                                @if (post.AuthorId == Model.UserDto.Id)
+                                {
+                                    <div class="right-post-head-items">
+                                        <p class="post-more-choises" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-ellipsis more-choises" ></i></p>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item post-dropdown-items" href="#" onclick="DeletePost(@post.Id)">Delete post<i class="fa-solid fa-trash" style="margin-left: 50px; color: #da6c31;"></i></a>
+                                        </div>
+                                    </div>
+                                }
+                                </div>
+                            <p class="post-content">@post.PostText</p>
+                            <h6 style="margin-top: 10px; margin-bottom: 0px">Likes: @post.LikeCount</h6>
+                            <hr style="margin-top: 5px; margin-bottom: 10px;">
+                            <div class="post-list-like-comment">
+                                <button class="like-button fa-solid fa-thumbs-up" data-post-id="@post.Id" data-author-id="@post.AuthorId" onclick="Like()"></button>
+                                <button type="button" data-toggle="collapse" data-target="#collapseExample@(post.Id)" aria-expanded="false" aria-controls="collapseExample" class="fa-solid fa-comment" onclick="ShowIsLiked()"></button>
+                            </div>
+                            <hr style="margin-top: 10px; margin-bottom: 10px;">
+                            <div class="textarea-container">
+                                <textarea type="text" id="post@(post.Id)" class="input-comment-content"></textarea>
+                                <button id="myButton" data-post-author-id="@post.AuthorId" data-post-id="@post.Id" class="fa-regular fa-paper-plane send-comment" onclick="AddComment()"></button>
+                            </div>
+                            <div id="collapseExample@(post.Id)" class="collapse">
+                                @foreach (var comment in @post.Comments)
+                                {
+                                    <div class="post-comment">
+                                        <hr style="margin: 0%;">
+                                        <div class="post-comment-head">
+                                            <p>@comment.AuthorUserName</p>
+                                            <p style="color: gray;">@comment.Date</p>
+                                        </div>
+                                        <div class="post-comment-content">
+                                            <div class="comment">
+                                                <p>@comment.CommentText</p>
+                                            </div>
+                                            <div class="comment-like-button">
+                                                <button data-comment-author-id="@comment.AuthorId" data-comment-id="@comment.Id" onclick="LikeComment()" id=@comment.Id class="like-comment fa-regular fa-heart fa-xl"></button>
+                                            </div>
+                                            <div class="post-comment-like-count">
+                                                @comment.LikeCount
+                                            </div>
+                                            <hr>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                    <button id="closeConnection"></button>
+                    <button id="executeFindRequest">Execute!</button>
+                    <div style="height: 12vh;"></div>
+                </div>
+            </section>
     </div>
         <div class="section-friend">
             <section class="friends">
@@ -192,5 +203,9 @@
 <script src="~/js/HomePage/getConnectionIdScript.js"></script>
 
 <script src="~/js/HomePage/clearNotificationsScript.js"></script>
+
+<script src="~/js/HomePage/notificationCountScript.js"></script>
+
+<script src="~/js/HomePage/deletePostScript.js"></script>
 </body>
 </html>

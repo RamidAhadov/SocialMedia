@@ -23,6 +23,7 @@ connection.on("ReceiveNotification", function (profilePhoto,notificationContent,
     }
     
     GetNotifications(JSON.stringify(model));
+    GetCount();
 });
 
 connection.on("ReceiveFriendRequest", function (profilePhoto,notificationContent,notificationDate,senderId,receiverId) {
@@ -36,6 +37,7 @@ connection.on("ReceiveFriendRequest", function (profilePhoto,notificationContent
     }
 
     GetFriendRequests(JSON.stringify(model));
+    GetCount();
 });
 
 FillNotificationContainer(token)

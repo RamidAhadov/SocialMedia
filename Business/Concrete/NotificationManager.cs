@@ -159,4 +159,51 @@ public class NotificationManager:INotificationService
 
         return new ErrorDataResult<List<NotificationModel>>();
     }
+
+    public IDataResult<string> NotificationsCount(string token)
+    {
+        var user = TokenReader.DecodeToken(token);
+        try
+        {
+            int count;
+            var notifications = _notificationDao.GetList(n => 
+                n.ReceiverId == user.Id);
+            var friendRequests = _friendRequestDao.GetList(fr => 
+                fr.ReceiverId == user.Id &&
+                fr.Status == "Pending");
+            count = notifications.Count + friendRequests.Count;
+            if (count == 0)
+            {
+                return new ErrorDataResult<string>(message:"There is not notification.");
+            }
+            if (count > 20)
+            {
+                return new SuccessDataResult<string>(data: "20+");
+            }
+            return new SuccessDataResult<string>(data: count.ToString());
+        }
+        catch (Exception e)
+        {
+            return new ErrorDataResult<string>(e.Message);
+        }
+    }
+
+    public IResult DeleteNotification(string token)
+    {
+        var user = TokenReader.DecodeToken(token);
+        var notifications = _notificationDao.GetList(n => n.ReceiverId == user.Id);
+        try
+        {
+            foreach (var notification in notifications)
+            {
+                _notificationDao.Delete(notification);
+            }
+
+            return new SuccessResult();
+        }
+        catch (Exception e)
+        {
+            return new ErrorResult(e.Message);
+        }
+    }
 }

@@ -17,6 +17,8 @@ function AcceptRequest(senderId,receiverId) {
         success: function (response) {
             console.log('Successful response:', response);
             
+            GetCount();
+            
             //I used senderId instead of receiverId. Because if user accepts friend request then user
             //will send notification itself. But at here notification must send to requester.
             var notificationData = {
