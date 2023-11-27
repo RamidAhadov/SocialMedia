@@ -36,6 +36,19 @@ namespace WebAPI.Controllers
             return BadRequest();
         }
 
+        //[Authorize]
+        [HttpGet]
+        [Route("getPostsByAuthorId")]
+        public IActionResult GetPostsByAuthorId(int authorId)
+        {
+            var posts = _postService.GetPostsByAuthorId(authorId);
+            if (posts.Success)
+            {
+                return Ok(posts.Data);
+            }
+            return BadRequest();
+        }
+        
         [Obsolete]
         [Authorize]
         [HttpGet]
@@ -82,9 +95,13 @@ namespace WebAPI.Controllers
         [Route("addPost")]
         public IActionResult AddPost([FromBody] PostForAddDto postForAddDto)
         {
-            _postService.AddPost(postForAddDto,postForAddDto.Token);
+            var result = _postService.AddPost(postForAddDto,postForAddDto.Token);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
 
-            return Ok();
+            return BadRequest();
         }
 
         [Authorize]

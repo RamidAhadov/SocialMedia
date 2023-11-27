@@ -31,18 +31,45 @@ public class PostManager:IPostService
     {
         return new SuccessDataResult<Post>(_postDao.Get(p=>p.AuthorId==authorId));
     }
-    public void AddPost(PostForAddDto postForAddDto,string token)
+
+    public IDataResult<List<Post>> GetPostsByAuthorId(int authorId)
+    {
+        try
+        {
+            var list = _postDao.GetList(p => p.AuthorId == authorId);
+            foreach (var post in list)
+            {
+                post.Comments = _postDao.GetComments(post);
+            }
+            return new SuccessDataResult<List<Post>>(list);
+        }
+        catch (Exception e)
+        {
+            return new ErrorDataResult<List<Post>>();
+        }
+    }
+
+    public IDataResult<Post> AddPost(PostForAddDto postForAddDto,string token)
     {
         var user = TokenReader.DecodeToken(token);
-        var post = new Post
+        try
         {
-            AuthorId = user.Id,
-            AuthorName = user.FirstName + " " + user.LastName,
-            AuthorUserName = user.UserName,
-            PostDate = DateTime.Now,
-            PostText = postForAddDto.PostText
-        };
-        _postDao.Add(post);
+            var post = new Post
+            {
+                AuthorId = user.Id,
+                AuthorName = user.FirstName + " " + user.LastName,
+                AuthorUserName = user.UserName,
+                PostDate = DateTime.Now,
+                PostText = postForAddDto.PostText
+            };
+            _postDao.Add(post);
+
+            return new SuccessDataResult<Post>(post);
+        }
+        catch (Exception e)
+        {
+            return new ErrorDataResult<Post>();
+        }
     }
 
     public IDataResult<Post> UpdatePost(Post post)

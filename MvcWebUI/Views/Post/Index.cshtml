@@ -64,7 +64,7 @@
                     <textarea id="postArea" placeholder="What do you think?"></textarea>
                     <button class="post-button fas fa-paper-plane" style="font-size:25px;" onclick="AddPost()"></button>
                 </div>
-                <div class="posts">
+                <div class="posts" id="postsContainer">
                     @foreach (var post in Model.Posts)
                     {
                         <div class="post-list" id="post-@(post.Id)">
@@ -207,5 +207,7 @@
 <script src="~/js/HomePage/notificationCountScript.js"></script>
 
 <script src="~/js/HomePage/deletePostScript.js"></script>
+
+<script src="~/js/HomePage/UserPageScript.js"></script>
 </body>
 </html>

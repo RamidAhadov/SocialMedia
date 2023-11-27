@@ -1,6 +1,7 @@
 using Business.Abstract;
 using Core.Entities.Concrete;
 using Core.Entities.Concrete.Dtos;
+using Core.Utilities.Results;
 using Core.Utilities.Security.Jwt;
 using DataAccess.Abstract;
 
@@ -45,9 +46,38 @@ public class UserManager:IUserService
         return _userDao.Get(u => u.Email == email);
     }
 
-    public User GetByUserName(string userName)
+    public IDataResult<UserDto> GetByUserName(string userName)
     {
-        return _userDao.Get(u => u.UserName == userName);
+        var user = _userDao.Get(u => u.UserName == userName);
+        if (user is not null)
+        {
+            var userDto = new UserDto
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserName = user.UserName,
+                Email = user.Email,
+                CreatedDate = user.CreatedDate.ToString("yyyy MMMM dd"),
+                ProfilePhoto = user.ProfilePhotoUrl
+            };
+            return new SuccessDataResult<UserDto>(userDto);
+        }
+
+        return new ErrorDataResult<UserDto>();
+    }
+
+    public IDataResult<UserDto> GetByToken(string token)
+    {
+        try
+        {
+            var user = TokenReader.DecodeToken(token);
+            return new SuccessDataResult<UserDto>(user);
+        }
+        catch (Exception e)
+        {
+            return new ErrorDataResult<UserDto>();
+        }
     }
 
     public User GetByLoginInfo(string loginInfo)

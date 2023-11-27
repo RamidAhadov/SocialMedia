@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets/css/HomePage/styleLast.css"
     },
     {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/css/Profile/style.css",
+      "PackagePath": "staticwebassets/css/Profile/style.css"
+    },
+    {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/css/poststyle.css",
       "PackagePath": "staticwebassets/css/poststyle.css"
     },
@@ -63,6 +67,10 @@
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Account/tokenScript.js",
       "PackagePath": "staticwebassets/js/Account/tokenScript.js"
+    },
+    {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/UserPageScript.js",
+      "PackagePath": "staticwebassets/js/HomePage/UserPageScript.js"
     },
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/addCommentScript.js",
@@ -139,6 +147,18 @@
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Post/script.js",
       "PackagePath": "staticwebassets/js/Post/script.js"
+    },
+    {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Profile/ButtonNameScript.js",
+      "PackagePath": "staticwebassets/js/Profile/ButtonNameScript.js"
+    },
+    {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Profile/GetPostsScript.js",
+      "PackagePath": "staticwebassets/js/Profile/GetPostsScript.js"
+    },
+    {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Profile/UserIdentifierScript.js",
+      "PackagePath": "staticwebassets/js/Profile/UserIdentifierScript.js"
     },
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Test/testScript.js",

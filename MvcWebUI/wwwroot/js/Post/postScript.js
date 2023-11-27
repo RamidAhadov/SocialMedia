@@ -20,6 +20,8 @@ function AddPost(){
         data: JSON.stringify(data),
         success: function (response) {
             console.log('Successful response:', response);
+            
+            
 
         },
         error: function (x,y,z){

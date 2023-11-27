@@ -172,7 +172,7 @@ function createChatContainer(containerId, friendUserName,friendFirstName,friendL
     chatContainer.innerHTML = `
         <div class="messaging-container-top">
             <div class="messaging-container-top-name">
-                <div class="chat-friend-name" href="#">${friendFirstName} ${friendLastName}</div>
+                <div class="chat-friend-name" href="#" onclick="GoToUserPage('${friendUserName}')">${friendFirstName} ${friendLastName}</div>
             </div>
             <div class="messaging-container-top-dash" onclick="Minimize(${containerId})">
                 <i id='icon${containerId}' class="fa-solid fa-window-minimize"></i>

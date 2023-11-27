@@ -72,5 +72,18 @@ namespace WebAPI.Controllers
 
             return BadRequest();
         }
+
+        [HttpGet]
+        [Route("getRequestStatus")]
+        public IActionResult GetRequestStatus(int senderId, int receiverId)
+        {
+            var result = _friendRequestService.RequestStatus(senderId, receiverId);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest();
+        }
     }
 }

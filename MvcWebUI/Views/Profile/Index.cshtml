@@ -1,0 +1,96 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title id="pageTitle"></title>
+<link rel="stylesheet" href="~/css/Profile/style.css">
+
+@* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> *@
+@* *@
+@* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> *@
+@* *@
+@* <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> *@
+@* *@
+@* <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> *@
+@* *@
+@* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> *@
+@* *@
+@* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> *@
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <link rel="icon" href="https://res.cloudinary.com/do2bvloo2/image/upload/v1697470819/yjp8xkz3aewhdtxrzujt.jpg" type="image/x-icon">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="navbar-items">
+                <div class="left-navbar-items">
+                    <img class="navbar-home" src="https://res.cloudinary.com/do2bvloo2/image/upload/v1700671211/x7egp9dnfiqsjw2b5am6.jpg">
+                    <div class="navbar-search">
+                        <input>
+                        <button>
+                            <i class="fa-solid fa-magnifying-glass" style="color: black;"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="right-navbar-items">
+                    <i class="fa-regular fa-bell navbar-notification"></i>
+                    <img class="navbar-profile" src="https://res.cloudinary.com/do2bvloo2/image/upload/v1697222274/v0uuscw5vl9r5et2ffxv.jpg">
+                </div>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="main-section">
+            <div>
+                <div class="cover-photo">
+                    <img src="https://res.cloudinary.com/do2bvloo2/image/upload/v1700680908/a0osrzpceox4zy0auwr9.jpg">
+                </div>
+            </div>
+            <div class="profile-choices">
+                <img id="mainProfilePhoto" class="main-profile-photo">
+                <div class="profile-choices-full-name" id="profileChoicesFullName">
+                    <!-- User full name-->
+                </div>
+                <div class="profile-choices-choices" id="profileChoices">
+                    
+                </div>
+                <div class="profile-settings" id="profileSettings">
+                    
+                </div>
+            </div>
+            <button id="executeGetPosts">Execute!</button>
+            <div class="posts" id="postsContainer">
+                <div class="post-list">
+                    
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script src="~/js/Profile/UserIdentifierScript.js"></script>
+
+<script src="~/js/Profile/ButtonNameScript.js"></script>
+
+<script src="~/js/Profile/GetPostsScript.js"></script>
+
+<script src="~/js/HomePage/designScript.js"></script>
+</html>

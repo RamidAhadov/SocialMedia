@@ -76,4 +76,31 @@ public class FriendRequestManager:IFriendRequestService
         _requestDao.Update(request);
         return new SuccessResult();
     }
+
+    public IDataResult<string> RequestStatus(int senderId, int receiverId)
+    {
+        var request = _requestDao.Get(r => r.SenderId == senderId && r.ReceiverId == receiverId);
+        var oppositeRequest = _requestDao.Get(r => r.SenderId == receiverId && r.ReceiverId == senderId);
+        if (request == null && oppositeRequest == null)
+        {
+            return new SuccessDataResult<string>(data: "Send Request");
+        }
+
+        if (request.Status == "Pending")
+        {
+            return new SuccessDataResult<string>(data: "Cancel Request");
+        }
+        
+        if (request.Status == "Accepted")
+        {
+            return new SuccessDataResult<string>(data: "Delete Friend");
+        }
+        
+        if (request.Status == "Declined")
+        {
+            return new SuccessDataResult<string>(data: "Send Request");
+        }
+
+        return new ErrorDataResult<string>();
+    }
 }

@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Concrete;
+using Business.Constants;
 using Core.Entities.Concrete.Dtos;
 using DataContracts.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +30,34 @@ namespace WebAPI.Controllers
         {
             var userDto = _userService.GetUserDtoById(model.Id);
             return Ok(userDto);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("getUserByUserName")]
+        public IActionResult GetUserByUserName(string userName)
+        {
+            var result = _userService.GetByUserName(userName);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest(Messages.UserNotFound);
+        }
+        
+        [HttpGet]
+        [Authorize]
+        [Route("getUserByToken")]
+        public IActionResult GetUserByToken(string token)
+        {
+            var result = _userService.GetByToken(token);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest();
         }
     }
 }
