@@ -8,6 +8,6 @@ namespace Business.Abstract;
 public interface IFriendService
 {
     IDataResult<List<UserDto>> ShowFriends(int requesterId);
-    IDataResult<List<Friend>> CheckFriend(int userId);
-    IResult DeleteFriend(int firendId);
+    IResult CheckFriend(int userId,int friendId);
+    IResult DeleteFriend(int friendId);
 }

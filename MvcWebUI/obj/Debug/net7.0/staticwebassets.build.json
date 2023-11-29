@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4OHQL0IpGRQojJhI0T3f6M3NP9IVZ9OJkbfG935IGtQ=",
+  "Hash": "sxeCVichVrMEUAyU0HEPwirX7Lby9tgLYr6YQ0CxYGI=",
   "Source": "MvcWebUI",
   "BasePath": "_content/MvcWebUI",
   "Mode": "Default",
@@ -420,12 +420,12 @@
       "OriginalItemSpec": "wwwroot/js/HomePage/designScript.js"
     },
     {
-      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/dropdownScript.js",
+      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/DropdownScript.js",
       "SourceId": "MvcWebUI",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/",
       "BasePath": "_content/MvcWebUI",
-      "RelativePath": "js/HomePage/dropdownScript.js",
+      "RelativePath": "js/HomePage/DropdownScript.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -434,7 +434,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/js/HomePage/dropdownScript.js"
+      "OriginalItemSpec": "wwwroot/js/HomePage/DropdownScript.js"
     },
     {
       "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/getCommentIdForLike.js",
@@ -707,6 +707,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/Profile/GetPostsScript.js"
+    },
+    {
+      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Profile/SendRequestFromProfile.js",
+      "SourceId": "MvcWebUI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/",
+      "BasePath": "_content/MvcWebUI",
+      "RelativePath": "js/Profile/SendRequestFromProfile.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/Profile/SendRequestFromProfile.js"
     },
     {
       "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Profile/UserIdentifierScript.js",

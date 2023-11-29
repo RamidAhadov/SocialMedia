@@ -73,19 +73,48 @@ function GetProfileChoices(currentId,userId){
             url: `http://localhost:5015/api/FriendRequest/getRequestStatus?senderId=${currentId}&receiverId=${userId}`,
             method: 'GET',
             success: function (response) {
-
-                profileChoices.innerHTML =
-                    `
-                <button>
+                if (response === '0'){
+                    profileChoices.innerHTML =
+                        `
+                    <button>
                         Send Message
                     </button>
                     <div>
 
                     </div>
                     <button id="friendRequestButton">
-                        ${response}
+                        Send Request
                     </button>
-            `;
+                    `;
+                }
+                if (response === '1'){
+                    profileChoices.innerHTML =
+                        `
+                    <button>
+                        Send Message
+                    </button>
+                    <div>
+
+                    </div>
+                    <button id="friendRequestButton">
+                        Cancel Request
+                    </button>
+                    `;
+                }
+                if (response === '2'){
+                    profileChoices.innerHTML =
+                        `
+                    <button>
+                        Send Message
+                    </button>
+                    <div>
+
+                    </div>
+                    <button id="friendRequestButton">
+                        Delete Friend
+                    </button>
+                    `;
+                }
             },
             error: function (error) {
                 console.log(error);
@@ -118,6 +147,8 @@ async function SetAllIdentifiers(){
     GetProfileChoices(currentUserId, userId);
     
     GetProfilePhoto(photoUrl);
+    
+    GetPosts(userId);
 }
 
 SetAllIdentifiers();

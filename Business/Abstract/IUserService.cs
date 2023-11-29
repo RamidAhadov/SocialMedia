@@ -7,7 +7,7 @@ namespace Business.Abstract;
 public interface IUserService
 {
     List<User> GetAll();
-    List<User> GetBySearch(string userName);
+    IDataResult<List<UserDto>> GetBySearch(string userName);
     List<OperationClaim> GetClaims(User user);
     void Add(User user);
     User GetById(int id);

@@ -69,6 +69,10 @@
       "PackagePath": "staticwebassets/js/Account/tokenScript.js"
     },
     {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/DropdownScript.js",
+      "PackagePath": "staticwebassets/js/HomePage/DropdownScript.js"
+    },
+    {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/UserPageScript.js",
       "PackagePath": "staticwebassets/js/HomePage/UserPageScript.js"
     },
@@ -91,10 +95,6 @@
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/designScript.js",
       "PackagePath": "staticwebassets/js/HomePage/designScript.js"
-    },
-    {
-      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/dropdownScript.js",
-      "PackagePath": "staticwebassets/js/HomePage/dropdownScript.js"
     },
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/getCommentIdForLike.js",
@@ -155,6 +155,10 @@
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Profile/GetPostsScript.js",
       "PackagePath": "staticwebassets/js/Profile/GetPostsScript.js"
+    },
+    {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Profile/SendRequestFromProfile.js",
+      "PackagePath": "staticwebassets/js/Profile/SendRequestFromProfile.js"
     },
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Profile/UserIdentifierScript.js",

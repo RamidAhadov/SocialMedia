@@ -1,3 +1,5 @@
+using Core.Entities;
+
 namespace Entities.Concrete;
 
 public class Photo:IEntity

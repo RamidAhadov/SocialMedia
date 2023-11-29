@@ -1,6 +1,8 @@
 using Business.Abstract;
 using Core.Entities.Concrete;
 using Core.Entities.Concrete.Dtos;
+using Core.Utilities.CombineLists;
+using Core.Utilities.EntityMap;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.Dtos;
@@ -10,12 +12,14 @@ namespace Business.Concrete;
 public class FriendManager:IFriendService
 {
     private IFriendDao _friendDao;
+    private IFriendRequestDao _friendRequestDao;
     private IUserDao _userDao;
 
-    public FriendManager(IFriendDao friendDao, IUserDao userDao)
+    public FriendManager(IFriendDao friendDao, IUserDao userDao, IFriendRequestDao friendRequestDao)
     {
         _friendDao = friendDao;
         _userDao = userDao;
+        _friendRequestDao = friendRequestDao;
     }
 
     public IDataResult<List<UserDto>> ShowFriends(int userId)
@@ -38,15 +42,44 @@ public class FriendManager:IFriendService
         return new ErrorDataResult<List<UserDto>>();
     }
 
-    public IDataResult<List<Friend>> CheckFriend(int userId)
+    public IResult CheckFriend(int userId,int friendId)
     {
-        var list = _friendDao.GetList(f => f.UserId == userId);
-        if (list != null)
+        // try
+        // {
+        //     var friendList = _friendDao.GetList(f => f.UserId == userId);
+        //     var friendRequestListForSender = _friendRequestDao.GetList(fr=>fr.SenderId == userId 
+        //                                                                    && fr.Status == "Pending");
+        //     var friendRequestListForReceiver = _friendRequestDao.GetList(fr=>fr.ReceiverId == userId 
+        //                                                                      && fr.Status == "Pending");
+        //     var mappedFriendRequestListForSender = EntityMapper<Friend,FriendRequest>.Map(friendRequestListForSender,
+        //         "UserId","SenderId","FriendId","ReceiverId");
+        //     var mappedFriendRequestListForReceiver = EntityMapper<Friend,FriendRequest>.Map(friendRequestListForReceiver,
+        //         "UserId","SenderId","FriendId","ReceiverId");
+        //
+        //     var list = CombineLists.Combine(friendList, mappedFriendRequestListForSender,
+        //         mappedFriendRequestListForReceiver);
+        //
+        //     return new SuccessDataResult<List<Friend>>(list);
+        // }
+        // catch (Exception e)
+        // {
+        //     return new ErrorDataResult<List<Friend>>();
+        // }
+        
+        //If they are friend
+        var friendship = _friendDao.Get(f => f.UserId == userId && f.FriendId == friendId);
+
+        var friendRequest = _friendRequestDao.Get(fr => fr.ReceiverId == userId
+                                                        && fr.SenderId == friendId
+                                                        && fr.Status == "Pending");
+
+        if (friendship == null && friendRequest == null)
         {
-            return new SuccessDataResult<List<Friend>>(list);
+            return new SuccessResult();
         }
 
-        return new ErrorDataResult<List<Friend>>();
+        return new ErrorResult();
+
     }
 
     public IResult DeleteFriend(int friendId)

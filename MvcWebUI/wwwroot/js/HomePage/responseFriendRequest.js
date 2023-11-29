@@ -19,6 +19,8 @@ function AcceptRequest(senderId,receiverId) {
             
             GetCount();
             
+            document.getElementById(`friend-request-${senderId}`).remove();
+            
             //I used senderId instead of receiverId. Because if user accepts friend request then user
             //will send notification itself. But at here notification must send to requester.
             var notificationData = {
@@ -90,6 +92,8 @@ function DeclineRequest(senderId,receiverId) {
         data: JSON.stringify(data),
         success: function (response) {
             console.log('Successful response:', response);
+
+            document.getElementById(`friend-request-${senderId}`).remove();
         },
         error: function (x, y, z) {
 

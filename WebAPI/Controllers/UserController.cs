@@ -59,5 +59,18 @@ namespace WebAPI.Controllers
 
             return BadRequest();
         }
+        
+        [HttpGet]
+        [Route("getSearchedUsers")]
+        public IActionResult SearchUsers(string userName)
+        {
+            var result = _userService.GetBySearch(userName);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest();
+        }
     }
 }

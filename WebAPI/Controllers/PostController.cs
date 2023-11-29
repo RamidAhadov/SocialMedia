@@ -130,14 +130,6 @@ namespace WebAPI.Controllers
             }
             return Ok();
         }
-
-        [HttpPost]
-        [Route("getSearchedUsers")]
-        public IActionResult SearchUsers([FromBody] string userName)
-        {
-            string convertedName = JsonConvert.DeserializeObject<string>(userName);
-            var users = _userService.GetBySearch(convertedName);
-            return Ok(users);
-        }
+        
     }
 }

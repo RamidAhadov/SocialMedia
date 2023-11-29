@@ -1,9 +1,11 @@
 using Business.Abstract;
 using Core.Entities.Concrete;
 using Core.Entities.Concrete.Dtos;
+using Core.Utilities.EntityMap;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Jwt;
 using DataAccess.Abstract;
+using Newtonsoft.Json;
 
 namespace Business.Concrete;
 
@@ -21,9 +23,22 @@ public class UserManager:IUserService
         return _userDao.GetList();
     }
 
-    public List<User> GetBySearch(string userName)
+    public IDataResult<List<UserDto>> GetBySearch(string userName)
     {
-        return _userDao.GetList(u=>u.UserName.Contains(userName));
+        try
+        {
+            string convertedName = JsonConvert.DeserializeObject<string>(userName);
+            var userList = _userDao.GetList(u=>u.UserName.Contains(convertedName));
+
+            //DateTime to string error
+            var mappedUserList = EntityMapper<UserDto, User>.Map(userList, "ProfilePhoto", "ProfilePhotoUrl");
+
+            return new SuccessDataResult<List<UserDto>>(mappedUserList);
+        }
+        catch (Exception e)
+        {
+            return new ErrorDataResult<List<UserDto>>();
+        }
     }
 
     public List<OperationClaim> GetClaims(User user)

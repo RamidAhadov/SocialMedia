@@ -11,8 +11,8 @@ searchInput.addEventListener('input', function () {
         var data = JSON.stringify(searchTerm);
 
         $.ajax({
-            url: 'http://localhost:5015/api/Post/getSearchedUsers',
-            type: 'POST',
+            url: 'http://localhost:5015/api/User/getSearchedUsers?userName=' + data,
+            type: 'GET',
             headers: {
                 "Content-Type": "application/json"
             },
@@ -50,7 +50,7 @@ function updateDropdownContent(response) {
         item.style.paddingLeft = '10px'
 
         const profileImage = document.createElement('img');
-        profileImage.src = result.profilePhotoUrl;
+        profileImage.src = result.profilePhoto;
         profileImage.alt = result.firstName;
         profileImage.style.width = '25px';
         profileImage.style.height = '25px';
@@ -70,23 +70,14 @@ function updateDropdownContent(response) {
         var friends;
 
         $.ajax({
-            url: 'http://localhost:5015/api/Friend/checkFriend',
-            type: 'POST',
+            url: `http://localhost:5015/api/Friend/checkFriend?userId=${userId}&friendId=${result.id}`,
+            type: 'GET',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(userId),
             success: function (response) {
                 friends = response;
 
                 if (userId != result.id) {
                     var createButton = true;
-                    for (var i = 0; i < friends.length; i++) {
-                        var friend = friends[i];
-
-                        if (friend.friendId == result.id) {
-                            createButton = false;
-                            break;
-                        }
-                    }
 
                     if (createButton) {
                         const button = document.createElement('button');
@@ -136,7 +127,7 @@ function updateDropdownContent(response) {
                                         success: function (response) {
                                             console.log('Successful response:', response);
 
-                                            const profilePhoto = result.profilePhotoUrl;
+                                            const profilePhoto = result.profilePhoto;
                                             const notificationContent = `${result.firstName} ${result.lastName} has sent you a friend request.`;
                                             const notificationDate = 'Just now.'
                                             const senderId = userId.toString();
@@ -170,7 +161,7 @@ function updateDropdownContent(response) {
 
         textContainer.addEventListener('click', function () {
             console.log('İçeriğe tıklandı: ' + result.firstName + ' ' + result.lastName);
-            console.log('PP link: '+result.profilePhotoUrl);
+            console.log('PP link: '+result.profilePhoto);
         });
     });
 

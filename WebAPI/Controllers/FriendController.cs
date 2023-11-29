@@ -34,14 +34,14 @@ namespace WebAPI.Controllers
             return BadRequest();
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("checkFriend")]
-        public IActionResult CheckFriend([FromBody] int userId)
+        public IActionResult CheckFriend(int userId,int friendId)
         {
-            var result = _friendService.CheckFriend(userId);
+            var result = _friendService.CheckFriend(userId,friendId);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok();
             }
 
             return BadRequest();

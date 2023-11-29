@@ -29,6 +29,7 @@ connection.on("ReceiveNotification", function (profilePhoto,notificationContent,
 connection.on("ReceiveFriendRequest", function (profilePhoto,notificationContent,notificationDate,senderId,receiverId) {
 
     var model = {
+        requestId : senderId,
         profilePhoto: profilePhoto,
         requestContent: notificationContent,
         requestDate:notificationDate,
@@ -120,7 +121,7 @@ function GetFriendRequests(request) {
 
         const friendRequestsContainer = document.getElementById('friendRequests');
         const friendRequest = document.createElement('div');
-        friendRequest.id = data.requestId;
+        friendRequest.id = 'friend-request-' + senderId;
         friendRequest.classList.add('friend-request');
         friendRequest.innerHTML = `
         <div class="requester-info">

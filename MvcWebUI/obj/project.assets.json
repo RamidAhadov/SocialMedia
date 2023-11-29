@@ -4815,7 +4815,8 @@
         "dependencies": {
           "Autofac": "7.1.0",
           "DataAccess": "1.0.0",
-          "DataContracts": "1.0.0"
+          "DataContracts": "1.0.0",
+          "Newtonsoft.Json": "13.0.3"
         },
         "compile": {
           "bin/placeholder/Business.dll": {}

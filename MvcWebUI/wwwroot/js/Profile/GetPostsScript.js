@@ -4,10 +4,10 @@ function GetPosts(authorId){
     $.ajax({
         url: 'http://localhost:5015/api/Post/getPostsByAuthorId?authorId=' + authorId,
         method: 'GET',
-        // headers: {
-        //     "Content-Type": "application/json",
-        //     "Authorization": "bearer " + token
-        // },
+         headers: {
+             "Content-Type": "application/json",
+             "Authorization": "bearer " + token
+         },
         success: function (response) {
             response.forEach((post)=>{
                 console.log(post);
