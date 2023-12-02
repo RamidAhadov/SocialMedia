@@ -120,10 +120,9 @@ function updateDropdownContent(response) {
                                     //connection.invoke("SendNotification",response,profilePhoto, notificationContent,notificationDate, senderId,receiverId);
 
                                     $.ajax({
-                                        url: 'http://localhost:5015/api/Connection/getConnectionIdById',
-                                        type: 'POST',
+                                        url: 'http://localhost:5015/api/Connection/getConnectionIdById?id=' + result.id,
+                                        type: 'GET',
                                         contentType: 'application/json; charset=utf-8',
-                                        data: JSON.stringify(result.id),
                                         success: function (response) {
                                             console.log('Successful response:', response);
 

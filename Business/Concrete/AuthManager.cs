@@ -61,7 +61,7 @@ public class AuthManager:IAuthService
             return new ErrorResult(Messages.UserExists);
         }
         
-        if (resultUserName != null)
+        if (resultUserName.Data != null)
         {
             return new ErrorResult(Messages.UserExists);
         }

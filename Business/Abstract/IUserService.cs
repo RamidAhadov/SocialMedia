@@ -13,6 +13,7 @@ public interface IUserService
     User GetById(int id);
     User GetByEmail(string email);
     IDataResult<UserDto> GetByUserName(string userName);
+    IDataResult<UserDto> GetByUserId(int id);
     IDataResult<UserDto> GetByToken(string token);
     User GetByLoginInfo(string loginInfo);
     UserDto GetUserDtoById(int id);

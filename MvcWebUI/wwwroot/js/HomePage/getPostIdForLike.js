@@ -43,10 +43,9 @@ function Like() {
                         console.log('Successful response:', response);
                         const recordedNotificationModel = JSON.parse(JSON.stringify(response));
                             $.ajax({
-                                url: 'http://localhost:5015/api/Connection/getConnectionIdById',
-                                type: 'POST',
+                                url: 'http://localhost:5015/api/Connection/getConnectionIdById?id=' +authorId,
+                                type: 'GET',
                                 contentType: 'application/json; charset=utf-8',
-                                data: JSON.stringify(authorId),
                                 success: function (response) {
                                     console.log('Successful response:', response);
 

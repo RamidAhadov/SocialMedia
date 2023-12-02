@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "sxeCVichVrMEUAyU0HEPwirX7Lby9tgLYr6YQ0CxYGI=",
+  "Hash": "inbam24InWm+v0Tkzr3ObRRT8Oc1OMXLVqycLHyFXTY=",
   "Source": "MvcWebUI",
   "BasePath": "_content/MvcWebUI",
   "Mode": "Default",
@@ -403,12 +403,12 @@
       "OriginalItemSpec": "wwwroot/js/HomePage/deletePostScript.js"
     },
     {
-      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/designScript.js",
+      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/DesignScript.js",
       "SourceId": "MvcWebUI",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/",
       "BasePath": "_content/MvcWebUI",
-      "RelativePath": "js/HomePage/designScript.js",
+      "RelativePath": "js/HomePage/DesignScript.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -417,7 +417,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/js/HomePage/designScript.js"
+      "OriginalItemSpec": "wwwroot/js/HomePage/DesignScript.js"
     },
     {
       "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/DropdownScript.js",
@@ -522,12 +522,12 @@
       "OriginalItemSpec": "wwwroot/js/HomePage/getUserNameScript.js"
     },
     {
-      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/notificationCountScript.js",
+      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/NotificationCountScript.js",
       "SourceId": "MvcWebUI",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/",
       "BasePath": "_content/MvcWebUI",
-      "RelativePath": "js/HomePage/notificationCountScript.js",
+      "RelativePath": "js/HomePage/NotificationCountScript.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -536,7 +536,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/js/HomePage/notificationCountScript.js"
+      "OriginalItemSpec": "wwwroot/js/HomePage/NotificationCountScript.js"
     },
     {
       "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/notificationScript.js",
@@ -556,12 +556,12 @@
       "OriginalItemSpec": "wwwroot/js/HomePage/notificationScript.js"
     },
     {
-      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/responseFriendRequest.js",
+      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/ResponseFriendRequest.js",
       "SourceId": "MvcWebUI",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/",
       "BasePath": "_content/MvcWebUI",
-      "RelativePath": "js/HomePage/responseFriendRequest.js",
+      "RelativePath": "js/HomePage/ResponseFriendRequest.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -570,7 +570,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/js/HomePage/responseFriendRequest.js"
+      "OriginalItemSpec": "wwwroot/js/HomePage/ResponseFriendRequest.js"
     },
     {
       "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/UserPageScript.js",
@@ -607,12 +607,12 @@
       "OriginalItemSpec": "wwwroot/js/Message/showChatContainer.js"
     },
     {
-      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Message/signalrScript.js",
+      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Message/SignalrScript.js",
       "SourceId": "MvcWebUI",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/",
       "BasePath": "_content/MvcWebUI",
-      "RelativePath": "js/Message/signalrScript.js",
+      "RelativePath": "js/Message/SignalrScript.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -621,7 +621,24 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/js/Message/signalrScript.js"
+      "OriginalItemSpec": "wwwroot/js/Message/SignalrScript.js"
+    },
+    {
+      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Message/StartChatScript.js",
+      "SourceId": "MvcWebUI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/",
+      "BasePath": "_content/MvcWebUI",
+      "RelativePath": "js/Message/StartChatScript.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/Message/StartChatScript.js"
     },
     {
       "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Post/buttonScript.js",
@@ -741,6 +758,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/Profile/UserIdentifierScript.js"
+    },
+    {
+      "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/SignalR/StartConnectionScript.js",
+      "SourceId": "MvcWebUI",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/",
+      "BasePath": "_content/MvcWebUI",
+      "RelativePath": "js/SignalR/StartConnectionScript.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/SignalR/StartConnectionScript.js"
     },
     {
       "Identity": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/site.js",

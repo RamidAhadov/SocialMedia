@@ -1,13 +1,13 @@
 const receivedToken = JSON.parse(localStorage.getItem("token"));
 const token = receivedToken.token.token;
 
-function GetUrlParameter(){
+function GetUsernameFromUrlParameter(){
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     return urlParams.get('userName');
 }
 
-async function GetCurrentUserInformation(token) {
+async function GetCurrentUserInformation() {
     try {
         const response = await $.ajax({
             url: 'http://localhost:5015/api/User/getUserByToken?token=' + token,
@@ -25,7 +25,7 @@ async function GetCurrentUserInformation(token) {
     }
 }
 
-async function GetUserInformation(userName, token) {
+async function GetUserInformation(userName) {
     try {
         const response = await $.ajax({
             url: 'http://localhost:5015/api/User/getUserByUserName?userName=' + userName,
@@ -82,7 +82,7 @@ function GetProfileChoices(currentId,userId){
                     <div>
 
                     </div>
-                    <button id="friendRequestButton">
+                    <button id="friendRequestButton" onclick="GetDataForRequestSend()">
                         Send Request
                     </button>
                     `;
@@ -96,7 +96,7 @@ function GetProfileChoices(currentId,userId){
                     <div>
 
                     </div>
-                    <button id="friendRequestButton">
+                    <button id="friendRequestButton" onclick="GetDataForRequestSend()">
                         Cancel Request
                     </button>
                     `;
@@ -129,11 +129,11 @@ function GetProfilePhoto(photoUrl){
 }
 
 async function SetAllIdentifiers(){
-    const currentUserData = await GetCurrentUserInformation(token);
+    const currentUserData = await GetCurrentUserInformation();
     const currentUser = JSON.parse(currentUserData);
     const currentUserId = currentUser.id;
     
-    const userData = await GetUserInformation(GetUrlParameter(),token);
+    const userData = await GetUserInformation(GetUsernameFromUrlParameter());
     const user = JSON.parse(userData);
     const userId = user.id;
     const firstName = user.firstName;

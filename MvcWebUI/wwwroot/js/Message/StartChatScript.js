@@ -1,55 +1,11 @@
-const connection = new signalR.HubConnectionBuilder().withUrl("http://localhost:5015/chathub").build();
-
-const receivedToken = JSON.parse(localStorage.getItem("token"));
-const token = receivedToken.token.token;
-
-connection.start().then(function () {
-    console.log(connection.connectionId);
-    const data = {
-        Token: token,
-        ConnectionId: connection.connectionId
-    }
-    $.ajax({
-        url: 'http://localhost:5015/api/Connection/recordConnectionId',
-        type: 'POST',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(data),
-        success: function (response) {
-            console.log('Successful response:', response);
-        },
-        error: function (x,y,z){
-
-        }
-    });
-    IndicatorSetter();
-}).catch(function (err) {
-    return console.error(err.toString());
-});
-
-connection.on("ReceiveMessage", function (user,message) {
-    SetMessages(user,friendName,message)
-});
-
-window.addEventListener('beforeunload', function (event) {
-    UpdateStatus();
-});
-
-document.getElementById("closeConnection").addEventListener("click",function (){
-    connection.stop()
-        .then(() => {
-            console.log('Connection closed.');
-            UpdateStatus();
-        })
-        .catch((error) => {
-            console.error('Connection lost: ', error);
-            UpdateStatus();
-        });
-});
-
 var friendConnectionId;
 var friendName;
 var userName = localStorage.getItem("userName");
-function StartChat(userId,friendId,friendUserName,friendFirstName,friendLastName){
+async function StartChat(friendId,friendUserName,friendFirstName,friendLastName){
+
+    const currentUserData = await GetCurrentUserInformation();
+    const currentUser = JSON.parse(currentUserData);
+    const currentUserId = currentUser.id;
 
     const existingContainers = document.querySelectorAll('.messaging-container');
 
@@ -58,24 +14,24 @@ function StartChat(userId,friendId,friendUserName,friendFirstName,friendLastName
         connection.invoke("RemoveUserFromGroup",token,friendUserName);
     });
 
-    let existingContainer = document.getElementById(`container${friendId}`);
+    let existingContainer = document.getElementById(`friendChatContainer${friendId}`);
 
     if (!existingContainer) {
-        existingContainer = createChatContainer(friendId, friendUserName,friendFirstName,friendLastName);
+        existingContainer = CreateChatContainer(friendId, friendUserName,friendFirstName,friendLastName);
     }
 
     existingContainer.style.display = 'block';
 
-    const newFriendContainer = document.getElementById(`container${friendId}`);
+    const newFriendContainer = document.getElementById(`friendChatContainer${friendId}`);
     if (newFriendContainer) {
     }
-    
+
     if (document.getElementById(`messaging-messages-${friendUserName}`)) {
         if (document.getElementById(`messaging-messages-${friendUserName}`).innerHTML.trim() === '') {
             //To get chat messages
             const getChatData = {
                 SenderId: friendId,
-                ReceiverId: userId
+                ReceiverId: currentUserId
             }
             $.ajax({
                 url: 'http://localhost:5015/api/Chat/getChatMessages',
@@ -95,10 +51,10 @@ function StartChat(userId,friendId,friendUserName,friendFirstName,friendLastName
                         const message = chatMessage.messageText;
 
                         const div = document.createElement("div");
-                        if (parseInt(userId) === parseInt(senderId)) {
+                        if (parseInt(currentUserId) === parseInt(senderId)) {
                             div.innerHTML = "<span class='user-message'>" + message + "</span>";
                         }
-                        if (parseInt(userId) === parseInt(receiverId)) {
+                        if (parseInt(currentUserId) === parseInt(receiverId)) {
                             div.innerHTML = "<span class='sender-message'>" + message + "</span>";
                         }
                         document.getElementById(`messaging-messages-${friendUserName}`).appendChild(div);
@@ -134,14 +90,14 @@ function StartChat(userId,friendId,friendUserName,friendFirstName,friendLastName
             }
         });
     }
-    
-    
+
+
     if(document.getElementById(`send-message-async-${friendUserName}`)) {
         document.getElementById(`send-message-async-${friendUserName}`).addEventListener("click", function () {
             var message = document.getElementById(`message-text-${friendUserName}`).value;
             connection.invoke("SendMessageToGroup", token, friendUserName, message);
             var data = {
-                SenderId: userId,
+                SenderId: currentUserId,
                 ReceiverId: friendId,
                 MessageText: message
             }
@@ -161,10 +117,10 @@ function StartChat(userId,friendId,friendUserName,friendFirstName,friendLastName
     }
 }
 
-function createChatContainer(containerId, friendUserName,friendFirstName,friendLastName) {
+function CreateChatContainer(containerId, friendUserName,friendFirstName,friendLastName) {
     // Create a new message container
     const chatContainer = document.createElement('div');
-    chatContainer.id = 'container' +containerId;
+    chatContainer.id = 'friendChatContainer' +containerId;
     chatContainer.classList.add('messaging-container');
     chatContainer.style.display = 'block';
 
@@ -193,74 +149,30 @@ function createChatContainer(containerId, friendUserName,friendFirstName,friendL
 
     return chatContainer;
 }
- function SetMessages(user,friendName,message){
-     const div = document.createElement("div");
+function SetMessages(user,friendName,message){
+    const div = document.createElement("div");
     if (user === userName) {
         div.innerHTML = "<span class='user-message'>"+ message +"</span>";
     } if(user === friendName) {
         div.innerHTML = "<span class='sender-message'>" + message + "</span>";
     }
     document.getElementById(`messaging-messages-${friendName}`).appendChild(div);
- }
- 
- function UpdateStatus(){
-     $.ajax({
-         url: 'http://localhost:5015/api/Chat/updateStatus',
-         type: 'POST',
-         contentType: 'application/json; charset=utf-8',
-         data: JSON.stringify(token),
-         success: function (response) {
-             console.log('Successful response:', response);
-         },
-         error: function (x,y,z){
+}
 
-         }
-     });
- }
- 
- function IndicatorSetter(){
-    var indicators = document.querySelectorAll(".indicator");
-    indicators.forEach((indicator)=>{
-        const indicatorId = indicator.getAttribute("data-indicator-id");
-        $.ajax({
-            url: 'http://localhost:5015/api/Chat/checkStatus',
-            type: 'POST',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(indicatorId),
-            success: function (response) {
-                console.log('Successful response:', response);
-                if (response === 'Online'){
-                    indicator.classList.add('online');
-                    var status = document.getElementById(`status-${indicatorId}`)
-                    status.textContent = "Online";
-                }
-                if (response === 'Offline'){
-                    indicator.classList.add('offline')
-                    LastSeenSetter(indicatorId);
-                }
-            },
-            error: function (x,y,z){
-
+async function GetCurrentUserInformation() {
+    try {
+        const response = await $.ajax({
+            url: 'http://localhost:5015/api/User/getUserByToken?token=' + token,
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
             }
         });
-    });
- }
- 
- function LastSeenSetter(userNameForLastSeen){
-    var lastSeens = document.querySelectorAll(".friend-lastSeen")
-     
-     lastSeens.forEach((lastSeen)=>{
-         $.ajax({
-             url: 'http://localhost:5015/api/Friend/getLastSeen?userName=' + userNameForLastSeen,
-             method: 'GET',
-             success: function (data) {
-                 if (lastSeen.id === `status-${userNameForLastSeen}`){
-                     lastSeen.textContent = data
-                 }
-             },
-             error: function (error) {
-                 console.log(error);
-             }
-         });
-     })
- }
+
+        return JSON.stringify(response);
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}

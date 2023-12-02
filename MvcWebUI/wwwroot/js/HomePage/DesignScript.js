@@ -12,7 +12,7 @@ window.addEventListener('load', function () {
 var isMinimized = false;
 
 function Minimize(containerId) {
-  var chatDiv = document.getElementById(`container${containerId}`);
+  var chatDiv = document.getElementById(`friendChatContainer${containerId}`);
   var icon = document.getElementById(`icon${containerId}`);
   
   if (isMinimized) {
@@ -29,7 +29,7 @@ function Minimize(containerId) {
 var isHidden = true;
 
 function CloseChat(friendUserName, containerId){
-  var chatDiv = document.getElementById(`container${containerId}`);
+  var chatDiv = document.getElementById(`friendChatContainer${containerId}`);
   var friendDiv = document.getElementById('.friends-container');
 
   if(chatDiv.style.display === 'block'){

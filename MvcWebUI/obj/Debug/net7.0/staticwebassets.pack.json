@@ -69,8 +69,20 @@
       "PackagePath": "staticwebassets/js/Account/tokenScript.js"
     },
     {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/DesignScript.js",
+      "PackagePath": "staticwebassets/js/HomePage/DesignScript.js"
+    },
+    {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/DropdownScript.js",
       "PackagePath": "staticwebassets/js/HomePage/DropdownScript.js"
+    },
+    {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/NotificationCountScript.js",
+      "PackagePath": "staticwebassets/js/HomePage/NotificationCountScript.js"
+    },
+    {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/ResponseFriendRequest.js",
+      "PackagePath": "staticwebassets/js/HomePage/ResponseFriendRequest.js"
     },
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/UserPageScript.js",
@@ -93,10 +105,6 @@
       "PackagePath": "staticwebassets/js/HomePage/deletePostScript.js"
     },
     {
-      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/designScript.js",
-      "PackagePath": "staticwebassets/js/HomePage/designScript.js"
-    },
-    {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/getCommentIdForLike.js",
       "PackagePath": "staticwebassets/js/HomePage/getCommentIdForLike.js"
     },
@@ -117,24 +125,20 @@
       "PackagePath": "staticwebassets/js/HomePage/getUserNameScript.js"
     },
     {
-      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/notificationCountScript.js",
-      "PackagePath": "staticwebassets/js/HomePage/notificationCountScript.js"
-    },
-    {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/notificationScript.js",
       "PackagePath": "staticwebassets/js/HomePage/notificationScript.js"
     },
     {
-      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/responseFriendRequest.js",
-      "PackagePath": "staticwebassets/js/HomePage/responseFriendRequest.js"
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Message/SignalrScript.js",
+      "PackagePath": "staticwebassets/js/Message/SignalrScript.js"
+    },
+    {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Message/StartChatScript.js",
+      "PackagePath": "staticwebassets/js/Message/StartChatScript.js"
     },
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Message/showChatContainer.js",
       "PackagePath": "staticwebassets/js/Message/showChatContainer.js"
-    },
-    {
-      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Message/signalrScript.js",
-      "PackagePath": "staticwebassets/js/Message/signalrScript.js"
     },
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Post/buttonScript.js",
@@ -163,6 +167,10 @@
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Profile/UserIdentifierScript.js",
       "PackagePath": "staticwebassets/js/Profile/UserIdentifierScript.js"
+    },
+    {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/SignalR/StartConnectionScript.js",
+      "PackagePath": "staticwebassets/js/SignalR/StartConnectionScript.js"
     },
     {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/Test/testScript.js",

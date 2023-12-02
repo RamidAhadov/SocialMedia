@@ -22,9 +22,9 @@ namespace WebAPI.Controllers
             _connectionService = connectionService;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("getConnectionIdById")]
-        public IActionResult GetConnectionIdById([FromBody] int id)
+        public IActionResult GetConnectionIdById(int id)
         {
             var result = _connectionService.GetConnectionIdById(id);
             if (result.Success)

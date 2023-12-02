@@ -82,6 +82,27 @@ public class UserManager:IUserService
         return new ErrorDataResult<UserDto>();
     }
 
+    public IDataResult<UserDto> GetByUserId(int id)
+    {
+        var user = _userDao.Get(u => u.Id == id);
+        if (user is not null)
+        {
+            var userDto = new UserDto
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserName = user.UserName,
+                Email = user.Email,
+                CreatedDate = user.CreatedDate.ToString("yyyy MMMM dd"),
+                ProfilePhoto = user.ProfilePhotoUrl
+            };
+            return new SuccessDataResult<UserDto>(userDto);
+        }
+
+        return new ErrorDataResult<UserDto>();
+    }
+
     public IDataResult<UserDto> GetByToken(string token)
     {
         try
