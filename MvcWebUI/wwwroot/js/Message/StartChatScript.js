@@ -49,13 +49,61 @@ async function StartChat(friendId,friendUserName,friendFirstName,friendLastName)
                         const senderId = chatMessage.senderId;
                         const receiverId = chatMessage.receiverId
                         const message = chatMessage.messageText;
+                        const status = chatMessage.status;
 
                         const div = document.createElement("div");
                         if (parseInt(currentUserId) === parseInt(senderId)) {
-                            div.innerHTML = "<span class='user-message'>" + message + "</span>";
+                            //div.innerHTML = "<span class='user-message'>" + message + "</span>";
+                            if (status === 1){
+                                div.innerHTML =
+                                    `
+                                    <div class="user-message">
+                                        <div class="message-text">
+                                            ${message}
+                                        </div>
+                                        <div class="message-status">
+                                            <i class="fa-solid fa-check"></i>
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                            if (status === 2){
+                                div.innerHTML =
+                                    `
+                                    <div class="user-message">
+                                        <div class="message-text">
+                                            ${message}
+                                        </div>
+                                        <div class="message-status">
+                                            <i class="fa-solid fa-check-double"></i>
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                            if (status === 3){
+                                div.innerHTML =
+                                    `
+                                    <div class="user-message">
+                                        <div class="message-text">
+                                            ${message}
+                                        </div>
+                                        <div class="message-status">
+                                            <i class="fa-solid fa-check-double" style="color: #00a0f0"></i>
+                                        </div>
+                                    </div>
+                                `;
+                            }
                         }
                         if (parseInt(currentUserId) === parseInt(receiverId)) {
-                            div.innerHTML = "<span class='sender-message'>" + message + "</span>";
+                            //div.innerHTML = "<span class='sender-message'>" + message + "</span>";
+                            div.innerHTML =
+                                `
+                                    <div class="sender-message">
+                                        <div class="message-text">
+                                            ${message}
+                                        </div>
+                                    </div>
+                                `;
                         }
                         document.getElementById(`messaging-messages-${friendUserName}`).appendChild(div);
                         document.getElementById(`messaging-messages-${friendUserName}`).scrollTop = document.getElementById(`messaging-messages-${friendUserName}`).scrollHeight;
@@ -95,8 +143,24 @@ async function StartChat(friendId,friendUserName,friendFirstName,friendLastName)
     if(document.getElementById(`send-message-async-${friendUserName}`)) {
         document.getElementById(`send-message-async-${friendUserName}`).addEventListener("click", function () {
             var message = document.getElementById(`message-text-${friendUserName}`).value;
-            connection.invoke("SendMessageToGroup", token, friendUserName, message);
-            var data = {
+            
+            const userMessage = document.createElement('div');
+
+            userMessage.innerHTML =
+                `
+                <div class="user-message">
+                    <div class="message-text">
+                        ${message}
+                    </div>
+                    <div class="message-status">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById(`messaging-messages-${friendUserName}`).appendChild(userMessage);
+            
+            const data = {
                 SenderId: currentUserId,
                 ReceiverId: friendId,
                 MessageText: message
@@ -107,8 +171,25 @@ async function StartChat(friendId,friendUserName,friendFirstName,friendLastName)
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data),
                 success: function (response) {
-                    console.log('Successful response:', response);
-                    document.getElementById('message-text').textContent = '';
+                    console.log('Message recorded!', response);
+                    //Sending message
+                    const addedMessageData = JSON.parse(JSON.stringify(response))
+                    const messageId = addedMessageData.id;
+                    userMessage.id = 'userMessage-' + messageId;
+                    userMessage.innerHTML =
+                        `
+                            <div class="user-message">
+                                <div class="message-text">
+                                    ${message}
+                                </div>
+                                <div class="message-status" id="messageStatus-${messageId}">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                        `;
+                    connection.invoke("SendMessageToGroup", token, friendUserName, message, messageId.toString());
+                    
+                    //const messagingContainer = document.getElementById(`messaging-messages-${friendUserName}`);
                 },
                 error: function (x, y, z) {
                 }
@@ -149,12 +230,32 @@ function CreateChatContainer(containerId, friendUserName,friendFirstName,friendL
 
     return chatContainer;
 }
-function SetMessages(user,friendName,message){
+function SetMessages(user,friendName,message,messageId){
     const div = document.createElement("div");
+    div.id = `message-${friendName}-${messageId}`;
     if (user === userName) {
-        div.innerHTML = "<span class='user-message'>"+ message +"</span>";
+        //div.innerHTML = "<span class='user-message'>"+ message +"</span>";
+        // div.innerHTML = 
+        //     `
+        //         <div class="user-message">
+        //             <div class="message-text">
+        //                 ${message}
+        //             </div>
+        //             <div class="message-status">
+        //                 <i class="fa-regular fa-clock"></i>
+        //             </div>
+        //         </div>
+        //     `;
     } if(user === friendName) {
-        div.innerHTML = "<span class='sender-message'>" + message + "</span>";
+        //div.innerHTML = "<span class='sender-message'>" + message + "</span>";
+        div.innerHTML =
+            `
+                <div class="sender-message">
+                    <div class="message-text">
+                        ${message}
+                    </div>
+                </div>
+            `;
     }
     document.getElementById(`messaging-messages-${friendName}`).appendChild(div);
 }

@@ -5,6 +5,7 @@ using Core.Utilities.EntityMap;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Jwt;
 using DataAccess.Abstract;
+using Entities.Concrete;
 using Newtonsoft.Json;
 
 namespace Business.Concrete;
@@ -140,5 +141,19 @@ public class UserManager:IUserService
             CreatedDate = user.CreatedDate.ToString()
         };
         return userDto;
+    }
+
+    public IDataResult<List<int>> GetUserIdsFromMessages(List<Message> messages)
+    {
+        var listOfUserIds = new List<int>();
+        foreach (var message in messages)
+        {
+            if (!listOfUserIds.Contains(message.SenderId))
+            {
+                listOfUserIds.Add(message.SenderId);
+            }
+        }
+
+        return new SuccessDataResult<List<int>>(listOfUserIds);
     }
 }

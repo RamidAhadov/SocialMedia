@@ -26,9 +26,33 @@ connection.start().then(function () {
     return console.error(err.toString());
 });
 
-connection.on("ReceiveMessage", function (user,message) {
-    SetMessages(user,friendName,message)
+connection.on("ReceiveMessage", function (user,message,messageId) {
+    SetMessages(user,friendName,message,messageId);
+    connection.invoke("ConfirmMessageReceived", friendName,messageId).catch(err => console.error(err));
 });
+
+connection.on("MessageReceivedConfirmation", (notification,messageId) => {
+    console.log(notification);
+    const messageStatusContainer = document.getElementById(`messageStatus-${messageId}`)
+    messageStatusContainer.innerHTML = `<i class="fa-solid fa-check-double"></i>`;
+
+    $.ajax({
+        url: 'http://localhost:5015/api/Chat/updateMessageStatus',
+        type: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(messageId),
+        success: function (response) {
+            console.log('Successful response:', response);
+        },
+        error: function (x,y,z){
+
+        }
+    });
+});
+
+// connection.on("MessageNotReceived", (error) => {
+//     console.error(error);
+// });
 
 window.addEventListener('beforeunload', function (event) {
     UpdateStatus();

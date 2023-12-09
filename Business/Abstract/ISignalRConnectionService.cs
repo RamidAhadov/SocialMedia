@@ -12,4 +12,5 @@ public interface ISignalRConnectionService
     IResult UpdateStatus(string token);
     IResult DeleteConnectionId(string token);
     IDataResult<string> CheckStatus(string userName);
+    IDataResult<List<int>> GetOnlineUserIds(List<int> userIds);
 }

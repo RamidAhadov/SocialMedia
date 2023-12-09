@@ -1,6 +1,8 @@
 using Business.Abstract;
 using Business.Constants;
+using Core.Utilities.CombineData;
 using Core.Utilities.Results;
+using Core.Utilities.Security.Jwt;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Concrete.Dtos;
@@ -16,35 +18,84 @@ public class MessageManager:IMessageService
         _messageDao = messageDao;
     }
 
-    public IResult RecordMessage(MessageDto messageDto)
+    public IDataResult<Message> RecordMessage(MessageDto messageDto)
     {
         if (messageDto != null || messageDto.MessageText != "")
         {
+            var conversationName = CombineData.CombineInteger(messageDto.SenderId, messageDto.ReceiverId);
             var message = new Message
             {
                 SenderId = messageDto.SenderId,
                 ReceiverId = messageDto.ReceiverId,
+                ConversationName = conversationName,
                 Date = DateTime.Now,
+                Status = 1,
                 MessageText = messageDto.MessageText
             };
             _messageDao.Add(message);
-            return new SuccessResult();
+            return new SuccessDataResult<Message>(message);
         }
 
-        return new ErrorResult(message:Messages.MessageNotSent);
+        return new ErrorDataResult<Message>(message:Messages.MessageNotSent);
     }
 
     public IDataResult<List<Message>> GetMessages(int senderId, int receiverId)
     {
-        var list = _messageDao.GetList(m => m.SenderId == senderId && 
-                                            m.ReceiverId == receiverId ||
-                                            m.SenderId == receiverId &&
-                                            m.ReceiverId == senderId);
+        // var list = _messageDao.GetList(m => m.SenderId == senderId && 
+        //                                     m.ReceiverId == receiverId ||
+        //                                     m.SenderId == receiverId &&
+        //                                     m.ReceiverId == senderId);
+        
+        string conversationName = CombineData.CombineInteger(senderId, receiverId);
+        var list = _messageDao.GetList(m=>m.ConversationName == conversationName);
         if (list != null)
         {
             return new SuccessDataResult<List<Message>>(list);
         }
 
         return new ErrorDataResult<List<Message>>();
+    }
+
+    public IDataResult<Message> UpdateMessageStatus(int messageId)
+    {
+        var message = _messageDao.Get(m => m.Id == messageId);
+        if (message != null)
+        {
+            message.Status = 2;
+            _messageDao.Update(message);
+            return new SuccessDataResult<Message>(message);
+        }
+
+        return new ErrorDataResult<Message>();
+    }
+
+    public IDataResult<List<Message>> GetNotReceivedMessages(string token)
+    {
+        var userDto = TokenReader.DecodeToken(token);
+        var list = _messageDao.GetList(m => m.ReceiverId == userDto.Id && m.Status == 1);
+        if (list != null)
+        {
+            return new SuccessDataResult<List<Message>>(list);
+        }
+
+        return new ErrorDataResult<List<Message>>();
+    }
+
+    public IResult UpdateMessagesStatusOnLogin(List<Message> messages)
+    {
+        try
+        {
+            foreach (var message in messages)
+            {
+                message.Status = 2;
+                _messageDao.Update(message);
+            }
+
+            return new SuccessResult();
+        }
+        catch (Exception e)
+        {
+            return new ErrorResult();
+        }
     }
 }

@@ -1,7 +1,6 @@
 using Business.Abstract;
 using Core.Entities.Concrete;
 using Core.Entities.Concrete.Dtos;
-using Core.Utilities.CombineLists;
 using Core.Utilities.EntityMap;
 using Core.Utilities.Results;
 using DataAccess.Abstract;

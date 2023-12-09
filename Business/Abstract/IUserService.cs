@@ -1,6 +1,7 @@
 using Core.Entities.Concrete;
 using Core.Entities.Concrete.Dtos;
 using Core.Utilities.Results;
+using Entities.Concrete;
 
 namespace Business.Abstract;
 
@@ -17,4 +18,5 @@ public interface IUserService
     IDataResult<UserDto> GetByToken(string token);
     User GetByLoginInfo(string loginInfo);
     UserDto GetUserDtoById(int id);
+    IDataResult<List<int>> GetUserIdsFromMessages(List<Message> messages);
 }

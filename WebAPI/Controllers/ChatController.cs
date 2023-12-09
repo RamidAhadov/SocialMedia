@@ -18,11 +18,13 @@ namespace WebAPI.Controllers
     {
         private ISignalRConnectionService _connectionService;
         private IMessageService _messageService;
+        private IUserService _userService;
 
-        public ChatController(ISignalRConnectionService connectionService, IMessageService messageService)
+        public ChatController(ISignalRConnectionService connectionService, IMessageService messageService, IUserService userService)
         {
             _connectionService = connectionService;
             _messageService = messageService;
+            _userService = userService;
         }
 
         //Records new message to base
@@ -33,7 +35,7 @@ namespace WebAPI.Controllers
             var result = _messageService.RecordMessage(messageDto);
             if (result.Success)
             {
-                return Ok();
+                return Ok(result.Data);
             }
             return Ok(result.Message);
         }
@@ -76,6 +78,50 @@ namespace WebAPI.Controllers
             }
 
             return Ok(result.Data);
+        }
+        
+        [HttpPost]
+        [Route("updateMessageStatus")]
+        public IActionResult UpdateMessageStatus([FromBody] string messageId)
+        {
+            var result = _messageService.UpdateMessageStatus(Convert.ToInt32(messageId));
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return Ok(result.Data);
+        }
+
+        [HttpPost]
+        [Route("updateMessageStatusOnLogin")]
+        public IActionResult UpdateMessageStatusOnLogin([FromBody] string token)
+        {
+            var messages = _messageService.GetNotReceivedMessages(token);
+            if (!messages.Success)
+            {
+                return BadRequest();
+            }
+
+            var updateStatusResult = _messageService.UpdateMessagesStatusOnLogin(messages.Data);
+            if (!updateStatusResult.Success)
+            {
+                return BadRequest();
+            }
+
+            var messageSenderUserIds = _userService.GetUserIdsFromMessages(messages.Data);
+            if (!messageSenderUserIds.Success)
+            {
+                return BadRequest();
+            }
+
+            var onlineSenderUserIds = _connectionService.GetOnlineUserIds(messageSenderUserIds.Data);
+            if (onlineSenderUserIds.Success)
+            {
+                return Ok(onlineSenderUserIds.Data);
+            }
+
+            return BadRequest();
         }
     }
 }

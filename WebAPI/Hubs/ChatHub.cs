@@ -12,7 +12,6 @@ public class ChatHub : Hub
     // }
     public async Task AddUsersToGroup(string userName,string friendUserName,string connectionId)
     {
-        //var userDto = TokenReader.DecodeToken(token);
         string groupName = GenerateGroupName(userName, friendUserName);
         
         await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
@@ -28,12 +27,30 @@ public class ChatHub : Hub
 
         return combined;
     }
-    public async Task SendMessageToGroup(string token,string friendName, string message)
+    public async Task SendMessageToGroup(string token,string friendName, string message, string messageId)
     {
         var userDto = TokenReader.DecodeToken(token);
         string groupName = GenerateGroupName(userDto.UserName, friendName);
+ 
+        await Clients.Group(groupName).SendAsync("ReceiveMessage", userDto.UserName,message,messageId);
+        //await Clients.Caller.SendAsync("MessageReceived", $"{friendName}-{messageId}",messageId);
+    }
     
-        await Clients.Group(groupName).SendAsync("ReceiveMessage", userDto.UserName,message);
+    public async Task ConfirmMessageReceived(string user,string messageId)
+    {
+        // try
+        // {
+            await Clients.Caller.SendAsync("MessageReceivedConfirmation", $"{user}-{messageId}",messageId);
+        // }
+        // catch (Exception e)
+        // {
+        //     await Clients.Caller.SendAsync("MessageNotReceived", $"Message have not sent: {e.Message}");
+        // }
+    }
+
+    public async Task SendMessageReceiptConfirmation(string connectionId,string messageId)
+    {
+        await Clients.Client(connectionId).SendAsync("ReceiveReceiptMessageConfirmation", messageId);
     }
 
     public async Task RemoveUserFromGroup(string token,string friendName)
@@ -61,7 +78,7 @@ public class ChatHub : Hub
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Hub metodunda hata oluştu: {ex.Message}");
+            Console.WriteLine($"An error occured on hub method: {ex.Message}");
             throw;
         }
     }
@@ -74,12 +91,11 @@ public class ChatHub : Hub
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Hub metodunda hata oluştu: {ex.Message}");
+            Console.WriteLine($"An error occured on hub method: {ex.Message}");
             throw;
         }
     }
-
-
+    
     public override async Task OnConnectedAsync()
     {
         await base.OnConnectedAsync();

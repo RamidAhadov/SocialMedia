@@ -16,10 +16,10 @@ function Minimize(containerId) {
   var icon = document.getElementById(`icon${containerId}`);
   
   if (isMinimized) {
-    chatDiv.style.bottom = '60px';
+    chatDiv.style.bottom = '0px';
     icon.className = 'fa-solid fa-window-minimize'
   } else {
-    chatDiv.style.bottom = '-275px';
+    chatDiv.style.bottom = '-395px';
     icon.className = 'fa-solid fa-window-maximize'
   }
 
