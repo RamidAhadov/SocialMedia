@@ -27,25 +27,18 @@ public class ChatHub : Hub
 
         return combined;
     }
-    public async Task SendMessageToGroup(string token,string friendName, string message, string messageId)
+    public async Task SendMessageToGroup(string token,string friendName, string message, string messageId,string connectionId)
     {
         var userDto = TokenReader.DecodeToken(token);
         string groupName = GenerateGroupName(userDto.UserName, friendName);
  
-        await Clients.Group(groupName).SendAsync("ReceiveMessage", userDto.UserName,message,messageId);
+        await Clients.Group(groupName).SendAsync("ReceiveMessage", userDto.UserName,message,messageId,connectionId);
         //await Clients.Caller.SendAsync("MessageReceived", $"{friendName}-{messageId}",messageId);
     }
     
-    public async Task ConfirmMessageReceived(string user,string messageId)
+    public async Task ConfirmMessageReceived(string user,string messageId,string connectionId)
     {
-        // try
-        // {
-            await Clients.Caller.SendAsync("MessageReceivedConfirmation", $"{user}-{messageId}",messageId);
-        // }
-        // catch (Exception e)
-        // {
-        //     await Clients.Caller.SendAsync("MessageNotReceived", $"Message have not sent: {e.Message}");
-        // }
+        await Clients.Client(connectionId).SendAsync("MessageReceivedConfirmation", $"{user}-{messageId}",messageId);
     }
 
     public async Task SendMessageReceiptConfirmation(string connectionId,string messageId)

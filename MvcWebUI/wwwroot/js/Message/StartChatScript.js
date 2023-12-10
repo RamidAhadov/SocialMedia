@@ -45,7 +45,8 @@ async function StartChat(friendId,friendUserName,friendFirstName,friendLastName)
                 success: function (response) {
                     console.log('Successful response:', response);
                     response.forEach(function (chatMessage) {
-
+                        
+                        const messageId = chatMessage.id;
                         const senderId = chatMessage.senderId;
                         const receiverId = chatMessage.receiverId
                         const message = chatMessage.messageText;
@@ -55,39 +56,42 @@ async function StartChat(friendId,friendUserName,friendFirstName,friendLastName)
                         if (parseInt(currentUserId) === parseInt(senderId)) {
                             //div.innerHTML = "<span class='user-message'>" + message + "</span>";
                             if (status === 1){
+                                div.id = 'userMessage-' + messageId;
                                 div.innerHTML =
                                     `
                                     <div class="user-message">
                                         <div class="message-text">
                                             ${message}
                                         </div>
-                                        <div class="message-status">
+                                        <div class="message-status" id="messageStatus-${messageId}">
                                             <i class="fa-solid fa-check"></i>
                                         </div>
                                     </div>
                                 `;
                             }
                             if (status === 2){
+                                div.id = 'userMessage-' + messageId;
                                 div.innerHTML =
                                     `
                                     <div class="user-message">
                                         <div class="message-text">
                                             ${message}
                                         </div>
-                                        <div class="message-status">
+                                        <div class="message-status" id="messageStatus-${messageId}">
                                             <i class="fa-solid fa-check-double"></i>
                                         </div>
                                     </div>
                                 `;
                             }
                             if (status === 3){
+                                div.id = 'userMessage-' + messageId;
                                 div.innerHTML =
                                     `
                                     <div class="user-message">
                                         <div class="message-text">
                                             ${message}
                                         </div>
-                                        <div class="message-status">
+                                        <div class="message-status" id="messageStatus-${messageId}">
                                             <i class="fa-solid fa-check-double" style="color: #00a0f0"></i>
                                         </div>
                                     </div>
@@ -95,7 +99,7 @@ async function StartChat(friendId,friendUserName,friendFirstName,friendLastName)
                             }
                         }
                         if (parseInt(currentUserId) === parseInt(receiverId)) {
-                            //div.innerHTML = "<span class='sender-message'>" + message + "</span>";
+                            div.id = 'senderMessage-' + messageId;
                             div.innerHTML =
                                 `
                                     <div class="sender-message">
@@ -187,7 +191,7 @@ async function StartChat(friendId,friendUserName,friendFirstName,friendLastName)
                                 </div>
                             </div>
                         `;
-                    connection.invoke("SendMessageToGroup", token, friendUserName, message, messageId.toString());
+                    connection.invoke("SendMessageToGroup", token, friendUserName, message, messageId.toString(),connection.connectionId);
                     
                     //const messagingContainer = document.getElementById(`messaging-messages-${friendUserName}`);
                 },

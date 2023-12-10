@@ -97,7 +97,7 @@ namespace WebAPI.Controllers
         [Route("updateMessageStatusOnLogin")]
         public IActionResult UpdateMessageStatusOnLogin([FromBody] string token)
         {
-            var messages = _messageService.GetNotReceivedMessages(token);
+            var messages = _messageService.GetUnreadMessages(token);
             if (!messages.Success)
             {
                 return BadRequest();
@@ -115,10 +115,16 @@ namespace WebAPI.Controllers
                 return BadRequest();
             }
 
-            var onlineSenderUserIds = _connectionService.GetOnlineUserIds(messageSenderUserIds.Data);
-            if (onlineSenderUserIds.Success)
+            var onlineSenderUserIds = _connectionService.GetOnlineUserConnectionIds(messageSenderUserIds.Data);
+            if (!onlineSenderUserIds.Success)
             {
-                return Ok(onlineSenderUserIds.Data);
+                return BadRequest();
+            }
+
+            var result = _messageService.MapMessages(messages.Data, onlineSenderUserIds.Data);
+            if (result.Success)
+            {
+                return Ok(result.Data);
             }
 
             return BadRequest();

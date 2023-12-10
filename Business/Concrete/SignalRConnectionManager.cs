@@ -167,18 +167,24 @@ public class SignalRConnectionManager:ISignalRConnectionService
         return new ErrorDataResult<string>(data: status);
     }
 
-    public IDataResult<List<int>> GetOnlineUserIds(List<int> userIds)
+    public IDataResult<List<UserConnectionId>> GetOnlineUserConnectionIds(List<int> userIds)
     {
-        var listOfOnlineUserIds = new List<int>();
+        var listOfOnlineUserConnectionIds = new List<UserConnectionId>();
+
         foreach (var userId in userIds)
         {
-            var id = _connectionIdDao.Get(c => c.UserId == userId && c.Status == "Online");
-            if (id != null && !listOfOnlineUserIds.Contains(userId))
+            var connectionId = _connectionIdDao.Get(c => c.UserId == userId && c.Status == "Online");
+            if (connectionId != null)
             {
-                listOfOnlineUserIds.Add(userId);
+                listOfOnlineUserConnectionIds.Add(connectionId);
             }
         }
 
-        return new SuccessDataResult<List<int>>(listOfOnlineUserIds);
+        if (listOfOnlineUserConnectionIds.Count != 0)
+        {
+            return new SuccessDataResult<List<UserConnectionId>>(listOfOnlineUserConnectionIds);
+        }
+
+        return new ErrorDataResult<List<UserConnectionId>>();
     }
 }

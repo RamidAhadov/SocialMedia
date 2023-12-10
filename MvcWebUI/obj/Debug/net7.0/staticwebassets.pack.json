@@ -85,6 +85,10 @@
       "PackagePath": "staticwebassets/js/HomePage/ResponseFriendRequest.js"
     },
     {
+      "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/UpdateNotReceivedMessagesScript.js",
+      "PackagePath": "staticwebassets/js/HomePage/UpdateNotReceivedMessagesScript.js"
+    },
+    {
       "Id": "/Users/macbook/RiderProjects/ThinkWebApp/MvcWebUI/wwwroot/js/HomePage/UserPageScript.js",
       "PackagePath": "staticwebassets/js/HomePage/UserPageScript.js"
     },

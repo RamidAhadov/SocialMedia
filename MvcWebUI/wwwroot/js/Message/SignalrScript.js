@@ -25,10 +25,9 @@ connection.start().then(function () {
 }).catch(function (err) {
     return console.error(err.toString());
 });
-
-connection.on("ReceiveMessage", function (user,message,messageId) {
+connection.on("ReceiveMessage", function (user,message,messageId,connectionId) {
     SetMessages(user,friendName,message,messageId);
-    connection.invoke("ConfirmMessageReceived", friendName,messageId).catch(err => console.error(err));
+    connection.invoke("ConfirmMessageReceived", friendName,messageId,connectionId).catch(err => console.error(err));
 });
 
 connection.on("MessageReceivedConfirmation", (notification,messageId) => {
@@ -50,9 +49,10 @@ connection.on("MessageReceivedConfirmation", (notification,messageId) => {
     });
 });
 
-// connection.on("MessageNotReceived", (error) => {
-//     console.error(error);
-// });
+connection.on("ReceiveReceiptMessageConfirmation", (messageId) => {
+    const messageStatusContainer = document.getElementById(`messageStatus-${messageId}`)
+    messageStatusContainer.innerHTML = `<i class="fa-solid fa-check-double"></i>`;
+});
 
 window.addEventListener('beforeunload', function (event) {
     UpdateStatus();

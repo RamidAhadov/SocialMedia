@@ -6,9 +6,23 @@ function UpdateNotReceivedMessages(token){
         data: JSON.stringify(token),
         success: function (response) {
             console.log('Successful response:', response);
+            
+            response.forEach(data=>{
+                const connectionId = data.connectionId;
+                const messageIdList = data.messageIds;
+                
+                messageIdList.forEach(messageId=>{
+                    connection.invoke("SendMessageReceiptConfirmation", connectionId,messageId.toString()).catch(err => console.error(err));
+                })
+            })
         },
         error: function (x,y,z){
 
         }
     });
 }
+
+
+//-------------------------------------------------------------------------------//
+UpdateNotReceivedMessages(token);
+//-------------------------------------------------------------------------------//

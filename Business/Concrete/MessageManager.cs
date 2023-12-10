@@ -1,5 +1,6 @@
 using Business.Abstract;
 using Business.Constants;
+using Core.Entities.Concrete;
 using Core.Utilities.CombineData;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Jwt;
@@ -69,11 +70,11 @@ public class MessageManager:IMessageService
         return new ErrorDataResult<Message>();
     }
 
-    public IDataResult<List<Message>> GetNotReceivedMessages(string token)
+    public IDataResult<List<Message>> GetUnreadMessages(string token)
     {
         var userDto = TokenReader.DecodeToken(token);
         var list = _messageDao.GetList(m => m.ReceiverId == userDto.Id && m.Status == 1);
-        if (list != null)
+        if (list.Count != 0)
         {
             return new SuccessDataResult<List<Message>>(list);
         }
@@ -97,5 +98,34 @@ public class MessageManager:IMessageService
         {
             return new ErrorResult();
         }
+    }
+
+    public IDataResult<List<UnreadMessageDto>> MapMessages(List<Message> messages, List<UserConnectionId> userConnectionIds)
+    {
+        var list = new List<UnreadMessageDto>();
+        foreach (var userConnectionId in userConnectionIds)
+        {
+            var messageList = new List<int>();
+            foreach (var message in messages)
+            {
+                if (message.SenderId == userConnectionId.UserId)
+                {
+                    messageList.Add(message.Id);
+                }
+            }
+            var unreadMessageDto = new UnreadMessageDto
+            {
+                ConnectionId = userConnectionId.ConnectionId,
+                MessageIds = messageList
+            };
+            list.Add(unreadMessageDto);
+        }
+
+        if (list.Count == 0 || list is null)
+        {
+            return new ErrorDataResult<List<UnreadMessageDto>>();
+        }
+
+        return new SuccessDataResult<List<UnreadMessageDto>>(list);
     }
 }
