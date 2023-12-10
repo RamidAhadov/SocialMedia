@@ -26,6 +26,8 @@ async function StartChat(friendId,friendUserName,friendFirstName,friendLastName)
     if (newFriendContainer) {
     }
 
+
+    let connectionId;
     if (document.getElementById(`messaging-messages-${friendUserName}`)) {
         if (document.getElementById(`messaging-messages-${friendUserName}`).innerHTML.trim() === '') {
             //To get chat messages
@@ -128,14 +130,15 @@ async function StartChat(friendId,friendUserName,friendFirstName,friendLastName)
                 console.log('Successful response:', response, friendUserName);
                 friendConnectionId = response;
                 friendName = friendUserName;
+                connectionId = response;
 
-                connection.invoke("AddUsersToGroup",userName,friendUserName,friendConnectionId)
-                    .then(function () {
-                        console.log("Success");
-                    })
-                    .catch(function (error) {
-                        console.error("Error:", error);
-                    });
+                // connection.invoke("AddUsersToGroup",userName,friendUserName,friendConnectionId)
+                //     .then(function () {
+                //         console.log("Success");
+                //     })
+                //     .catch(function (error) {
+                //         console.error("Error:", error);
+                //     });
             },
             error: function (x, y, z) {
 
@@ -191,7 +194,8 @@ async function StartChat(friendId,friendUserName,friendFirstName,friendLastName)
                                 </div>
                             </div>
                         `;
-                    connection.invoke("SendMessageToGroup", token, friendUserName, message, messageId.toString(),connection.connectionId);
+                    //connection.invoke("SendMessageToGroup", token, friendUserName, message, messageId.toString(),connection.connectionId);
+                    connection.invoke("SendMessageToUser", token, message, messageId.toString(),connection.connectionId,connectionId);
                     
                     //const messagingContainer = document.getElementById(`messaging-messages-${friendUserName}`);
                 },

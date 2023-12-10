@@ -27,6 +27,7 @@ connection.start().then(function () {
 });
 connection.on("ReceiveMessage", function (user,message,messageId,connectionId) {
     SetMessages(user,friendName,message,messageId);
+    //const messageContainer = document.getElementById(`messaging-messages-`)
     connection.invoke("ConfirmMessageReceived", friendName,messageId,connectionId).catch(err => console.error(err));
 });
 

@@ -27,13 +27,19 @@ public class ChatHub : Hub
 
         return combined;
     }
-    public async Task SendMessageToGroup(string token,string friendName, string message, string messageId,string connectionId)
+    // public async Task SendMessageToGroup(string token,string friendName, string message, string messageId,string connectionId)
+    // {
+    //     var userDto = TokenReader.DecodeToken(token);
+    //     string groupName = GenerateGroupName(userDto.UserName, friendName);
+    //
+    //     await Clients.Group(groupName).SendAsync("ReceiveMessage", userDto.UserName,message,messageId,connectionId);
+    //     //await Clients.Caller.SendAsync("MessageReceived", $"{friendName}-{messageId}",messageId);
+    // }
+
+    public async Task SendMessageToUser(string token, string message, string messageId,string connectionId,string friendConnectionId)
     {
         var userDto = TokenReader.DecodeToken(token);
-        string groupName = GenerateGroupName(userDto.UserName, friendName);
- 
-        await Clients.Group(groupName).SendAsync("ReceiveMessage", userDto.UserName,message,messageId,connectionId);
-        //await Clients.Caller.SendAsync("MessageReceived", $"{friendName}-{messageId}",messageId);
+        await Clients.Client(friendConnectionId).SendAsync("ReceiveMessage", userDto.UserName,message,messageId,connectionId);
     }
     
     public async Task ConfirmMessageReceived(string user,string messageId,string connectionId)
@@ -53,7 +59,7 @@ public class ChatHub : Hub
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
     }
 
-    public async Task SendMessageToUser(string connectionId, string message, string user)
+    public async Task SendMessageToUserObsolette(string connectionId, string message, string user)
     {
         await Clients.Client(connectionId).SendAsync("ReceiveSpecificMessage", user, message);
     }

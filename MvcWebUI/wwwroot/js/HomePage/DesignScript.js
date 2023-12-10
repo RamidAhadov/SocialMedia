@@ -39,7 +39,7 @@ function CloseChat(friendUserName, containerId){
 
     existingContainers.forEach(container => {
       container.remove();
-      connection.invoke("RemoveUserFromGroup",token,friendUserName);
+      //connection.invoke("RemoveUserFromGroup",token,friendUserName);
     });
     
     // if(friendDiv.style.pointerEvents === 'none'){
