@@ -18,6 +18,7 @@ public static class TokenReader
         var userEmail = readToken.Claims.First(c => c.Type == JwtRegisteredClaimNames.Email).Value;
         var userName = readToken.Claims.First(c=>c.Type == ClaimTypes.GivenName).Value;
         var photoUrl = readToken.Claims.First(c => c.Type == ClaimTypes.Uri).Value;
+        var createdDate = readToken.Claims.First(c => c.Type == ClaimTypes.Version).Value;
         var user =  new UserDto
         {
             Id = int.Parse(userId),
@@ -25,7 +26,8 @@ public static class TokenReader
             LastName = surName,
             UserName = userName,
             Email = userEmail,
-            ProfilePhoto = photoUrl
+            ProfilePhoto = photoUrl,
+            CreatedDate = createdDate
         };
         return user;
     }

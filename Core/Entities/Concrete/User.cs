@@ -11,4 +11,5 @@ public class User:IEntity
     public byte[] PasswordHash { get; set; }
     public string ProfilePhotoUrl { get; set; }
     public bool Status { get; set; }
+    public DateTime CreatedDate { get; set; }
 }

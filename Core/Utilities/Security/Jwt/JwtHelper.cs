@@ -62,6 +62,7 @@ namespace Core.Utilities.Security.Jwt
             claims.AddSurName(user.LastName);
             claims.AddUserName(user.UserName);
             claims.AddProfilePhoto(user.ProfilePhotoUrl);
+            claims.AddCreatedDate(user.CreatedDate.ToString());
             claims.AddRoles(operationClaims.Select(c=>c.Name).ToArray());
             
             return claims;

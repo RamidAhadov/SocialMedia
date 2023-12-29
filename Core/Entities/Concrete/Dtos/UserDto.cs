@@ -8,4 +8,5 @@ public class UserDto:IDto
     public string UserName { get; set; }
     public string Email { get; set; }
     public string ProfilePhoto { get; set; }
+    public string CreatedDate { get; set; }
 }

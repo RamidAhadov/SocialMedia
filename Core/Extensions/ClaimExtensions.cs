@@ -29,6 +29,11 @@ public static class ClaimExtensions
     {
         claims.Add(new Claim(ClaimTypes.Uri,photoUrl));
     }
+
+    public static void AddCreatedDate(this ICollection<Claim> claims, string createdDate)
+    {
+        claims.Add(new Claim(ClaimTypes.Version,createdDate));
+    }
     public static void AddRoles(this ICollection<Claim> claims, string[] roles)
     {
         roles.ToList().ForEach(role=>claims.Add(new Claim(ClaimTypes.Role,role)));

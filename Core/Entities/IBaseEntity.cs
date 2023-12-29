@@ -1,6 +1,6 @@
 namespace Core.Entities;
 
-public interface IDto:IBaseEntity
+public interface IBaseEntity
 {
     
 }
